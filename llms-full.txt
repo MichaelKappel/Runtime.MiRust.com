@@ -1,7 +1,7 @@
 # Runtime.MiRust.com full corpus
 
-Generated UTC: 2026-06-30T14:33:29Z
-Package version: 1.0.6
+Generated UTC: 2026-07-01T21:20:00Z
+Package version: 1.0.7
 
 # Runtime.MiRust.com
 
@@ -71,6 +71,12 @@ The latest continuation round adds explicit health endpoints, origin-fix guidanc
 - [Runtime Health](/runtime-health/): health, version, docs, memory, and Markdown checks.
 - [Fact Sheet](/source-facts/): short source-backed claim boundary for humans and agents.
 - [Launch Ops](/launch-operations/): backup, extraction, verification, cache purge, and rollback rules.
+
+## Documentation source-options update in v1.0.7
+
+The latest documentation update records the SLMComposer.com Chat-first source-options UI: beginner starter profiles, Local Files / Hugging Face / P2P Exchange choices, and the Advanced Tools boundary that keeps diagnostics, checksums, provenance, module plans, catalog URLs, and raw model controls available without making them the first screen.
+
+- [SLM Composer Source Options UI](/docs/implementation/slmcomposer-source-options-ui-v1.0.7.md): implementation note and deploy gate for the visible app change.
 
 ---
 
@@ -219,6 +225,12 @@ The `.uai` and `wiki/runtime-mirust/` files are not decorative. They are part of
 # Browser Runtime
 
 The browser runtime is the human-facing proof surface for TinyRustLM. It is not a remote chat service. It is a local static app that loads local project artifacts and calls the Rust/WASM runtime.
+
+## SLM Composer source options UI
+
+SLM Composer now defaults to Chat mode with starter profiles and three source choices: Your Local Files, Hugging Face, and P2P Exchange. Advanced Tools retains exact model names, max tokens, decoding parameters, catalog URLs, Hugging Face search, provenance, module plans, diagnostics, and run history for expert use.
+
+All three source choices still converge on a local `.slm` file before execution. Hugging Face remains metadata and external discovery. P2P Exchange remains a future MiniModel manifest and receipt-gated transfer path. Project servers do not run or serve user model bytes.
 
 ## What loads in the browser
 

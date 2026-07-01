@@ -1,7 +1,7 @@
 # Runtime.MiRust.com Public Docs Manifest
 
-Updated UTC: 2026-06-29T23:55:00Z
-Package version: 1.0.4
+Updated UTC: 2026-07-01T21:20:00Z
+Package version: 1.0.7
 Public base: https://Runtime.MiRust.com
 
 This manifest lists the public `/docs/` files packaged with the plain PHP root deployment. Hot `.uai` memory deep-links these durable bodies through `.uai/docs-routing.uai` and `.uai/long-term-memory.uai`.
@@ -28,19 +28,20 @@ This manifest lists the public `/docs/` files packaged with the plain PHP root d
 - [docs/implementation/architecture.md](implementation/architecture.md): sha256:6EE3C495E1E518E249AD38BE548F98DF31B86B82614A9AFB93C5778F6233E269
 - [docs/implementation/browser-harness.md](implementation/browser-harness.md): sha256:50921079ECFA7B65DBC562FBBA64C1174E4450C98CD8995399B61982A354ECDB
 - [docs/implementation/browser-runtime.md](implementation/browser-runtime.md): sha256:8DDE334D27A44979124441E7221B68310F76A39195C6F9D73CA12E4D6597776C
-- [docs/implementation/index.md](implementation/index.md): sha256:5310E618A50453101C54C3C6A30F38773C275A96B39A537B50855C181BA0B332
+- [docs/implementation/index.md](implementation/index.md): sha256:91845F601F00E21B88A12E259F973F7AC523636E0F15348DC45AD61995D625DA
 - [docs/implementation/performance.md](implementation/performance.md): sha256:07A74898373F6807DE99BB1BCB3748A16460F0CB4CCE45D857CB56533A2A1B33
 - [docs/implementation/quantization.md](implementation/quantization.md): sha256:1B1AFD7292FFD7FE5F023EE9BBF33169E1A2A839673434AE481603DAFA55A700
 - [docs/implementation/runtime-mirust-rebrand-v1.0.4.md](implementation/runtime-mirust-rebrand-v1.0.4.md): sha256:9E17C9CB45C76381513101C4568896F6C05BD862E2536AAD738B597C8E221A21
 - [docs/implementation/site-audit-response-v1.0.4.md](implementation/site-audit-response-v1.0.4.md): sha256:38E401F82FC1764D0F8297D7ECAB33ACCDC7718A90A20C3DD602FEDC3EFE7FD3
 - [docs/implementation/slm-format.md](implementation/slm-format.md): sha256:4D06F94001165FBA0E996ADFE2DB234CA66B758379F807E716F6B7D542EA7627
+- [docs/implementation/slmcomposer-source-options-ui-v1.0.7.md](implementation/slmcomposer-source-options-ui-v1.0.7.md): sha256:33C128455D6D62704A0BC404208FFD50A6B679357F9A8D441BE98699775A699B
 - [docs/implementation/testing.md](implementation/testing.md): sha256:FEEB5288862F939384B44320EA75AF0DEE06BDF76E1D919B9A543BEEB448C5A4
 - [docs/implementation/tinyrustlm-models-readme.md](implementation/tinyrustlm-models-readme.md): sha256:58B136954E3227CB9B15801DF742EE36511F44A505F65B4FA148001F8B26EAA8
 - [docs/implementation/tinyrustlm-readme.md](implementation/tinyrustlm-readme.md): sha256:7ECEBC86F338172467FA72893FC521C29E8BDD58E17A23653E65833C7E59B267
 - [docs/implementation/tokenizer.md](implementation/tokenizer.md): sha256:B133955180A0AF4F260C81F6438E1C586A27A4863068AD4B6E82C32DCB14D18F
 - [docs/implementation/visual-studio.md](implementation/visual-studio.md): sha256:4EB9659BEBD8C33799A384DEE81415BCCB13304F2D2E67CFDC1A3D0D9976ABDB
 - [docs/implementation/workspace-readme.md](implementation/workspace-readme.md): sha256:C80FF12021E9E7C7FE622A8E36779221CE4564397B1353F05A2B1818E3BBFBBA
-- [docs/index.md](index.md): sha256:A53A4C16CED7E4265FE8D447147F3D0186F7E3BBE5CD09589DA1FA7CBB221A8F
+- [docs/index.md](index.md): sha256:C411114E3425A6F81BF7778135AD2A94F53B90479939C03F2EAF3400D90C93B4
 - [docs/long-term-memory.uai](long-term-memory.uai): sha256:86B42D4299E783B98BCA3FC8194591432644571608F09E3EAA75BA4175822AE2
 - [docs/reports/adapter-family-receipt-memory-2026-06-27.md](reports/adapter-family-receipt-memory-2026-06-27.md): sha256:5794A57C60F0EF1E8E61079E4D4BC0335E0DCA6A933ED87BE599B424E95BDEBE
 - [docs/reports/admission-operator-receipt-binding-memory-2026-06-29.md](reports/admission-operator-receipt-binding-memory-2026-06-29.md): sha256:821543E27A431A2377DBBD7606702957F721A151282D35165CD6E079ABCD54FD
@@ -193,5 +194,7 @@ This manifest lists the public `/docs/` files packaged with the plain PHP root d
 ## Plain PHP rebuild v1.0.5
 
 The WordPress deployment path is superseded. Runtime.MiRust.com now ships as a root-extractable plain PHP site with `/index.php`, `/inc/site.php`, `/data/pages.json`, `/assets/`, `/docs/`, and `/.uai/`. See `/docs/implementation/runtime-mirust-plain-php-rebuild-v1.0.5.md`.
+
+- `docs/implementation/slmcomposer-source-options-ui-v1.0.7.md` - SLMComposer.com Chat-first source-options UI note for v1.0.7.
 
 - `docs/implementation/runtime-mirust-continuation-v1.0.6.md` — continuation package note for v1.0.6.
