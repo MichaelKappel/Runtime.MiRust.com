@@ -1,7 +1,7 @@
 profile: runtime-mirust.workspace.v78
 project_name: Runtime.MiRust.com
 canonical_root: E:\Source\Rust\Runtime.MiRust.com
-updated_utc: 2026-07-01T13:22:00Z
+updated_utc: 2026-07-01T20:46:46Z
 site_role:
   purpose: Plain-PHP documentation and project identity site for the Runtime.MiRust.com / TinyRustLM runtime family.
   active_rust_workspace: E:\Source\Rust\SLMComposer.com
@@ -9,6 +9,12 @@ site_role:
   model_documentation_site: https://TinyRustLM.MiRust.com/
   public_memory_export: /.well-known/uaix-talisman.txt
   private_uai_policy: deny direct public serving of .uai, root workspace.uai, and agent-file-handoff buckets.
+deploy_gate:
+  instruction: Before deploying Runtime.MiRust.com, update this documentation site plus related SLMComposer.com, TinyRustLM.MiRust.com, MiniModel.org, and MiRust.com documentation/public exports so the live docs match the current source state.
+  requirements:
+    - Runtime.MiRust.com remains the plain-PHP documentation site; SLMComposer.com remains the active Rust/WASM app workspace.
+    - Do not publish stale source claims, old site-role language, or archived publish copies unless deliberately named as the release source.
+    - Run relevant pointer audits and git diff --check before packaging or deployment.
 version_authority:
   current_version: 0.1.0
   next_version: 0.1.0
