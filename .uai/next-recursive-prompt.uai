@@ -1,0 +1,59 @@
+profile: runtime-mirust.next-recursive-prompt.v2
+updated_utc: 2026-06-25T13:59:11Z
+prompt: >
+  Continue TinyRustLM in E:\Source\Rust\Runtime.MiRust.com by keeping cargo fmt --all and cargo test --workspace green, preserving direct core math coverage for dot/matvec/matmul/RMSNorm/softmax/SiLU/SwiGLU, model-load pre-resolved tensor routing with artifact-backed tied-output projection, checksum-bearing .slm pack/load validation, native .slm admission validation, tiny custom BPE .slm runtime diagnostics, tiny tied-output .slm validation/generation, q8/q4 native compact storage without full decoded f32 shadow tensors, runtime-owned reusable scratch/logits, allocation-free top-k diagnostic selection, 64 KiB generated-result cap with OutputBufferExceeded cleanup, provenance sidecar validation and browser-visible Model Provenance panel, browser-local conversation transcript semantics, browser Step Token control semantics, raw-f32 trained-source validation, f32/q8_0/q4_0 untied converted-source output gating, tied-output trained-source validation and f32/q8_0/q4_0 runtime-smoke conversion gates, assistant-quality rejection for pending eval templates, TinyLM-16M f32/q8_0/q4_0, explicit ErrorCode generate_next_token/free_model WASM ABI behavior, Rust local static server behavior, Rust mini browser static/loopback contract harness, Visual Studio wrapper verification, verified-server reuse and busy-port fallback, reload/reset/model-switch browser loop verification, malformed model rejection, missing-model fetch handling, context-overflow browser coverage, WASM ABI invalid-boundary smoke, diagnostics JSON escaping, report-memory routing, desktop/mobile UI audit, browser step-token smoke, three-cycle q8/q4 endurance smoke, q8/q4 browser performance smoke, and three-cycle q8/q4 performance soak, then move into real trained weights and assistant-quality evidence review.
+required_context:
+  - AGENTS.md
+  - workspace.uai
+  - .uai/workspace-guidance.uai
+  - .uai/architecture.uai
+  - .uai/coding-standards.uai
+  - .uai/file-handoff.uai
+  - .uai/intake-outcome-ledger.uai
+  - tinyrustlm/README.md
+  - tinyrustlm/docs/architecture.md
+  - tinyrustlm/docs/slm-format.md
+  - tinyrustlm/docs/tokenizer.md
+  - tinyrustlm/docs/browser-runtime.md
+  - tinyrustlm/docs/quantization.md
+  - tinyrustlm/docs/performance.md
+  - docs/visual-studio.md
+success_criteria:
+  - Cargo manifests remain empty of third-party dependencies.
+  - cargo fmt and cargo test pass.
+  - Core math tests directly cover dot, matvec, matmul, RMSNorm, softmax, SiLU, SwiGLU, and shape or length rejection paths.
+  - Valid local f32/q8_0/q4_0 tiny fixture .slm files exist under tinyrustlm/models/.
+  - Valid local tiny-test-model-bpe.slm exists under tinyrustlm/models/ and runtime diagnostics prove prompt the becomes tokenizer_output 256,261.
+  - Valid local tiny-test-model-tied.slm exists under tinyrustlm/models/ and runtime generation proves output projection can use tok_embeddings only under the v1 tied-output flag.
+  - Valid local tinylm16-f32.slm exists under tinyrustlm/models/.
+  - Valid local tinylm16-q8.slm exists under tinyrustlm/models/.
+  - Valid local tinylm16-q4.slm exists under tinyrustlm/models/.
+  - Local .slm files carry nonzero checksums and the runtime rejects checksum mismatch before model claims.
+  - Native slm_pack validation accepts all local .slm artifacts and rejects malformed/non-finite payloads before model claims.
+  - Native slm_pack manifest validation accepts all local .slm.manifest sidecars and rejects checksum drift or trained-quality overclaims.
+  - slm_pack quality-gate accepts runtime-smoke for admitted execution artifacts.
+  - slm_pack quality-gate rejects deterministic-smoke assistant-quality claims.
+  - slm_pack quality-gate rejects converted-trained assistant-quality claims without passed eval evidence.
+  - slm_pack eval-template creates only pending assistant-quality evidence and pending templates fail assistant-quality.
+  - slm_pack validate-source accepts the checked-in tiny raw-f32 source fixture and rejects checksum/path/non-finite source failures.
+  - slm_pack convert-trained emits f32/q8_0/q4_0 converted-trained .slm artifacts from validated raw-f32 source bundles.
+  - slm_pack tied-output source manifests require tied model_shape agreement, omit output.weight, and convert to f32/q8_0/q4_0 .slm artifacts with the v1 tied-output flag.
+  - Converted-trained f32/q8_0/q4_0 artifacts pass runtime-smoke, and fixture-scoped assistant-quality passes only when a matching eval sidecar with passed task and safety evidence is reviewed for the declared fixture scope.
+  - Browser smoke can load local WASM, default to TinyLM-16M q8_0, select TinyLM-16M q4_0, generate e from prompt hi, and render diagnostics.
+  - Browser smoke keeps local transcript behavior green: empty ready state, User/TinyRustLM entries after generation, Clear-click removal, response preservation after Clear, Clear enabled only with history, and runtime Reset separate from transcript Clear.
+  - Browser Step Token smoke keeps hi -> e -> ee behavior green, with disabled-before-context state, enabled-after-generate state, transcript continuation, console logging, generated_token_count 2, KV cache length 5, and local-only requests.
+  - Diagnostics JSON escaping remains tested so arbitrary local prompt/control-character output cannot break browser JSON.parse.
+  - TinyRustLM.sln remains openable through the Visual Studio NMake wrapper, with tools/vs build and test scripts passing.
+  - Repeated browser reload/generate/reset/model-selector loop tests remain green without regressing f32/q8_0/q4_0 correctness.
+  - Rust local server serves app, WASM, .slm, and .slm.manifest routes over loopback and rejects traversal paths without adding third-party crates.
+  - Rust mini browser harness keeps static app contract, local-only marker, model manifest, trained-quality non-claim, and loopback content-type checks green without adding third-party crates.
+  - Malformed local model rejection, missing-model fetch handling, context-overflow, and endurance browser smokes remain green without adding runtime dependencies.
+  - WASM ABI smoke keeps invalid UTF-8 prompt bytes, null pointer, invalid length, zero max_new_tokens, invalid sampling, recovery-after-error, generate_next_token, free_model, and post-free ModelNotLoaded coverage green without weakening local-only fetch or model-load error handling.
+  - Browser performance smoke keeps q8_0/q4_0 four-token generation, benchmark prompt/generated counts, token speed, scratch bytes, reset recovery, and local-only network checks green.
+  - Quantized tensors reject borrowed f32 slices and generation uses runtime-owned reusable copy buffers when decoded reference or norm/embedding paths need f32 values.
+  - Model loading pre-resolves top-level and per-layer tensor indices, tied-output projection falls back to tok_embeddings through the artifact-backed tiny tied fixture, and generation does not reintroduce per-token layer-name formatting.
+  - Runtime generation keeps scratch/logits allocated with the loaded model and reuses them across generate plus repeated generate_next_token calls.
+  - Generated result decoding remains capped at 64 KiB; byte and BPE overflow returns OutputBufferExceeded without replacing output, and full generate overflow clears stale state.
+  - Browser performance soak keeps repeated q8_0/q4_0 four-token generation, benchmark prompt/generated counts, KV length, token speed, scratch bytes, reset recovery, and local-only network checks green.
+  - Browser ui-audit keeps desktop/mobile product shell identity, local-only notice, footer, panels, controls, Model Provenance panel, diagnostics/developer mirror, benchmark fields, q8_0 generation, no horizontal overflow, and local-only network checks green.
+  - Visual Studio Run and BrowserSmoke helpers keep verified-server reuse and unrelated busy-port fallback behavior green.

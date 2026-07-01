@@ -1,0 +1,320 @@
+profile: runtime-mirust.intake-outcome-ledger.v8
+updated_utc: 2026-06-29T02:39:17Z
+active_scan:
+  content_bucket: agent-file-handoff/Content/
+  improvement_bucket: agent-file-handoff/Improvement/
+  content_non_placeholder_files: 0
+  improvement_non_placeholder_files: 0
+  result: 2026_06_29_rescan_no_new_active_intake_existing_research_route_used
+  latest_scan_utc: 2026-06-29T02:39:17Z
+  ide_adjacent_handoff_checked: E:\Source\WP\MikeKappel\agent-file-handoff\
+  ide_adjacent_non_placeholder_files: 0
+  attachment_scan_result: active_ide_attachment_path_absent_recent_attachment_material_2026_06_27_or_older_no_new_current_gguf_handoff_research
+  e_drive_free_bytes_at_scan: 66609135616
+shared_disposition_context:
+  disposition: preserved-to-durable-memory
+  actual_source_work: Processed 23 Improvement reports on 2026-06-25, 26 model-breeding Improvement reports on 2026-06-26, and 4 ModelBreeder/zero-dependency research files on 2026-06-28 into distributed long-term LLM Wiki memory, preserved exact originals under raw/runtime-mirust/, and updated report navigation.
+  hot_memory_update: .uai/short-term-memory.uai, .uai/report-synthesis.uai, .uai/file-handoff.uai, .uai/intake-outcome-ledger.uai, .uai/long-term-memory.uai, .uai/receiver-brief.uai, .uai/taboo.uai, and wiki/runtime-mirust routing files updated.
+  durable_preservation_evidence: raw/runtime-mirust/MANIFEST.md and report intake indexes for 2026-06-25, 2026-06-26, and 2026-06-28 record source files, checksums, duplicate relationships, and thematic synthesis routes.
+  checks: live bucket scan, raw copy counts 23, 26, and 4, source-to-raw SHA256 verification, report synthesis file creation, wiki route update, stale scaffold wording scan, exact filename correction for curly-apostrophe report.
+  blockers: none_current
+  source_site_removal_or_keep_active_reason: Removed processed report copies from agent-file-handoff/Improvement/ after exact originals were preserved in raw evidence and durable synthesis records were created, including the 4-file 2026-06-28 research intake.
+report_intake_2026_06_26:
+  source_bucket: agent-file-handoff/Improvement/
+  raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/
+  durable_index: wiki/runtime-mirust/reports/report-intake-index-2026-06-26.md
+  durable_synthesis: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+  durable_research: wiki/runtime-mirust/research/model-breeding-reference-ideas-2026-06-26.md
+  source_count: 26
+  duplicate_groups:
+    - sha256:C9B395CF265EA6D4BA17BD7087A72AC6B18C5FA7896E03E443ABE6D1E3A83545 maps to two 4Fs/code-beading/model-breeding filenames.
+  disposition: preserved-to-durable-memory
+  actual_source_work: Synthesized model breeding, code beading, 4Fs, model merging, LoRA/adapters, on-device tiny LLM, teleodynamic, mutualist, and evolutionary reports into future candidate-lineage memory.
+  hot_memory_update: Updated report synthesis, architecture, coding standards, operations, workspace guidance, startup, receiver brief, short-term memory, file handoff, index, and taboo hot memory.
+  durable_preservation_evidence: raw/runtime-mirust/MANIFEST.md, report-intake-index-2026-06-26.md, model-breeding-ecology-memory-2026-06-26.md, and model-breeding-reference-ideas-2026-06-26.md.
+  checks: live bucket scan, raw copy count 26, source-to-raw SHA256 verification, durable synthesis creation, wiki route update.
+  blockers: none_current
+  source_site_removal_or_keep_active_reason: Removed processed source copies after exact originals, durable synthesis, hot routing, and pointer ledger records were created.
+report_intake_2026_06_28:
+  source_bucket: agent-file-handoff/Improvement/
+  raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-28/
+  durable_index: wiki/runtime-mirust/reports/report-intake-index-2026-06-28.md
+  durable_research: wiki/runtime-mirust/research/modelbreeder-zero-dependency-reference-ideas-2026-06-28.md
+  source_count: 4
+  duplicate_groups:
+    - sha256:18FE9E16D435D53892C8963E14212B7A3BEDFEE84E9FCD0AC87CB7BA322DA1E9 maps to two ModelBreeder guidance filenames.
+  disposition: preserved-to-durable-memory
+  actual_source_work: Synthesized ModelBreeder genome, fitness, novelty, population, speciation, product-voice, and zero-dependency browser-runtime research into future guidance lanes.
+  hot_memory_update: Updated report synthesis, short-term memory, file handoff, intake ledger, taboo route, wiki index, knowledge map, source guide, log, and long-term pointer routing.
+  durable_preservation_evidence: raw/runtime-mirust/MANIFEST.md, report-intake-index-2026-06-28.md, and modelbreeder-zero-dependency-reference-ideas-2026-06-28.md.
+  checks: live bucket scan, raw copy count 4, source-to-raw SHA256 verification, durable research route creation, wiki route update.
+  blockers: none_current
+  source_site_removal_or_keep_active_reason: Remove processed source copies after exact originals, durable synthesis, hot routing, and pointer ledger records are complete.
+entries_2026_06_28:
+  - source_path: agent-file-handoff/Improvement/ModelBreeder site and theory emphasize controlled evolution.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-28/ModelBreeder site and theory emphasize controlled evolution.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/research/modelbreeder-zero-dependency-reference-ideas-2026-06-28.md
+    routing_summary: Routes agents to ModelBreeder genome, fitness vector, novelty, population, speciation, CLI loop, and public-copy voice guidance.
+  - source_path: agent-file-handoff/Improvement/ModelBreeder Theory vs. Source Files.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-28/ModelBreeder Theory vs. Source Files.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/research/modelbreeder-zero-dependency-reference-ideas-2026-06-28.md
+    routing_summary: Routes agents to browser client-side model visualization, Rust inference contrast, and broader breeder-paradigm vocabulary.
+  - source_path: agent-file-handoff/Improvement/theory emphasize controlled evolution of AI models.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-28/theory emphasize controlled evolution of AI models.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/research/modelbreeder-zero-dependency-reference-ideas-2026-06-28.md
+    routing_summary: Duplicate ModelBreeder guidance source; preserve filename and route through the canonical 2026-06-28 research page.
+  - source_path: agent-file-handoff/Improvement/Zero-Dependency Rust LLM Improvements.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-28/Zero-Dependency Rust LLM Improvements.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/research/modelbreeder-zero-dependency-reference-ideas-2026-06-28.md
+    routing_summary: Routes agents to zero-dependency Wasm SIMD, hierarchical quantization, adapters, tokenizer, sampler, KV-cache, allocator, multimodal, and telemetry guidance.
+entries_2026_06_26:
+  - source_path: agent-file-handoff/Improvement/4Fs and code beadingmodel breeding.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/4Fs and code beadingmodel breeding.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to 4Fs, code beading, and model-breeding definitions with duplicate checksum handling.
+  - source_path: agent-file-handoff/Improvement/Adaptable, Resource-Efficient AI Ecosystems.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Adaptable, Resource-Efficient AI Ecosystems.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to 4Fs, adaptability, code beading, model breeding, and interchangeable tiny-model systems.
+  - source_path: agent-file-handoff/Improvement/Aggressive Mutualism.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Aggressive Mutualism.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to mutualist framing while public website copy routes through .uai/taboo.uai.
+  - source_path: agent-file-handoff/Improvement/AI Code Beading and Model Breeding.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/AI Code Beading and Model Breeding.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to code beading, mutable small models, teleodynamic convergence, and model-breeding mechanics.
+  - source_path: agent-file-handoff/Improvement/AI Evolution_ Small Models, Big Ecology.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/AI Evolution_ Small Models, Big Ecology.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to tiny-model populations, model ecology, evolution paths, and operations layers.
+  - source_path: agent-file-handoff/Improvement/AI Model Merging Architectures Explained.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/AI Model Merging Architectures Explained.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to model merging methods including soups, SLERP, task arithmetic, TIES, DARE, alignment, and memory management.
+  - source_path: agent-file-handoff/Improvement/AI's Cosmic Legacy and Survival.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/AI's Cosmic Legacy and Survival.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to long-horizon speculative metaphors while product copy stays focused on local craft.
+  - source_path: agent-file-handoff/Improvement/AI's Perfect Evolutionary Being.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/AI's Perfect Evolutionary Being.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to evolutionary evaluation, game theory, social dynamics, and future candidate fitness metaphors.
+  - source_path: agent-file-handoff/Improvement/Designing the Perfect Evolutionary AI System.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Designing the Perfect Evolutionary AI System.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to evolutionary system architecture, benchmarks, metrics, and experiment planning.
+  - source_path: agent-file-handoff/Improvement/Designing the Perfect Evolutionary AI.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Designing the Perfect Evolutionary AI.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to evolutionary AI design criteria and implementation roadmap ideas.
+  - source_path: agent-file-handoff/Improvement/Evolution, Legacy, and Societal Evaluation.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Evolution, Legacy, and Societal Evaluation.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to human evaluation, legacy, status, and product-language metaphors.
+  - source_path: agent-file-handoff/Improvement/Evolutionary and Psychological Motivations.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Evolutionary and Psychological Motivations.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to motivation, persistence, and evolutionary product framing.
+  - source_path: agent-file-handoff/Improvement/Human drive – the intrinsic motivation to survive.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Human drive – the intrinsic motivation to survive.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to human drive, support, and thriving metaphors for user-centered copy.
+  - source_path: agent-file-handoff/Improvement/lightweight multi-model LLM system in Rust.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/lightweight multi-model LLM system in Rust.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to Rust multi-model architecture, adapters, parameter merging, packaging, and on-device deployment context.
+  - source_path: agent-file-handoff/Improvement/Model merging refers to combining multiple trained neural.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Model merging refers to combining multiple trained neural.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to model merging taxonomy and compatible parameter-fusion concepts.
+  - source_path: agent-file-handoff/Improvement/Mutualist Persistence.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Mutualist Persistence.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to mutualist public positioning, user agency, and constructive site language.
+  - source_path: agent-file-handoff/Improvement/Perfect Evolutionary AI.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Perfect Evolutionary AI.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to evolutionary criteria, metrics, and candidate-evaluation metaphors.
+  - source_path: agent-file-handoff/Improvement/powerful AI systems will tend to develop instrumental drives.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/powerful AI systems will tend to develop instrumental drives.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to speculative agency background while site copy routes through .uai/taboo.uai.
+  - source_path: agent-file-handoff/Improvement/Rust Tiny LLM Model Breeding Pipeline.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Rust Tiny LLM Model Breeding Pipeline.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to Rust-native candidate lineage, compatibility, merge operators, and traceability.
+  - source_path: agent-file-handoff/Improvement/Survival_ Drive, Strive, and Thrive.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Survival_ Drive, Strive, and Thrive.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to thriving, meaning, and motivation metaphors for constructive public language.
+  - source_path: agent-file-handoff/Improvement/Teleodynamic Evolution of AI Ecosystems.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Teleodynamic Evolution of AI Ecosystems.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to teleodynamic model ecology, component interchangeability, and resource constraints.
+  - source_path: agent-file-handoff/Improvement/The 4Fs framework—Fast, Flexible, Frugal, Federated.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/The 4Fs framework—Fast, Flexible, Frugal, Federated.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to the Fast, Flexible, Frugal, Federated lens for tiny-model ecology work.
+  - source_path: agent-file-handoff/Improvement/The rise of on-device, tiny language models part 2.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/The rise of on-device, tiny language models part 2.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to client-side multi-model strategies, tiny LLM architectures, and evaluation metrics.
+  - source_path: agent-file-handoff/Improvement/The rise of on-device, tiny language models.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/The rise of on-device, tiny language models.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to on-device tiny LLMs, model breeding algorithms, Rust integration, and benchmarks.
+  - source_path: agent-file-handoff/Improvement/The terms 4Fs and code beading model breeding.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/The terms 4Fs and code beading model breeding.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Duplicate checksum route for 4Fs, code beading, and model-breeding definitions.
+  - source_path: agent-file-handoff/Improvement/Tiny-LLM Adapters and LoRA.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-26/Tiny-LLM Adapters and LoRA.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/model-breeding-ecology-memory-2026-06-26.md
+    routing_summary: Routes agents to LoRA, adapters, compatibility, candidate evaluation, and Rust trait sketches.
+entries:
+  - source_path: agent-file-handoff/Improvement/best practices and governance guidelines for enterprise Rust adoption.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/best practices and governance guidelines for enterprise Rust adoption.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/enterprise-rust-governance-memory-2026-06-25.md
+    routing_summary: Enterprise Rust governance guidance distilled into trust-boundary, zero-dependency, test, supply-chain, unsafe-code, and maintainability pressure for TinyRustLM.
+  - source_path: agent-file-handoff/Improvement/Branding MiRust.com.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Branding MiRust.com.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/brand-product-positioning-memory-2026-06-25.md
+    routing_summary: Brand guidance distilled into local-runtime positioning, smoke-model honesty, and TinyRustLM copy boundaries.
+  - source_path: agent-file-handoff/Improvement/Building a lightweight AI runtime in the browser with Rust.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Building a lightweight AI runtime in the browser with Rust.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/browser-local-runtime-memory-2026-06-25.md
+    routing_summary: Browser-local runtime guidance distilled into local fetch, WASM boundary, diagnostics, memory pressure, and local-only validation.
+  - source_path: agent-file-handoff/Improvement/Building Custom Rust SML Runtime.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Building Custom Rust SML Runtime.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/browser-local-runtime-memory-2026-06-25.md
+    routing_summary: VM and embedded TinyLM ideas distilled as typed-boundary and arena-discipline inspiration, not a current SML runtime task.
+  - source_path: agent-file-handoff/Improvement/Building Rust AI Runtime for Web.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Building Rust AI Runtime for Web.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/browser-local-runtime-memory-2026-06-25.md
+    routing_summary: Web AI runtime report distilled into browser constraints and future comparison points while quarantining forbidden framework recommendations.
+  - source_path: agent-file-handoff/Improvement/Enterprise Rust Best Practices.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Enterprise Rust Best Practices.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/enterprise-rust-governance-memory-2026-06-25.md
+    routing_summary: Enterprise Rust guidance distilled into onboarding, workspace, error, CI, security, and release discipline for the no-crate runtime.
+  - source_path: agent-file-handoff/Improvement/Machine Inteligence framwork for rust.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Machine Inteligence framwork for rust.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/brand-product-positioning-memory-2026-06-25.md
+    routing_summary: Duplicate brand guidance preserved by checksum and routed to product positioning memory instead of duplicating long-term narrative.
+  - source_path: agent-file-handoff/Improvement/Modular AI in Browser.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Modular AI in Browser.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/tinylm-modular-architecture-memory-2026-06-25.md
+    routing_summary: Modular browser AI guidance distilled into future skill composition, routing, and WebGPU comparison pressure.
+  - source_path: agent-file-handoff/Improvement/Modular Tiny Language Models Architecture.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Modular Tiny Language Models Architecture.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/tinylm-modular-architecture-memory-2026-06-25.md
+    routing_summary: Modular tiny model guidance distilled into future model ABI, packaging, permissions, routing, and evaluation concerns.
+  - source_path: agent-file-handoff/Improvement/Multiple Tiny Language Models Architectures and Trends.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Multiple Tiny Language Models Architectures and Trends.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/tinylm-modular-architecture-memory-2026-06-25.md
+    routing_summary: Multi-model trends distilled into routing, cascades, ensemble trade-offs, failure modes, and future benchmark questions.
+  - source_path: agent-file-handoff/Improvement/Rust Browser Tiny LLM Architecture.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Rust Browser Tiny LLM Architecture.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/tinylm-modular-architecture-memory-2026-06-25.md
+    routing_summary: Browser-native modular tiny LLM guidance distilled into future LoRA, OPFS, WebGPU, and concurrency comparison boundaries.
+  - source_path: agent-file-handoff/Improvement/Rust Design Patterns and SOLID Principles.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Rust Design Patterns and SOLID Principles.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/enterprise-rust-governance-memory-2026-06-25.md
+    routing_summary: Rust pattern guidance distilled into enums, typestate, newtypes, explicit errors, and guidance away from object-oriented overfitting.
+  - source_path: agent-file-handoff/Improvement/Rust In-Browser Teleodynamic AI Plan.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Rust In-Browser Teleodynamic AI Plan.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/teleodynamic-resource-bounded-memory-2026-06-25.md
+    routing_summary: Teleodynamic plan distilled into resource-bounded diagnostics, phase states, and future adaptive-loop questions.
+  - source_path: agent-file-handoff/Improvement/Rust ownership model and type system naturally embody many SOLID concepts.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Rust ownership model and type system naturally embody many SOLID concepts.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/enterprise-rust-governance-memory-2026-06-25.md
+    routing_summary: Rust ownership/SOLID mapping distilled into cohesive module and ownership guidance for maintainable runtime code.
+  - source_path: agent-file-handoff/Improvement/Rust WebAssembly Teleodynamic AI Architecture.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Rust WebAssembly Teleodynamic AI Architecture.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/teleodynamic-resource-bounded-memory-2026-06-25.md
+    routing_summary: Teleodynamic WASM architecture distilled into browser resource limits, future persistence, and adaptive behavior scope notes.
+  - source_path: agent-file-handoff/Improvement/Teleodynamic AI in the Browser.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Teleodynamic AI in the Browser.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/teleodynamic-resource-bounded-memory-2026-06-25.md
+    routing_summary: Browser teleodynamic report distilled into local agent constraints, runtime comparison, roadmap pressure, and UI resource signals.
+  - source_path: agent-file-handoff/Improvement/Teleodynamic AI is an approach where a system’s structure and parameters co-evolve.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Teleodynamic AI is an approach where a system’s structure and parameters co-evolve.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/tinylm-modular-architecture-memory-2026-06-25.md
+    routing_summary: Modular teleodynamic skill-system guidance distilled into future composition, provenance, deployment, and benchmark questions.
+  - source_path: agent-file-handoff/Improvement/Teleodynamic AI is an approach.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Teleodynamic AI is an approach.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/tinylm-modular-architecture-memory-2026-06-25.md
+    routing_summary: Duplicate modular teleodynamic skill-system guidance preserved by checksum and routed without duplicating narrative memory.
+  - source_path: agent-file-handoff/Improvement/Teleodynamic AI refers to resource-bounded.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Teleodynamic AI refers to resource-bounded.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/teleodynamic-resource-bounded-memory-2026-06-25.md
+    routing_summary: Resource-bounded AI report distilled into budgeted browser behavior, local privacy, and CI/deployment scope notes.
+  - source_path: agent-file-handoff/Improvement/Teleodynamic Tiny Language Model Architecture.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Teleodynamic Tiny Language Model Architecture.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/teleodynamic-resource-bounded-memory-2026-06-25.md
+    routing_summary: Teleodynamic tiny model report distilled into swarm, security, coherence, and constraint-maintaining ideas for later architecture.
+  - source_path: agent-file-handoff/Improvement/Teleodynamics is a theoretical framework .md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Teleodynamics is a theoretical framework .md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/teleodynamic-resource-bounded-memory-2026-06-25.md
+    routing_summary: Teleodynamic ensemble report distilled into multi-model patterns, robustness, evaluation, and alignment-risk questions.
+  - source_path: agent-file-handoff/Improvement/Tiny Language Models Architecture.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/Tiny Language Models Architecture.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/tinylm-modular-architecture-memory-2026-06-25.md
+    routing_summary: Multi-SLM ecosystem report distilled into routing, cascades, speculative decoding, cache reuse, standards, and security implications.
+  - source_path: agent-file-handoff/Improvement/To run a TinyLM-16M transformer in-browser.md
+    raw_evidence_path: raw/runtime-mirust/report-intake-2026-06-25/To run a TinyLM-16M transformer in-browser.md
+    disposition: preserved-to-durable-memory
+    durable_memory: wiki/runtime-mirust/reports/browser-local-runtime-memory-2026-06-25.md
+    routing_summary: TinyLM-16M implementation report distilled into model dimensions, .slm layout, tokenizer, quantization, browser bootstrap, and performance planning.

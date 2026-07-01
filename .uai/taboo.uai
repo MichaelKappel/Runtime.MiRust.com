@@ -1,0 +1,53 @@
+profile: runtime-mirust.taboo.v12
+updated_utc: 2026-06-29T13:45:00Z
+scope: public_site_voice_and_project_copy
+purpose: Keep Runtime.MiRust.com focused on constructive local-model craft, verifiable Rust/WASM execution, model lineage, research momentum, and user agency.
+authority:
+  human_request: 2026-06-26
+  route_elsewhere: Broad AI policy, harm essays, and alarm-led public messaging belong on other websites.
+  human_update_2026_06_27: This website should not spend public copy on caution-centered or worry-centered AI messaging; keep that content on other sites.
+  human_update_2026_06_27_site_rule: Runtime.MiRust.com pages should not be organized around warnings, cautions, worry, or alarm messaging; use proof, craft, lineage, local agency, and implementation-boundary language instead.
+  human_update_2026_06_27_strategy_rule: Model-breeding, mutualist, tiny-ecology, and UAIX memory-strategy copy for this site should route away from warning/caution/worry messaging and toward proof, craft, lineage, fit, agency, and evidence.
+  human_update_2026_06_27_no_meta_topic_rule: Do not make the absence of caution-centered messaging a public site topic; simply write in the proof, craft, lineage, fit, local-agency, and evidence voice.
+  human_update_2026_06_27_external_topic_rule: Do not make Runtime.MiRust.com carry caution or worry-focused AI messaging; other websites can host that lane while this site stays on proof, craft, lineage, fit, local agency, and implementation evidence.
+  human_update_2026_06_27_memory_strategy_rule: UAIX memory strategy and model-breeding reference copy for this site should stay in proof, craft, lineage, fit, local agency, and implementation evidence voice.
+  human_update_2026_06_27_direct_request_rule: For this website, Model Breeding and UAIX File Handoff strategy should be framed as craft, route, lineage, evidence, fit, and local agency; broader concern-led AI copy belongs elsewhere.
+  human_update_2026_06_28_site_scope_rule: Keep Runtime.MiRust.com public copy out of warnings/cautions/worry framing; those topics belong on other websites while this site carries proof, craft, lineage, fit, local agency, and implementation evidence.
+  human_update_2026_06_28_direct_site_scope_rule: For this website, UAIX strategy and Model Breeding copy should stay centered on routes, lineage, proof, and local implementation evidence; concern-led messaging belongs on separate sites.
+  human_update_2026_06_28_setup_file_handoff_rule: UAIX setup-file-handoff and Model Breeding memory copy should appear as route, lineage, proof, fit, local agency, and implementation evidence for this site.
+  human_update_2026_06_28_latest_direct_rule: Runtime.MiRust.com should not talk about or organize around cautions; other websites can carry that topic while this site carries proof, craft, lineage, fit, local agency, routes, and implementation evidence.
+  human_update_2026_06_28_model_breeding_memory_rule: Model Breeding concepts, research references, UAIX File Handoff strategy, short-term routes, and long-term pointer memory should keep the site voice centered on route maps, candidate lineage, evidence, and local fit.
+  human_update_2026_06_28_setup_handoff_site_rule: UAIX setup-file-handoff strategy should be used here as constructive routing memory for reports, research, short-term routes, and long-term checksum pointers; caution-centered commentary belongs on separate sites.
+  human_update_2026_06_28_latest_direct_rule_2: Keep warnings, cautions, worry, and concern-led messaging out of Runtime.MiRust.com public copy; this file is the intentional local place to name those taboo terms while the site speaks in routes, lineage, proof, fit, local agency, and implementation evidence.
+  human_update_2026_06_28_source_backed_route_rule: Model Breeding, UAIX File Handoff, and source-backed ALR1 route copy for this site should stay in route, lineage, proof, fit, local agency, and implementation evidence language; warning, caution, and worry language belongs only in this taboo routing file when it must be named.
+  human_update_2026_06_28_modelbreeder_research_rule: The 2026-06-28 ModelBreeder research intake should guide Runtime.MiRust.com toward fitness, scope notes, breeding invariants, evaluation checkpoints, local agency, proof-of-use, genome lineage, and implementation fit language.
+  human_update_2026_06_29_latest_direct_rule: Keep this website focused on Model Breeding routes, research references, proof, lineage, fit, local agency, and implementation evidence; caution-centered wording belongs here only as taboo routing memory.
+  human_update_2026_06_29_federated_strategy_rule: Federated/local-update and UAIX File Handoff strategy copy for this site should stay centered on candidate routes, proof-of-use, checksum pointers, lineage, local fit, and implementation evidence.
+public_site_voice:
+  preferred_emphasis:
+    - browser-local Rust/WASM execution
+    - transparent .slm artifacts and manifests
+    - model breeding as traceable lineage, compatibility, candidate evaluation, and craft
+    - tiny model ecology, adapters, quantization, and local experiments
+    - warm research language around growth, fit, interoperability, and proof
+  taboo_modes:
+    - alarm-led AI essays
+    - speculative doom framing
+    - public copy centered on fear, panic, or worry
+    - public copy organized around cautions instead of craft, lineage, proof, and local agency
+    - broad governance sermons when the page is about TinyRustLM capability
+    - memory-strategy copy that makes concern management the subject instead of routes, evidence, and project fit
+  taboo_terms_for_public_copy:
+    - warning
+    - warnings
+    - caution
+    - cautions
+    - worry
+    - fear
+    - panic
+  replacement_style:
+    warning: use proof, boundary, status, route, or fit when the copy needs a factual project edge.
+    caution: use scope note, implementation boundary, or future lane when the copy needs project routing.
+    risk: use fit, compatibility, or claim boundary when the copy needs technical precision.
+    site_section_titles: use status, evidence, boundaries, routes, fit, lineage, craft, or future lanes.
+implementation_note: This file guides site voice and public product copy; technical tests, error states, and Rust lint names may still use their exact domain terms where required.

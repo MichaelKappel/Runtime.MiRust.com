@@ -1,0 +1,69 @@
+profile: runtime-mirust.file-handoff.v14
+updated_utc: 2026-06-29T02:39:17Z
+handoff_root: agent-file-handoff/
+active_buckets:
+  content: agent-file-handoff/Content/
+  improvement: agent-file-handoff/Improvement/
+forbidden_default_bucket:
+  archive: agent-file-handoff/Archive/
+completion_gate:
+  required_before_broad_work: true
+  live_scan_required: true
+  ledger_path: .uai/intake-outcome-ledger.uai
+  outcomes:
+    - incorporated
+    - rejected-with-reason
+    - preserved-to-durable-memory
+    - kept-active-with-reason
+  proof_required:
+    - disposition
+    - actual_source_work
+    - hot_memory_update
+    - llm_wiki_or_aiwikis_preservation_evidence
+    - checks
+    - blockers
+    - source_site_removal_or_keep_active_reason
+durable_preservation:
+  target: raw/runtime-mirust/
+  public_target: https://aiwikis.org/runtime-mirust/files/
+  manifest: raw/runtime-mirust/MANIFEST.md
+  checksum_required: true
+strategy_refresh_2026_06_28:
+  source: https://uaix.org/en-us/tools/ai-memory-package-wizard/#setup-file-handoff
+  applied_shape: Active Content and Improvement buckets are transient intake; every reviewed file needs disposition, proof-of-use, durable raw/wiki preservation, hot routing, pointer-ledger refresh, report/research pointer audit, and a remove-or-keep-active decision.
+  startup_loop: Open project root, scan active buckets, preserve durable bodies, refresh `.uai` routing, refresh long-term checksums, expose current routes from short-term memory, then continue implementation work.
+  report_memory_rule: Reports stay as durable raw evidence plus wiki/report synthesis bodies; .uai files keep current routing, synthesis, proof pointers, and checksums.
+  research_memory_rule: Research/reference bodies stay under wiki/runtime-mirust/research/; hot .uai files carry routing, implementation boundaries, and next-step prompts; long-term memory carries checksum pointers.
+  short_term_reference_rule: .uai/short-term-memory.uai records current report indexes, research reference routes, active bucket disposition, and the long-term ledger route after each intake or strategy refresh.
+  report_pointer_audit_rule: After report or research memory changes, audit wiki/runtime-mirust/reports/*.md and wiki/runtime-mirust/research/*.md against .uai/long-term-memory.uai before calling the handoff complete.
+  diverse_model_breeding_reference_rule: Model Breeding ideas route through durable research lanes for compatible merges, sparse lineage, adapter ecology, population search, federated/local updates, browser-constrained assembly, UAIX memory strategy, heritable artifacts, mate selection, phenotype evidence, fit boundaries, genome/fitness/novelty/speciation metadata, and zero-dependency browser-runtime guidance.
+  voice_memory_rule: Public-copy voice routes through .uai/taboo.uai before model-breeding, mutualist, tiny-ecology, or UAIX strategy copy is published; use proof, craft, lineage, fit, local agency, routes, and implementation evidence.
+current_scan:
+  scanned_utc: 2026-06-29T02:39:17Z
+  content_bucket_non_placeholder_files: 0
+  improvement_bucket_non_placeholder_files: 0
+  misplaced_root_files: 0
+  ide_adjacent_handoff_checked: E:\Source\WP\MikeKappel\agent-file-handoff\
+  ide_adjacent_non_placeholder_files: 0
+  attachment_reference_checked: C:\Users\AI\.codex\attachments\pasted-text-attachments.json and recent pasted-text files
+  attachment_reference_found: no_current_gguf_handoff_research_latest_attachment_material_is_2026_06_27_or_older_and_not_new_gguf_research
+  e_drive_free_bytes_at_scan: 66609135616
+  status: no_new_active_intake
+  action: Live scan found no new active Content or Improvement files in the canonical GGUF handoff buckets; the visible IDE-adjacent handoff path only contained placeholder README files; the active IDE attachment path was absent, recent attachments were not new GGUF research, and the preserved 2026-06-28 research route remains the current ModelBreeder and zero-dependency guidance body.
+
+site_publication_overlay_2026_06_29:
+  package_version: 1.0.2
+  updated_utc: 2026-06-29T22:56:17Z
+  public_durable_docs_target: https://Runtime.MiRust.com/docs/
+  public_reports_index: https://Runtime.MiRust.com/docs/reports/index.md
+  public_long_term_memory: https://Runtime.MiRust.com/docs/long-term-memory.uai
+  public_docs_routing_memory: https://Runtime.MiRust.com/.uai/docs-routing.uai
+  packaged_active_buckets:
+    content: agent-file-handoff/Content/
+    improvement: agent-file-handoff/Improvement/
+  current_package_scan:
+    content_non_placeholder_files: 0
+    improvement_non_placeholder_files: 0
+    misplaced_root_files: 0
+    status: no_new_active_intake_in_site_package
+  rule: Upload root package contents to publish /docs and /.uai routes; theme-only upload keeps a mirrored copy inside the theme but does not create canonical root static routes.

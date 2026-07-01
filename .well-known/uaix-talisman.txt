@@ -1,0 +1,26 @@
+# Runtime.MiRust.com UAIX Talisman Public Export
+site: Runtime.MiRust.com
+role: runtime_docs_plain_php_site
+public_site: https://Runtime.MiRust.com/
+documentation_site: https://Runtime.MiRust.com/
+active_runtime_site: https://SLMComposer.com/
+model_exchange_site: https://MiniModel.org/
+talisman_source: https://MiRust.com/.well-known/uaix-talisman.txt
+updated_utc: 2026-07-01T13:18:00Z
+
+public_uai_policy:
+  direct_private_uai: denied
+  root_workspace_uai: denied
+  file_handoff_buckets: denied
+  public_export_route: /.well-known/uaix-talisman.txt
+
+client_contract:
+  Runtime.MiRust.com remains the plain-PHP documentation and project identity site for the runtime.
+  SLMComposer.com is the active browser-local Rust/WASM application site.
+  TinyRustLM.MiRust.com remains the model/runtime documentation surface.
+  MiniModel.org is the future tiny-model exchange and P2P roadmap surface.
+
+taboo:
+  Do not serve private .uai files publicly.
+  Do not serve or execute user-selected models from project servers.
+  Browser-local model use must come from user-provided local files or user-selected third-party source routes.

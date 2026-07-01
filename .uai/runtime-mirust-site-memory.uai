@@ -1,0 +1,96 @@
+profile: runtime-mirust.site-package-memory.v1_0_4
+updated_utc: 2026-06-29T23:30:00Z
+site: https://Runtime.MiRust.com/
+package_version: 1.0.4
+source_basis:
+  - Runtime_MiRust_All_Source_Review_Bundle.txt
+  - Future-Proof Native HTML5 Techniques(1).md
+  - Vanilla JS Future-Proof Techniques(1).md
+  - Innovative Vanilla Web Design(1).md
+  - Mememtech Vanilla Web Architecture(1).md
+  - Analyzing Website Virality(1).md
+current_site_package:
+  plain_php_root: 
+  root_docs: /docs/
+  root_uai: /.uai/
+  contact_page: /contact-mike-kappel/
+  memory_and_reports_page: /memory-reports/
+uaix_setup_file_handoff:
+  source: https://uaix.org/en-us/tools/ai-memory-package-wizard/#setup-file-handoff
+  applied_shape: Hot .uai memory stays compact and route-oriented; durable report bodies, research bodies, implementation docs, and long-term memory copies are published under /docs/ with checksums and deep links.
+  active_intake_buckets:
+    content: agent-file-handoff/Content/
+    improvement: agent-file-handoff/Improvement/
+  disposition_ledger: .uai/intake-outcome-ledger.uai
+  docs_routing_memory: .uai/docs-routing.uai
+  long_term_pointer_ledger: .uai/long-term-memory.uai
+public_docs:
+  docs_index: https://Runtime.MiRust.com/docs/index.md
+  manifest: https://Runtime.MiRust.com/docs/MANIFEST.md
+  reports_index: https://Runtime.MiRust.com/docs/reports/index.md
+  research_index: https://Runtime.MiRust.com/docs/research/index.md
+  web_research_index: https://Runtime.MiRust.com/docs/web-research/index.md
+  source_memory_index: https://Runtime.MiRust.com/docs/source-memory/index.md
+  implementation_index: https://Runtime.MiRust.com/docs/implementation/index.md
+  dogfood_index: https://Runtime.MiRust.com/docs/dogfood/index.md
+  long_term_memory: https://Runtime.MiRust.com/docs/long-term-memory.uai
+inventory_counts:
+  source_reports: 128
+  source_research: 2
+  web_research: 6
+  implementation_docs: 16
+  source_memory_docs: 5
+  dogfood_docs: 3
+claim_boundary:
+  current: plain PHP project site, public docs corpus, root .uai memory suite, source-backed report index, and long-term pointer ledger are packaged.
+  not_claimed: Automatic repository sync, automatic LLM Wiki sync, production Rust runtime verification by this plain PHP package, or broad GGUF import support.
+next_agent_startup:
+  - Read .uai/index.uai.
+  - Read .uai/docs-routing.uai for public docs deep links.
+  - Read .uai/long-term-memory.uai for pointer-ledger context.
+  - Open /docs/reports/index.md before summarizing report-backed memory.
+  - Open /docs/long-term-memory.uai before claiming long-term memory is present.
+
+
+site_audit_response_2026_06_29:
+  source_report: Website Review and Improvement Plan.md
+  durable_report_url: https://Runtime.MiRust.com/docs/web-research/website-review-and-improvement-plan.md
+  durable_report_package_path: docs/web-research/website-review-and-improvement-plan.md
+  durable_report_checksum: sha256:CA08E99D0D21776760813D2253BDC923B02248A63585635A475A61B0DAF62607
+  implementation_note: https://Runtime.MiRust.com/docs/implementation/site-audit-response-v1.0.4.md
+  public_pages:
+    - https://Runtime.MiRust.com/site-audit-response/
+    - https://Runtime.MiRust.com/site-infrastructure/
+    - https://Runtime.MiRust.com/name-scope/
+    - https://Runtime.MiRust.com/research-development/
+    - https://Runtime.MiRust.com/deployment-checklist/
+  applied_summary: Converted the report's infrastructure, namespace, security, R&D, and discoverability pressure into seeded pages, trust navigation, security headers, security.txt, deployment checks, and .uai deep links.
+  truth_boundary: The report is website architecture pressure, not TinyRustLM runtime evidence.
+
+rebrand_2026_06_29:
+  public_site_name: Runtime.MiRust.com
+  site_root: 
+  theme_text_domain: runtime-mirust
+  implementation_note: https://Runtime.MiRust.com/docs/implementation/runtime-mirust-rebrand-v1.0.4.md
+  applied_summary: Public naming, folder names, file names, comments, PHP prefixes, static discovery files, docs links, and .uai routing now use Runtime.MiRust.com / runtime-mirust.
+  truth_boundary: GGUF remains a technical model-format boundary and roadmap topic; it is no longer the site/domain brand.
+
+
+## Plain PHP rebuild v1.0.5
+
+The WordPress deployment path is superseded. Runtime.MiRust.com now ships as a root-extractable plain PHP site with `/index.php`, `/inc/site.php`, `/data/pages.json`, `/assets/`, `/docs/`, and `/.uai/`. See `/docs/implementation/runtime-mirust-plain-php-rebuild-v1.0.5.md`.
+
+
+runtime_mirust_plain_php_v106_continuation:
+  updated_utc: 2026-06-30T14:33:29Z
+  version: 1.0.6
+  summary: Added /site-origin-fix/, /runtime-health/, /source-facts/, /launch-operations/, /healthz, /version.json, stale WordPress route interception, cPanel default-page route handling, and verification scripts.
+  public_routes:
+    - /site-origin-fix/
+    - /runtime-health/
+    - /source-facts/
+    - /launch-operations/
+    - /healthz
+    - /version.json
+  durable_note: docs/implementation/runtime-mirust-continuation-v1.0.6.md
+  truth_boundary: Site package only; does not rebuild Rust/WASM runtime or claim broad GGUF import.

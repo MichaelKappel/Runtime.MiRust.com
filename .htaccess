@@ -1,0 +1,54 @@
+Options -Indexes
+DirectoryIndex index.php index.html index.md
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If an old cPanel default route is reached after deployment, move the user
+  # to the project-owned explanation page instead of showing a host placeholder.
+  RewriteRule ^cgi-sys/defaultwebpage\.cgi$ /site-origin-fix/ [R=302,L,NE]
+
+  # If this plain-PHP root package is extracted over a previous WordPress install,
+  # keep stale WordPress endpoints from remaining publicly usable.
+  RewriteRule ^wp-login\.php$ /plain-php-rebuild/ [R=302,L,NE]
+  RewriteRule ^wp-(admin|content|includes)(/.*)?$ /plain-php-rebuild/ [R=302,L,NE]
+
+  # Keep private UAIX and handoff memory off the public web surface. Public
+  # discovery uses curated .well-known exports instead.
+  RewriteRule ^\.uai(/.*)?$ - [F,L]
+  RewriteRule ^agent-file-handoff(/.*)?$ - [F,L]
+
+  RewriteRule ^index\.php$ - [L]
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule . /index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()"
+  Header set X-Frame-Options "SAMEORIGIN"
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+  </FilesMatch>
+  <FilesMatch "\.(md|txt|xml|json)$">
+    Header set Cache-Control "public, max-age=300, stale-while-revalidate=600"
+  </FilesMatch>
+</IfModule>
+
+<FilesMatch "\.(md|txt|xml|json)$">
+  Require all granted
+</FilesMatch>
+
+<Files "workspace.uai">
+  Require all denied
+</Files>
+
+<Files "healthz">
+  Require all granted
+  ForceType text/plain
+</Files>
