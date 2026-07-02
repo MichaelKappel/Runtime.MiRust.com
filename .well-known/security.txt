@@ -1,5 +1,5 @@
 Contact: mailto:mike@ns12.com
-Contact: https://Runtime.MiRust.com/contact-mike-kappel/
+Contact: https://tinyrustlm.mirust.com/contact/
 Preferred-Languages: en
-Policy: https://Runtime.MiRust.com/site-infrastructure/
-Expires: 2027-06-29T00:00:00Z
+Policy: https://tinyrustlm.mirust.com/developer-portal/
+Expires: 2027-07-02T00:00:00Z

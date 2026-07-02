@@ -1,11 +1,12 @@
-# Deployment notes for Runtime.MiRust.com v1.0.6
+# Runtime.MiRust.com Redirect Deployment
 
-1. Back up the current document root.
-2. Extract this ZIP directly at the document root for `runtime.mirust.com`.
-3. Confirm `index.php`, `.htaccess`, `healthz`, and `version.json` exist at the root.
-4. Run `bash tools/verify-runtime-mirust.sh https://runtime.mirust.com` or the PowerShell equivalent.
-5. Open `/site-origin-fix/` if cPanel default page behavior returns.
-6. After verification, archive or remove stale WordPress folders: `wp-admin/`, `wp-includes/`, `wp-content/`, and `wp-login.php`.
-7. Purge browser/CDN cache if stale redirects persist.
+Runtime.MiRust.com should be a redirect-only host.
 
-The package includes `.htaccess` interception rules for common WordPress routes and `/cgi-sys/defaultwebpage.cgi`, but those rules only run after the host routes the request to this document root.
+Required behavior:
+
+- `/` redirects to `https://tinyrustlm.mirust.com/developer-portal/`
+- `/docs/*` redirects to the preserved archive under `https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/*`
+- `/llms.txt` redirects to `https://tinyrustlm.mirust.com/llms.txt`
+- `/llms-full.txt` redirects to `https://tinyrustlm.mirust.com/llms-full.txt`
+
+Do not deploy this package through the FileZilla profile currently named `Runtime.MiRust.com`; that profile logs into the TinyRustLM.MiRust.com web root. Use only a verified credential or document root for `runtime.mirust.com`.

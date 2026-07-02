@@ -1,26 +1,25 @@
 # Runtime.MiRust.com UAIX Talisman Public Export
 site: Runtime.MiRust.com
-role: runtime_docs_plain_php_site
-public_site: https://Runtime.MiRust.com/
-documentation_site: https://Runtime.MiRust.com/
-active_runtime_site: https://SLMComposer.com/
-model_exchange_site: https://MiniModel.org/
-talisman_source: https://MiRust.com/.well-known/uaix-talisman.txt
-updated_utc: 2026-07-01T13:18:00Z
+status: retired_redirect_package
+public_site: https://runtime.mirust.com/
+canonical_developer_portal: https://tinyrustlm.mirust.com/developer-portal/
+current_app: https://tinyrustlm.com/
+preserved_archive: https://tinyrustlm.mirust.com/docs/runtime-portal/index.md
+preserved_archive_manifest: https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md
+updated_utc: 2026-07-02T00:00:00Z
 
 public_uai_policy:
-  direct_private_uai: denied
-  root_workspace_uai: denied
-  file_handoff_buckets: denied
-  public_export_route: /.well-known/uaix-talisman.txt
+  direct_private_uai: redirected_or_denied
+  root_workspace_uai: not_public_authority
+  file_handoff_buckets: not_public_authority
 
 client_contract:
-  Runtime.MiRust.com remains the plain-PHP documentation and project identity site for the runtime.
-  SLMComposer.com is the active browser-local Rust/WASM application site.
-  TinyRustLM.MiRust.com remains the model/runtime documentation surface.
-  MiniModel.org is the future tiny-model exchange and P2P roadmap surface.
+  Runtime.MiRust.com is retired as a separate documentation authority.
+  TinyRustLM.MiRust.com is the current TinyRustLM developer documentation portal.
+  TinyRustLM.com is the current browser-local Rust/WASM application site.
+  Legacy runtime documentation is preserved under TinyRustLM.MiRust.com/docs/runtime-portal/.
 
 taboo:
-  Do not serve private .uai files publicly.
+  Do not treat Runtime.MiRust.com as current authority.
   Do not serve or execute user-selected models from project servers.
   Browser-local model use must come from user-provided local files or user-selected third-party source routes.

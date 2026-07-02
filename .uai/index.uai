@@ -1,35 +1,28 @@
-profile: runtime-mirust.uai-index.v62
-updated_utc: 2026-06-29T20:08:59Z
-files:
-  - .uai/system-profile.uai
-  - .uai/workspace-guidance.uai
-  - .uai/coding-standards.uai
-  - .uai/architecture.uai
-  - .uai/report-synthesis.uai
-  - .uai/file-handoff.uai
-  - .uai/intake-outcome-ledger.uai
-  - .uai/short-term-memory.uai
+profile: runtime-mirust.retired-redirect-index.v1
+updated_utc: 2026-07-02T00:00:00Z
+
+status:
+  Runtime.MiRust.com is retired as a separate documentation authority.
+  This repository now carries a redirect-only package for the runtime.mirust.com web root.
+
+canonical_routes:
+  developer_portal: https://tinyrustlm.mirust.com/developer-portal/
+  current_app: https://tinyrustlm.com/
+  preserved_archive: https://tinyrustlm.mirust.com/docs/runtime-portal/index.md
+  archive_manifest: https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md
+
+read_order:
+  - workspace.uai
+  - README.md
+  - DEPLOYMENT.md
+  - PACKAGE-MANIFEST.md
   - .uai/long-term-memory.uai
-  - .uai/test-plan.uai
-  - .uai/receiver-brief.uai
-  - .uai/taboo.uai
-  - .uai/startup-packet.uai
-  - .uai/operations.uai
-  - .uai/next-recursive-prompt.uai
-  - .uai/docs-routing.uai
   - .uai/runtime-mirust-site-memory.uai
-startup_hint: Read report-synthesis.uai after architecture and coding-standards when report-derived design pressure, governance, model breeding, converted-trained browser provenance, Model Breeding concept lanes, ModelBreeder genome/fitness/novelty/speciation guidance, deterministic crossover, deterministic bounded mutation, deterministic magnitude pruning, DARE dropout/rescaled task-delta, federated/local-update operators, seed-weighted parent-pool soup operators, parent-pool evolution schedules, operator schedule carry-forward, multi-parent soup manifest handoff, federated selector receipt routing, candidate operator receipt binding, promotion operator receipt binding, admission operator receipt binding, selector operator receipt binding, module-plan operator receipt binding, selector genome/fitness proof, selector species-fit proof, selector novelty proof, selector population proof, selector mate-selection proof, selector phenotype-evidence proof, selector heritable-artifact proof, zero-dependency browser-runtime guidance, trained adapter source intake, sparse adapter packages, low-rank ALR1 adapter packages, browser low-rank ALR1 routes, browser source-backed ALR1 routes or contracts, combined browser selector roots, same-page combined-selector assembly, combined-selector-cycle, combined-selector-route-soak, combined-selector-route-extended-soak, combined-selector-route-stress-soak, combined-selector-reload-soak, browser runtime assembly diagnostics, browser assembly trace, browser eval-case evidence checksums, browser assembly eval-case drift, browser assembly evidence-file drift, browser adapter stack preflight, browser adapter stack Rust validation, browser frugal selector defaults, browser selector budgets or budget contracts, browser auto assembly, browser auto-assembly byte budgets, browser adapter stacks, browser module plans, Module Plan display, budget display, prompt-limit display, output-limit display, total-budget display, total-limit display, WASM-pages display, WASM ABI display, Transfer display, Release display, Reset display, Validate display, Validate Count display, Apply Count display, Plan Fetches display, Actual Fetches display, Actual Route Set display, Actual Module Bytes display, Actual Module Checksums display, Route Hash display, Route Version display, Route Set display, KV-cache display, tokenizer display, sampler-cap display, fetch-count display, byte-count display, checksum display, role display, slot display, dependency display, phase display, fetch display, origin display, or trace display, module-plan profile contracts, execution-profile contracts, fetch-policy contracts, origin-policy contracts, fetch-count contracts, planned-fetch-count contracts, actual-fetch-count contracts, observed-route-set contracts, actual-module-bytes contracts, actual-module-checksums contracts, route-set-algorithm contracts, route-set-version contracts, route-set contracts, module-plan operator receipt contracts, tokenizer contracts, sampler-cap contracts, prompt-limit contracts, output-limit contracts, WASM-memory contracts, WASM export-set contracts, WASM transfer contracts, model-release contracts, runtime-reset contracts, adapter-validation contracts, adapter-validation-count contracts, adapter-apply-count contracts, KV-cache contracts, profile-drift proof, execution-profile-drift proof, fetch-policy-drift proof, fetch-count-drift proof, planned-fetch-count-drift proof, route-set-algorithm-drift proof, route-set-version-drift proof, route-set-drift proof, module-plan-operator-receipt-drift proof, tokenizer-drift proof, sampler-cap-drift proof, prompt-limit-drift proof, output-limit-drift proof, wasm-memory-drift proof, wasm-export-set-drift proof, wasm-transfer-drift proof, model-release-drift proof, runtime-reset-drift proof, adapter-validation-drift proof, adapter-validation-count-drift proof, adapter-apply-count-drift proof, kv-cache-drift proof, module-plan resource envelopes, total-budget proof, total-limit proof, count-drift proof, resource-drift proof, graph-drift proof, stack-drift proof, role-drift proof, slot-drift proof, dependency-drift proof, phase-drift proof, byte-drift proof, checksum-drift proof, browser text-sidecar budgets or text-sidecar budget contracts, browser runtime WASM manifests, UAIX dogfood context, setup-file-handoff strategy, report-pointer audit, or diverse Model Breeding research routing matters; read taboo.uai before public site copy.
-latest_route_hint: Read report-synthesis.uai plus the Browser Converted Trained Provenance, Browser Converted Trained File Route, Browser Converted Trained All Route, two-parent, crossover, mutation, prune, DARE operator, DARE browser operator provenance, Parent-Pool Evolution Schedule, and Operator Schedule Carry-Forward reports when converted-trained browser provenance, file-backed converted-trained selector/model/manifest routing, all-quant q4-defaulted converted-trained selector roots, compact browser Operator provenance, byte-echo fallback, direct-parameter blend, task-delta, sparse task-delta, crossover, bounded mutation, magnitude pruning, DARE dropout/rescaled task-delta, q8 operator proof, parent-pool operator scheduling, PBT-style replay, scheduled-family receipt echoes, or downstream candidate handoff are in scope.
+  - .uai/exports/llms.uai
+  - .uai/exports/llms-full.uai
 
-site_publication_overlay_2026_06_29:
-  package_version: 1.0.2
-  public_docs_index: https://Runtime.MiRust.com/docs/index.md
-  public_reports_index: https://Runtime.MiRust.com/docs/reports/index.md
-  public_long_term_memory: https://Runtime.MiRust.com/docs/long-term-memory.uai
-  docs_routing_memory: https://Runtime.MiRust.com/.uai/docs-routing.uai
-  rule: Open docs-routing.uai before summarizing public report memory or durable docs.
-
-
-## Plain PHP rebuild v1.0.5
-
-The WordPress deployment path is superseded. Runtime.MiRust.com now ships as a root-extractable plain PHP site with `/index.php`, `/inc/site.php`, `/data/pages.json`, `/assets/`, `/docs/`, and `/.uai/`. See `/docs/implementation/runtime-mirust-plain-php-rebuild-v1.0.5.md`.
+rules:
+  - Do not treat Runtime.MiRust.com as current authority.
+  - Do not deploy using the FileZilla profile currently named Runtime.MiRust.com; it points to TinyRustLM.MiRust.com.
+  - Deploy only to a verified runtime.mirust.com web root.
+  - Preserve old implementation memory through TinyRustLM.MiRust.com/docs/runtime-portal/.
