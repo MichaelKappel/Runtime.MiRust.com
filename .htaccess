@@ -6,27 +6,48 @@ AddDefaultCharset UTF-8
   RewriteEngine On
   RewriteBase /
 
-  # Runtime.MiRust.com is retired as a separate documentation authority.
-  # Deep documentation links are preserved in the TinyRustLM developer archive.
+  # Keep local presentation assets available for the inspectable migration page.
+  RewriteRule ^assets/ - [L]
+
+  # Preview mode exposes the human-readable migration map without changing the
+  # default permanent redirect behavior.
+  RewriteCond %{QUERY_STRING} (^|&)preview=1(&|$) [NC]
+  RewriteRule ^ index.php [L,QSA]
+
+  # Preserve the most useful legacy topic routes at their current equivalents.
+  RewriteRule ^architecture/?$ https://tinyrustlm.mirust.com/architecture/ [R=301,L,NE]
+  RewriteRule ^browser-runtime/?$ https://tinyrustlm.mirust.com/browser-runtime/ [R=301,L,NE]
+  RewriteRule ^model-format/?$ https://tinyrustlm.mirust.com/slm-format/ [R=301,L,NE]
+  RewriteRule ^adapters-assembly/?$ https://tinyrustlm.mirust.com/adapters/ [R=301,L,NE]
+  RewriteRule ^model-breeding/?$ https://tinyrustlm.mirust.com/model-breeding/ [R=301,L,NE]
+  RewriteRule ^proof-testing/?$ https://tinyrustlm.mirust.com/testing/ [R=301,L,NE]
+  RewriteRule ^(developer-docs|project|source-facts|plain-php-rebuild|site-audit-response|site-origin-fix|site-infrastructure|deployment-checklist|runtime-health|launch-operations|name-scope)/?$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
+  RewriteRule ^(memory-reports|agent-readiness)/?$ https://tinyrustlm.mirust.com/docs/ [R=301,L,NE]
+  RewriteRule ^(roadmap-boundaries|research-development)/?$ https://tinyrustlm.mirust.com/roadmap/ [R=301,L,NE]
+  RewriteRule ^contact-mike-kappel/?$ https://tinyrustlm.mirust.com/contact/ [R=301,L,NE]
+  RewriteRule ^faq/?$ https://tinyrustlm.mirust.com/glossary/ [R=301,L,NE]
+
+  # Deep documentation links remain available in the preserved runtime archive.
   RewriteRule ^docs/(.*)$ https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/$1 [R=301,L,NE]
   RewriteRule ^PACKAGE-MANIFEST\.md$ https://tinyrustlm.mirust.com/docs/runtime-portal/package/PACKAGE-MANIFEST.md [R=301,L,NE]
   RewriteRule ^(DEPLOYMENT\.md|README\.md|robots\.txt|sitemap\.xml|version\.json|healthz)$ https://tinyrustlm.mirust.com/docs/runtime-portal/package/$1 [R=301,L,NE]
 
-  # Machine readers should use the current TinyRustLM developer portal exports.
+  # Machine readers should use the current TinyRustLM developer exports.
   RewriteRule ^llms\.txt$ https://tinyrustlm.mirust.com/llms.txt [R=301,L,NE]
   RewriteRule ^llms-full\.txt$ https://tinyrustlm.mirust.com/llms-full.txt [R=301,L,NE]
 
-  # Private or old hot-memory routes are no longer served from this host.
+  # Old hot-memory and handoff routes are not independent public authorities.
   RewriteRule ^\.uai/(.*)$ https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai [R=301,L,NE]
   RewriteRule ^agent-file-handoff/(.*)$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
 
-  # Everything else goes to the current developer portal.
   RewriteRule ^(?:index\.php)?$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
   RewriteRule ^.*$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
 </IfModule>
 
 <IfModule mod_headers.c>
-  Header set X-Robots-Tag "noindex, follow"
-  Header set X-Content-Type-Options "nosniff"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Robots-Tag "noindex, follow"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()"
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self'; script-src 'none'; object-src 'none'"
 </IfModule>
