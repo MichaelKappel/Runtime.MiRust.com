@@ -51,3 +51,8 @@ public_site_voice:
     risk: use fit, compatibility, or claim boundary when the copy needs technical precision.
     site_section_titles: use status, evidence, boundaries, routes, fit, lineage, craft, or future lanes.
 implementation_note: This file guides site voice and public product copy; technical tests, error states, and Rust lint names may still use their exact domain terms where required.
+
+pre_publication_no_debt_policy_id: pre-publication-clean-slate-v1
+pre_publication_no_debt_prohibition: "Until the human explicitly removes this prohibition, do not add or retain technical debt, legacy or backward-compatibility support, compatibility shims, deprecated aliases, dual contracts, migration branches, fallback paths for superseded code, low-quality patches, knowingly temporary architecture, or deferred cleanup."
+pre_publication_obsolete_contract_prohibition: "Do not preserve obsolete routes, schemas, behavior, or code merely because a dogfood client used them. Update every dogfood client to the verified current design and remove the obsolete path."
+pre_publication_release_integrity_prohibition: "Do not deploy from a dirty, partially validated, or ambiguous release closure. A reachable dogfood or development surface is not evidence of a public release. Do not call work complete while known in-scope correctness, security, accessibility, test, documentation, or cleanup defects remain."
