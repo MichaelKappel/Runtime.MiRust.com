@@ -1,5 +1,5 @@
 profile: runtime-mirust.retired-short-term-memory.v1
-updated_utc: 2026-07-02T00:00:00Z
+updated_utc: 2026-08-09T22:06:41Z
 
 current_task_state:
   Runtime.MiRust.com local source has been converted to a redirect-only package.
@@ -13,3 +13,9 @@ remaining_live_blocker:
 
 next_action:
   After a verified runtime.mirust.com FTP profile or web root is available, upload the redirect package controlling files from this repository root and verify Runtime returns 301.
+
+credit_window_handoff_2026_08_09:
+  current_truth: Live Runtime routes were observed redirecting to the TinyRustLM developer portal, but no new immutable publication receipt exists. The source-controlled exact verifier is commit 8bf66d9329f5e15fc9358062a71133ae6cd994a2.
+  dependency: Finish TinyRustLM.MiRust.com 1.7.0 and verify its destination routes before closing the Runtime redirect gate.
+  blocker: The Runtime.MiRust.com FileZilla profile is misbound to the TinyRustLM.MiRust.com root. Do not use it for deployment.
+  next_action: Obtain a verified Runtime-only deployment profile, run the exact redirect gate, and preserve transport plus HTTPS evidence before claiming a new publication.

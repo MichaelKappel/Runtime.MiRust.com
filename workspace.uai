@@ -1,6 +1,6 @@
 project_name: Runtime.MiRust.com
 status: retired_redirect_package
-updated_utc: 2026-07-02T00:00:00Z
+updated_utc: 2026-08-09T22:06:41Z
 
 canonical_developer_portal:
   url: https://tinyrustlm.mirust.com/developer-portal/
@@ -30,3 +30,24 @@ boundaries:
   - TinyRustLM.com is the current public browser-local app.
   - Project servers do not run user model bytes.
   - Project servers do not serve runnable user model bytes.
+
+credit_window_handoff_2026_08_09:
+  authority: Current private restart account; newer than incompatible present-tense wording in dated memory.
+  repository:
+    clean_release_clone: E:\Source\Worktrees\rust-site-release-20260809\Runtime.MiRust.com
+    branch: master
+    upstream: origin/master
+    head_before_handoff_commit: 8bf66d9329f5e15fc9358062a71133ae6cd994a2
+  current_truth:
+    source: Redirect-only package and exact redirect tests are source-controlled.
+    live_observation: The retained Runtime routes currently redirect to the TinyRustLM developer portal and return 200 after following the redirect.
+    publication_evidence: No new immutable successful-publication receipt was produced in this work window; reachability is bounded observation only.
+  blocker:
+    code: unsafe_deployment_profile
+    detail: The FileZilla profile named Runtime.MiRust.com is bound to the TinyRustLM.MiRust.com web root and must not be used.
+    verifier_dependency: The exact redirect verifier cannot close until the referenced TinyRustLM.MiRust.com 1.7.0 documentation routes finish publication and public readback.
+  next_actions:
+    - Do not deploy with the current misbound profile.
+    - Finish and verify the TinyRustLM.MiRust.com 1.7.0 publication first.
+    - Obtain or repair an independently verified Runtime.MiRust.com deployment profile before any Runtime write.
+    - Run the exact redirect verifier and preserve a release receipt before claiming a new Runtime publication.

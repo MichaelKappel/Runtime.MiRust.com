@@ -1,5 +1,5 @@
 profile: runtime-mirust.file-handoff.v14
-updated_utc: 2026-06-29T02:39:17Z
+updated_utc: 2026-08-09T22:06:41Z
 handoff_root: agent-file-handoff/
 active_buckets:
   content: agent-file-handoff/Content/
@@ -67,3 +67,9 @@ site_publication_overlay_2026_06_29:
     misplaced_root_files: 0
     status: no_new_active_intake_in_site_package
   rule: Upload root package contents to publish /docs and /.uai routes; theme-only upload keeps a mirrored copy inside the theme but does not create canonical root static routes.
+
+credit_window_handoff_2026_08_09:
+  status: source_pushed_live_redirect_observed_publication_receipt_absent
+  source_head_before_handoff_commit: 8bf66d9329f5e15fc9358062a71133ae6cd994a2
+  blocker: Never deploy with the currently misbound Runtime.MiRust.com FileZilla profile; it targets TinyRustLM.MiRust.com.
+  restart: Complete TinyRustLM.MiRust.com 1.7.0, obtain a verified Runtime-only profile, run exact redirect tests and public readback, then record an append-only publication receipt.
