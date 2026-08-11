@@ -1,5 +1,5 @@
 profile: runtime-mirust.retired-short-term-memory.v1
-updated_utc: 2026-08-09T22:06:41Z
+updated_utc: 2026-08-11T14:37:02Z
 
 current_task_state:
   Runtime.MiRust.com local source has been converted to a redirect-only package.
@@ -7,15 +7,22 @@ current_task_state:
   MiRust.com no longer names Runtime.MiRust.com as an active subdomain.
   SLMComposer.com and LMComposer.com live routes redirect to TinyRustLM.com.
 
-remaining_live_blocker:
-  https://runtime.mirust.com/ still returns the old 200 site until the actual runtime.mirust.com web root is deleted or replaced.
-  The FileZilla entry named Runtime.MiRust.com is unsafe for this because it logs into TinyRustLM.MiRust.com.
+current_live_evidence:
+  Exact verification completed at 2026-08-11T14:35:39Z from clean upstream-exact commit eb81f1cf0b5670366ddaa77c861a63ae38ed183e.
+  Seven Runtime routes returned their exact required redirects and six unique TinyRustLM.MiRust.com destinations returned HTTP 200.
+  Receipt verification/receipts/runtime-redirect-verification-20260811T143538Z.json has SHA-256 9e12decbced5ab3b40ed3a10435a0a6267322c0c1063630af1f3861dcc5738bb.
+  The receipt explicitly says no deployment was attempted and the deployment profile was not used.
+
+remaining_release_blocker:
+  The FileZilla entry named Runtime.MiRust.com remains unsafe because it logs into the TinyRustLM.MiRust.com web root.
+  This blocks future Runtime writes, not the now-complete live redirect verification gate.
 
 next_action:
-  After a verified runtime.mirust.com FTP profile or web root is available, upload the redirect package controlling files from this repository root and verify Runtime returns 301.
+  Do not write Runtime with the current profile. Continue the release sequence with MiniModel.MiRust.com 1.0.0; obtain a verified Runtime-only profile before any future Runtime publication.
 
-credit_window_handoff_2026_08_09:
-  current_truth: Live Runtime routes were observed redirecting to the TinyRustLM developer portal, but no new immutable publication receipt exists. The source-controlled exact verifier is commit 8bf66d9329f5e15fc9358062a71133ae6cd994a2.
-  dependency: Finish TinyRustLM.MiRust.com 1.7.0 and verify its destination routes before closing the Runtime redirect gate.
-  blocker: The Runtime.MiRust.com FileZilla profile is misbound to the TinyRustLM.MiRust.com root. Do not use it for deployment.
-  next_action: Obtain a verified Runtime-only deployment profile, run the exact redirect gate, and preserve transport plus HTTPS evidence before claiming a new publication.
+restart_handoff_2026_08_11:
+  current_truth: Live redirect verification is complete and preserved; Runtime publication is not claimed.
+  verifier_commit: eb81f1cf0b5670366ddaa77c861a63ae38ed183e
+  evidence_commit: 832d73154e99d46be2487440923960ba0bcfb810
+  blocker: The Runtime.MiRust.com FileZilla profile is misbound to the TinyRustLM.MiRust.com root. Never use it for deployment.
+  next_action: Proceed to the independently gated MiniModel.MiRust.com release.

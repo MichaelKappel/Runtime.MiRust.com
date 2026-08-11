@@ -1,22 +1,20 @@
-Continue from E:\Source\Rust\Runtime.MiRust.com only if the task concerns retiring or redirecting Runtime.MiRust.com.
+Continue from E:\Source\Worktrees\rust-site-release-20260809\Runtime.MiRust.com only for Runtime.MiRust.com redirect verification or an independently authorized Runtime write.
 
-Current state:
-- This repo is a redirect-only package for Runtime.MiRust.com.
+Authoritative state, 2026-08-11:
+- Runtime.MiRust.com is a bounded redirect-only retirement package. It is not a separate documentation authority.
 - Current developer documentation lives at https://tinyrustlm.mirust.com/developer-portal/.
-- Preserved legacy runtime content lives at https://tinyrustlm.mirust.com/docs/runtime-portal/index.md.
-- The archive manifest is https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md.
+- Historical runtime documentation is preserved at https://tinyrustlm.mirust.com/docs/runtime-portal/index.md with its manifest at https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md.
+- Verifier commit eb81f1cf0b5670366ddaa77c861a63ae38ed183e is pushed.
+- Evidence commit 832d73154e99d46be2487440923960ba0bcfb810 is pushed.
+- Receipt verification/receipts/runtime-redirect-verification-20260811T143538Z.json has SHA-256 9e12decbced5ab3b40ed3a10435a0a6267322c0c1063630af1f3861dcc5738bb.
+- Seven exact redirect checks and six unique HTTPS destination readbacks passed.
+- The receipt explicitly records that no deployment was attempted and no deployment profile was used.
 
-Do not use the FileZilla entry named Runtime.MiRust.com unless it has been fixed; it currently points to the TinyRustLM.MiRust.com FTP root.
+Hard boundary:
+- Never use the FileZilla entry named Runtime.MiRust.com in its current state. It points to the TinyRustLM.MiRust.com web root.
+- Reachability verification is not publication evidence. Do not claim a Runtime deployment from this receipt.
+- Obtain and independently verify a Runtime-only deployment profile before any future Runtime write.
+- Do not add compatibility code, dual paths, shims, temporary fallbacks, or deferred cleanup. This repository remains a single-purpose redirect package.
 
-Completion check:
-- https://runtime.mirust.com/ must return a redirect, not the old 200 site.
-- https://mirust.com/ must not list Runtime.MiRust.com as an active subdomain.
-- https://tinyrustlm.mirust.com/developer-portal/ must be live.
-- https://slmcomposer.com/ and https://lmcomposer.com/ must redirect to https://TinyRustLM.com/.
-
-Credit-window handoff, 2026-08-09:
-- Source commit 8bf66d9329f5e15fc9358062a71133ae6cd994a2 contains exact redirect tests and is pushed.
-- Live redirects were observed, but no new immutable successful-publication receipt exists.
-- Finish and verify TinyRustLM.MiRust.com 1.7.0 before closing destination-route checks.
-- Never use the currently misbound Runtime.MiRust.com FileZilla profile; obtain a verified Runtime-only profile before any write.
-- Preserve clean-slate policy: no legacy implementation, compatibility shim, or debt. This repository remains a bounded redirect package only.
+Next project action:
+- The Runtime live-verification gate is complete. Continue with the independently gated MiniModel.MiRust.com 1.0.0 release.

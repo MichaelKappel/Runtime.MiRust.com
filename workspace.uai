@@ -1,6 +1,6 @@
 project_name: Runtime.MiRust.com
-status: retired_redirect_package
-updated_utc: 2026-08-09T22:06:41Z
+status: retired_redirect_package_live_verified
+updated_utc: 2026-08-11T14:37:02Z
 
 canonical_developer_portal:
   url: https://tinyrustlm.mirust.com/developer-portal/
@@ -31,23 +31,31 @@ boundaries:
   - Project servers do not run user model bytes.
   - Project servers do not serve runnable user model bytes.
 
-credit_window_handoff_2026_08_09:
-  authority: Current private restart account; newer than incompatible present-tense wording in dated memory.
+runtime_redirect_verification_2026_08_11:
+  authority: Current private restart account; supersedes the dated pending-verification handoff below this repository's history.
   repository:
     clean_release_clone: E:\Source\Worktrees\rust-site-release-20260809\Runtime.MiRust.com
     branch: master
     upstream: origin/master
-    head_before_handoff_commit: 8bf66d9329f5e15fc9358062a71133ae6cd994a2
+    verifier_commit: eb81f1cf0b5670366ddaa77c861a63ae38ed183e
+    evidence_commit: 832d73154e99d46be2487440923960ba0bcfb810
+  evidence:
+    receipt: verification/receipts/runtime-redirect-verification-20260811T143538Z.json
+    receipt_sha256: 9e12decbced5ab3b40ed3a10435a0a6267322c0c1063630af1f3861dcc5738bb
+    bound_source_commit: eb81f1cf0b5670366ddaa77c861a63ae38ed183e
+    bound_source_tree: ad9784b00bd1eea862738caf12a666c359eff2e0
+    result: Seven exact redirects and six unique HTTPS destination readbacks passed.
+    replay_rule: Receipt writes are bounded, same-directory, create-only, and require a clean upstream-exact source tree.
   current_truth:
-    source: Redirect-only package and exact redirect tests are source-controlled.
-    live_observation: The retained Runtime routes currently redirect to the TinyRustLM developer portal and return 200 after following the redirect.
-    publication_evidence: No new immutable successful-publication receipt was produced in this work window; reachability is bounded observation only.
+    source: Redirect-only package, exact redirect tests, and immutable verification evidence are source-controlled and pushed.
+    live_observation: The seven retained Runtime routes match their exact destinations, and all six unique destinations return HTTP 200.
+    publication_evidence: The receipt proves live behavior only. It explicitly records deployment_attempted false and deployment_profile_used false; no Runtime publication is claimed.
   blocker:
     code: unsafe_deployment_profile
     detail: The FileZilla profile named Runtime.MiRust.com is bound to the TinyRustLM.MiRust.com web root and must not be used.
-    verifier_dependency: The exact redirect verifier cannot close until the referenced TinyRustLM.MiRust.com 1.7.0 documentation routes finish publication and public readback.
+    effect: It blocks any Runtime write, but no longer blocks live redirect verification.
   next_actions:
     - Do not deploy with the current misbound profile.
-    - Finish and verify the TinyRustLM.MiRust.com 1.7.0 publication first.
-    - Obtain or repair an independently verified Runtime.MiRust.com deployment profile before any Runtime write.
-    - Run the exact redirect verifier and preserve a release receipt before claiming a new Runtime publication.
+    - Treat the Runtime verification gate as complete without claiming a deployment.
+    - Obtain or repair an independently verified Runtime.MiRust.com deployment profile before any future Runtime write.
+    - Continue the release sequence with MiniModel.MiRust.com 1.0.0.
