@@ -1,0 +1,119 @@
+{
+    "schema":  "runtime.mirust.redirect_verification_receipt.v1",
+    "site":  "Runtime.MiRust.com",
+    "origin":  "https://runtime.mirust.com",
+    "verification_profile":  "runtime.mirust.redirect-verification.v1",
+    "source_commit":  "eb81f1cf0b5670366ddaa77c861a63ae38ed183e",
+    "source_tree":  "ad9784b00bd1eea862738caf12a666c359eff2e0",
+    "started_utc":  "2026-08-11T14:35:38.0568157+00:00",
+    "completed_utc":  "2026-08-11T14:35:39.8735491+00:00",
+    "status":  "redirects-and-destinations-verified",
+    "failure_code":  null,
+    "deployment_attempted":  false,
+    "deployment_profile_used":  false,
+    "known_deployment_blocker":  "unsafe-deployment-profile",
+    "redirect_count":  7,
+    "readback_count":  6,
+    "verifier_files":  [
+                           {
+                               "path":  "tools/verify-runtime-mirust.ps1",
+                               "bytes":  11625,
+                               "sha256":  "52cef8c710e9634eb8bc3cb32d43d14749e0aa8d11a8d588f5a5f979e266c975"
+                           },
+                           {
+                               "path":  "tools/verify-runtime-mirust.sh",
+                               "bytes":  1953,
+                               "sha256":  "f66d64143d5cf7b35069af9b653e431607d370123c5826712ff2b11d1021cf97"
+                           }
+                       ],
+    "redirects":  [
+                      {
+                          "path":  "/",
+                          "source_url":  "https://runtime.mirust.com/",
+                          "status_code":  301,
+                          "expected_location":  "https://tinyrustlm.mirust.com/developer-portal/",
+                          "actual_location":  "https://tinyrustlm.mirust.com/developer-portal/",
+                          "status":  "pass"
+                      },
+                      {
+                          "path":  "/healthz",
+                          "source_url":  "https://runtime.mirust.com/healthz",
+                          "status_code":  301,
+                          "expected_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/healthz",
+                          "actual_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/healthz",
+                          "status":  "pass"
+                      },
+                      {
+                          "path":  "/version.json",
+                          "source_url":  "https://runtime.mirust.com/version.json",
+                          "status_code":  301,
+                          "expected_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/version.json",
+                          "actual_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/version.json",
+                          "status":  "pass"
+                      },
+                      {
+                          "path":  "/llms.txt",
+                          "source_url":  "https://runtime.mirust.com/llms.txt",
+                          "status_code":  301,
+                          "expected_location":  "https://tinyrustlm.mirust.com/llms.txt",
+                          "actual_location":  "https://tinyrustlm.mirust.com/llms.txt",
+                          "status":  "pass"
+                      },
+                      {
+                          "path":  "/docs/index.md",
+                          "source_url":  "https://runtime.mirust.com/docs/index.md",
+                          "status_code":  301,
+                          "expected_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/index.md",
+                          "actual_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/index.md",
+                          "status":  "pass"
+                      },
+                      {
+                          "path":  "/.uai/index.uai",
+                          "source_url":  "https://runtime.mirust.com/.uai/index.uai",
+                          "status_code":  301,
+                          "expected_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai",
+                          "actual_location":  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai",
+                          "status":  "pass"
+                      },
+                      {
+                          "path":  "/source-facts/",
+                          "source_url":  "https://runtime.mirust.com/source-facts/",
+                          "status_code":  301,
+                          "expected_location":  "https://tinyrustlm.mirust.com/developer-portal/",
+                          "actual_location":  "https://tinyrustlm.mirust.com/developer-portal/",
+                          "status":  "pass"
+                      }
+                  ],
+    "readbacks":  [
+                      {
+                          "url":  "https://tinyrustlm.mirust.com/developer-portal/",
+                          "status_code":  200,
+                          "status":  "pass"
+                      },
+                      {
+                          "url":  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/healthz",
+                          "status_code":  200,
+                          "status":  "pass"
+                      },
+                      {
+                          "url":  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/version.json",
+                          "status_code":  200,
+                          "status":  "pass"
+                      },
+                      {
+                          "url":  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/index.md",
+                          "status_code":  200,
+                          "status":  "pass"
+                      },
+                      {
+                          "url":  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai",
+                          "status_code":  200,
+                          "status":  "pass"
+                      },
+                      {
+                          "url":  "https://tinyrustlm.mirust.com/llms.txt",
+                          "status_code":  200,
+                          "status":  "pass"
+                      }
+                  ]
+}
