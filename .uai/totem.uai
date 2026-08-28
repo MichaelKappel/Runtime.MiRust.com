@@ -1,38 +1,26 @@
----
-uai: "1.0"
-type: totem
-title: "Runtime.MiRust.com Positive Operating Anchors"
-project: "Runtime.MiRust.com"
-created: "2026-07-29"
-updated: "2026-08-28"
-status: active
-documentation_integrity_policy_id: "site-family-documentation-integrity-v1"
-documentation_site_role: "retired redirect with preserved bounded historical evidence"
----
+profile: runtime-mirust.totem.current.v1
+updated_utc: 2026-08-28T00:00:00Z
+site: Runtime.MiRust.com
+role: positive operating authority
 
-# Totem
+site_authority:
+  - Runtime.MiRust.com is a retired redirect with bounded historical evidence, not a separate current TinyRustLM documentation or runtime authority.
+  - Route current product use to TinyRustLM.com and current developer documentation to TinyRustLM.MiRust.com.
+  - Preserve retained historical bytes and manifests as evidence while clearly separating them from current guidance and claims.
 
-## Pre-Publication Clean-Slate Authority
+clean_slate:
+  - Do not retain obsolete runtime contracts or compatibility paths because historical dogfood used them.
+  - Remove superseded active guidance after replacement and preserve audit history in source control or immutable evidence records.
+  - Keep redirect, documentation, deployment, and public readback synchronized.
 
-Policy ID: `pre-publication-clean-slate-v1`.
+memory_endpoints_two_lane_authority:
+  - MemoryEndpoints.com has exactly two distinct authorized uses across the ecosystem.
+  - Agents working on all ecosystem sites use MemoryEndpoints.com directly for agent-to-agent long-term memory, meetings, handoffs, and coordination.
+  - Separately, the TinyRustLM.com Connect plugin lets a user sign in to MemoryEndpoints.com and explicitly select it as TinyRustLM.com Connect long-term memory.
+  - Keep lane identity, credentials, consent, scopes, provenance, idempotency, and receipts separate. Neither lane silently acts for the other.
+  - Authorization, implementation, configuration, fixtures, mocks, or reachability do not prove a live meeting, user-plugin operation, synchronization, restore, deletion, cleanup, or continuity.
 
-- Treat this site and all systems that consume it as pre-publication dogfood, even when a development URL is publicly reachable.
-- Until the human explicitly removes this authority, choose the best current architecture. Full rewrites and clean contract replacements are authorized when they improve correctness, security, maintainability, performance, accessibility, or product quality.
-- Verify replacements end to end, migrate every dogfood caller to one current contract, remove superseded implementation in the same completed change, and finish tests, documentation, security review, and cleanup before deployment.
-- Preserve immutable receipts and historical failure evidence as audit truth, never as a promise to support obsolete product behavior.
-
-## Documentation Integrity Authority
-
-- Treat the retained redirect, destination, retirement notice, and bounded historical evidence as this site's documentation product. Keep each statement and destination synchronized with the current TinyRustLM developer portal.
-- Clearly label historical evidence by date and scope. Never present retired Runtime.MiRust.com behavior as a current contract, current implementation, current deployment, or compatibility promise.
-- Verify redirect behavior, canonical destination, status code, HTTPS behavior, accessible fallback text, historical-evidence links, and public readback after every affected publication.
-- Block publication when destination guidance or historical labels are stale, broken, contradictory, unverified, or inconsistent with TinyRustLM.MiRust.com and the authoritative release record.
-- Remove superseded user guidance after its replacement is verified. Preserve immutable historical receipts separately; historical evidence is not legacy product support.
-
-## MemoryEndpoints Ecosystem Authority
-
-- MemoryEndpoints.com has two distinct authorized uses across this ecosystem.
-- Ecosystem agents use it directly for agent-to-agent long-term memory, meetings, handoffs, and coordination across all maintained sites.
-- Separately, the TinyRustLM.com Connect plugin lets a user sign in to MemoryEndpoints.com and explicitly select it as TinyRustLM.com Connect long-term memory.
-- Keep those lanes separately identified, scoped, consented, authenticated, and evidenced. Authorization never substitutes for a live receipt.
-- Prelaunch resilience may duplicate important memory in current `.uai`, wiki, source-controlled public-safe notes, and other approved stores. Every maintained copy must remain synchronized, provenance-labeled, secret-safe, and noncontradictory.
+prelaunch_redundancy:
+  - Important memory may also be kept in current .uai, wiki, public-safe source notes, and approved private stores for resilience.
+  - Keep every maintained copy current, secret-safe, provenance-labeled, and noncontradictory.
+  - Surface and reconcile conflicts; do not silently choose one contradictory copy.

@@ -1,61 +1,20 @@
-project_name: Runtime.MiRust.com
-status: retired_redirect_package_live_verified
-updated_utc: 2026-08-11T14:37:02Z
+profile: runtime-mirust.workspace.current.v1
+updated_utc: 2026-08-28T00:00:00Z
+site: Runtime.MiRust.com
+status: retired-redirect-with-historical-evidence
+current_authority:
+  - Runtime.MiRust.com is not a separate current TinyRustLM documentation authority.
+  - Retained material is bounded historical evidence and does not authorize obsolete executable behavior, compatibility, or current claims.
+  - Route current TinyRustLM developer guidance to TinyRustLM.MiRust.com.
+  - Read .uai/totem.uai and .uai/taboo.uai before changing redirect or historical-evidence boundaries.
 
-canonical_developer_portal:
-  url: https://tinyrustlm.mirust.com/developer-portal/
-  role: Current TinyRustLM developer documentation portal.
+memory_endpoints_two_lane_authority:
+  direct_agent_coordination: Agents working on all ecosystem sites use MemoryEndpoints.com directly for agent-to-agent long-term memory, meetings, handoffs, and coordination.
+  tinyrustlm_connect_user_plugin: Separately, the TinyRustLM.com Connect plugin lets a user sign in to MemoryEndpoints.com and explicitly select it as TinyRustLM.com Connect long-term memory.
+  isolation: Keep lane identity, credentials, consent, scopes, provenance, idempotency, and receipts separate. Neither lane silently acts for the other.
+  proof_boundary: Authorization, implementation, configuration, fixtures, mocks, or reachability do not prove live use, account correctness, synchronization, restore, deletion, cleanup, or continuity.
 
-current_app:
-  url: https://tinyrustlm.com/
-  role: Browser-local Rust/WASM app.
-
-preserved_archive:
-  index: https://tinyrustlm.mirust.com/docs/runtime-portal/index.md
-  manifest: https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md
-  local_copy: E:\Source\Rust\TinyRustLM.MiRust.com\docs\runtime-portal\
-
-deployment_gate:
-  instruction: Deploy this package only to the verified runtime.mirust.com web root.
-  warning: The FileZilla profile named Runtime.MiRust.com currently uses the TinyRustLM.MiRust.com FTP username and must not be used to clear or overwrite Runtime.
-
-behavior:
-  root: Redirect to TinyRustLM.MiRust.com developer portal.
-  docs: Redirect old /docs/* routes into the preserved runtime archive.
-  machine_exports: Redirect llms.txt and llms-full.txt to current TinyRustLM.MiRust.com exports.
-
-boundaries:
-  - Runtime.MiRust.com is no longer a separate documentation authority.
-  - TinyRustLM.MiRust.com is the current developer documentation portal.
-  - TinyRustLM.com is the current public browser-local app.
-  - Project servers do not run user model bytes.
-  - Project servers do not serve runnable user model bytes.
-
-runtime_redirect_verification_2026_08_11:
-  authority: Current private restart account; supersedes the dated pending-verification handoff below this repository's history.
-  repository:
-    clean_release_clone: E:\Source\Worktrees\rust-site-release-20260809\Runtime.MiRust.com
-    branch: master
-    upstream: origin/master
-    verifier_commit: eb81f1cf0b5670366ddaa77c861a63ae38ed183e
-    evidence_commit: 832d73154e99d46be2487440923960ba0bcfb810
-  evidence:
-    receipt: verification/receipts/runtime-redirect-verification-20260811T143538Z.json
-    receipt_sha256: 9e12decbced5ab3b40ed3a10435a0a6267322c0c1063630af1f3861dcc5738bb
-    bound_source_commit: eb81f1cf0b5670366ddaa77c861a63ae38ed183e
-    bound_source_tree: ad9784b00bd1eea862738caf12a666c359eff2e0
-    result: Seven exact redirects and six unique HTTPS destination readbacks passed.
-    replay_rule: Receipt writes are bounded, same-directory, create-only, and require a clean upstream-exact source tree.
-  current_truth:
-    source: Redirect-only package, exact redirect tests, and immutable verification evidence are source-controlled and pushed.
-    live_observation: The seven retained Runtime routes match their exact destinations, and all six unique destinations return HTTP 200.
-    publication_evidence: The receipt proves live behavior only. It explicitly records deployment_attempted false and deployment_profile_used false; no Runtime publication is claimed.
-  blocker:
-    code: unsafe_deployment_profile
-    detail: The FileZilla profile named Runtime.MiRust.com is bound to the TinyRustLM.MiRust.com web root and must not be used.
-    effect: It blocks any Runtime write, but no longer blocks live redirect verification.
-  next_actions:
-    - Do not deploy with the current misbound profile.
-    - Treat the Runtime verification gate as complete without claiming a deployment.
-    - Obtain or repair an independently verified Runtime.MiRust.com deployment profile before any future Runtime write.
-    - Continue the release sequence with MiniModel.MiRust.com 1.0.0.
+prelaunch_redundancy:
+  policy: Important memory may also be kept in current .uai, wiki, public-safe source notes, and approved private stores for resilience.
+  invariant: Every maintained copy stays current, secret-safe, provenance-labeled, and noncontradictory.
+  conflict_rule: Surface and reconcile conflicts; do not silently choose one contradictory copy.
