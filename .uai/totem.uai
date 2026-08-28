@@ -4,7 +4,7 @@ type: totem
 title: "Runtime.MiRust.com Positive Operating Anchors"
 project: "Runtime.MiRust.com"
 created: "2026-07-29"
-updated: "2026-08-09"
+updated: "2026-08-28"
 status: active
 documentation_integrity_policy_id: "site-family-documentation-integrity-v1"
 documentation_site_role: "retired redirect with preserved bounded historical evidence"
@@ -28,3 +28,11 @@ Policy ID: `pre-publication-clean-slate-v1`.
 - Verify redirect behavior, canonical destination, status code, HTTPS behavior, accessible fallback text, historical-evidence links, and public readback after every affected publication.
 - Block publication when destination guidance or historical labels are stale, broken, contradictory, unverified, or inconsistent with TinyRustLM.MiRust.com and the authoritative release record.
 - Remove superseded user guidance after its replacement is verified. Preserve immutable historical receipts separately; historical evidence is not legacy product support.
+
+## MemoryEndpoints Ecosystem Authority
+
+- MemoryEndpoints.com has two distinct authorized uses across this ecosystem.
+- Ecosystem agents use it directly for agent-to-agent long-term memory, meetings, handoffs, and coordination across all maintained sites.
+- Separately, the TinyRustLM.com Connect plugin lets a user sign in to MemoryEndpoints.com and explicitly select it as TinyRustLM.com Connect long-term memory.
+- Keep those lanes separately identified, scoped, consented, authenticated, and evidenced. Authorization never substitutes for a live receipt.
+- Prelaunch resilience may duplicate important memory in current `.uai`, wiki, source-controlled public-safe notes, and other approved stores. Every maintained copy must remain synchronized, provenance-labeled, secret-safe, and noncontradictory.
