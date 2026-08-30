@@ -216,6 +216,12 @@ if (-not $baseUri.IsAbsoluteUri -or $baseUri.Scheme -cne "https" -or
 }
 $BaseUrl = "https://runtime.mirust.com"
 $repositoryRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, ".."))
+$tabooPath = [System.IO.Path]::Combine($repositoryRoot, ".uai", "taboo.uai")
+$antiDriftRule = "Any committed change to a declared public artifact invalidates deployed-current status"
+if (-not [System.IO.File]::Exists($tabooPath) -or
+    -not [System.IO.File]::ReadAllText($tabooPath).Contains($antiDriftRule)) {
+    throw "The current anti-drift source-authority policy is missing"
+}
 $resolvedReceiptPath = if ([string]::IsNullOrWhiteSpace($ReceiptPath)) {
     $null
 }
