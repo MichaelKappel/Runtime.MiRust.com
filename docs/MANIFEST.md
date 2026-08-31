@@ -4,7 +4,7 @@ Updated UTC: 2026-07-12T21:30:00Z
 Package version: 1.1.0
 Public base: https://Runtime.MiRust.com
 Files excluding this manifest: 173
-Exact payload bytes excluding this manifest: 1585704
+Exact payload bytes excluding this manifest: 1586465
 
 This manifest describes the separate preserved docs archive profile. It
 does not describe the retired Runtime web-root redirect package.
@@ -38,7 +38,7 @@ Git-tree, manifest, staging, and materialized-root admission.
 - [docs/implementation/architecture.md](implementation/architecture.md): 18117 bytes; sha256:6EE3C495E1E518E249AD38BE548F98DF31B86B82614A9AFB93C5778F6233E269
 - [docs/implementation/browser-harness.md](implementation/browser-harness.md): 1266 bytes; sha256:50921079ECFA7B65DBC562FBBA64C1174E4450C98CD8995399B61982A354ECDB
 - [docs/implementation/browser-runtime.md](implementation/browser-runtime.md): 17717 bytes; sha256:8DDE334D27A44979124441E7221B68310F76A39195C6F9D73CA12E4D6597776C
-- [docs/implementation/index.md](implementation/index.md): 3273 bytes; sha256:91845F601F00E21B88A12E259F973F7AC523636E0F15348DC45AD61995D625DA
+- [docs/implementation/index.md](implementation/index.md): 3366 bytes; sha256:3FA7439A1466E3E45FB418CC8E0A5FA4319A750F27F18E7C06103F300967E4F9
 - [docs/implementation/performance.md](implementation/performance.md): 3603 bytes; sha256:07A74898373F6807DE99BB1BCB3748A16460F0CB4CCE45D857CB56533A2A1B33
 - [docs/implementation/quantization.md](implementation/quantization.md): 2032 bytes; sha256:1B1AFD7292FFD7FE5F023EE9BBF33169E1A2A839673434AE481603DAFA55A700
 - [docs/implementation/runtime-migration-ui-25-rounds-2026-07-12.md](implementation/runtime-migration-ui-25-rounds-2026-07-12.md): 3731 bytes; sha256:504BC7DCD1C090DA28CF194A75F9583F135290EF9673349724069FCA74AFBAA1
@@ -47,7 +47,7 @@ Git-tree, manifest, staging, and materialized-root admission.
 - [docs/implementation/runtime-mirust-rebrand-v1.0.4.md](implementation/runtime-mirust-rebrand-v1.0.4.md): 923 bytes; sha256:52373A54F97F15101034CF620C295043BE7124424303B601247D8326546DC88E
 - [docs/implementation/site-audit-response-v1.0.4.md](implementation/site-audit-response-v1.0.4.md): 1264 bytes; sha256:38E401F82FC1764D0F8297D7ECAB33ACCDC7718A90A20C3DD602FEDC3EFE7FD3
 - [docs/implementation/slm-format.md](implementation/slm-format.md): 29705 bytes; sha256:4D06F94001165FBA0E996ADFE2DB234CA66B758379F807E716F6B7D542EA7627
-- [docs/implementation/slmcomposer-source-options-ui-v1.0.7.md](implementation/slmcomposer-source-options-ui-v1.0.7.md): 2338 bytes; sha256:33C128455D6D62704A0BC404208FFD50A6B679357F9A8D441BE98699775A699B
+- [docs/implementation/slmcomposer-source-options-ui-v1.0.7.md](implementation/slmcomposer-source-options-ui-v1.0.7.md): 2953 bytes; sha256:A55763F2300EDC2136F63D253E1C32055ACFC285D10477E74CC663145D5DB58E
 - [docs/implementation/testing.md](implementation/testing.md): 45408 bytes; sha256:FEEB5288862F939384B44320EA75AF0DEE06BDF76E1D919B9A543BEEB448C5A4
 - [docs/implementation/tinyrustlm-models-readme.md](implementation/tinyrustlm-models-readme.md): 37451 bytes; sha256:58B136954E3227CB9B15801DF742EE36511F44A505F65B4FA148001F8B26EAA8
 - [docs/implementation/tinyrustlm-readme.md](implementation/tinyrustlm-readme.md): 71080 bytes; sha256:7ECEBC86F338172467FA72893FC521C29E8BDD58E17A23653E65833C7E59B267
@@ -55,7 +55,7 @@ Git-tree, manifest, staging, and materialized-root admission.
 - [docs/implementation/visual-studio.md](implementation/visual-studio.md): 4387 bytes; sha256:4EB9659BEBD8C33799A384DEE81415BCCB13304F2D2E67CFDC1A3D0D9976ABDB
 - [docs/implementation/workspace-readme.md](implementation/workspace-readme.md): 29578 bytes; sha256:C80FF12021E9E7C7FE622A8E36779221CE4564397B1353F05A2B1818E3BBFBBA
 - [docs/index.html](index.html): 186 bytes; sha256:FD38054D2BB5A04F6FD6DC19C75AB22EB7814BF1E5E7FADF3BF3492679DE9BC1
-- [docs/index.md](index.md): 3258 bytes; sha256:C411114E3425A6F81BF7778135AD2A94F53B90479939C03F2EAF3400D90C93B4
+- [docs/index.md](index.md): 3311 bytes; sha256:37703030CC68292EBA0FB5CE6FF7EB00966F6FC053701CE8691AC27F7693583A
 - [docs/long-term-memory.uai](long-term-memory.uai): 343834 bytes; sha256:9188267D9C6AB5299A1B3356576ACE1C4685E3016F5466652D1739E81EF761C5
 - [docs/reports/adapter-family-receipt-memory-2026-06-27.md](reports/adapter-family-receipt-memory-2026-06-27.md): 5967 bytes; sha256:5794A57C60F0EF1E8E61079E4D4BC0335E0DCA6A933ED87BE599B424E95BDEBE
 - [docs/reports/admission-operator-receipt-binding-memory-2026-06-29.md](reports/admission-operator-receipt-binding-memory-2026-06-29.md): 4820 bytes; sha256:821543E27A431A2377DBBD7606702957F721A151282D35165CD6E079ABCD54FD

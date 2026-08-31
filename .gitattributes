@@ -5,6 +5,9 @@
 /README.md text eol=lf
 /assets/css/redirect.css text eol=lf
 /docs/MANIFEST.md text eol=lf
+/docs/index.md text eol=lf
+/docs/implementation/index.md text eol=lf
+/docs/implementation/slmcomposer-source-options-ui-v1.0.7.md text eol=lf
 /index.php text eol=lf
 /tools/build-runtime-manifests.js text eol=lf
 /tools/runtime-release.test.js text eol=lf

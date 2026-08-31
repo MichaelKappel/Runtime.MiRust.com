@@ -21,6 +21,33 @@ function readText(relativePath) {
   return read(relativePath).toString("utf8");
 }
 
+test("source-options archive is visibly historical on every direct index", () => {
+  const archivePath = "docs/implementation/slmcomposer-source-options-ui-v1.0.7.md";
+  const archive = readText(archivePath);
+  const historicalBoundary = "> **Historical and superseded (2026-07-01).**";
+  assert.ok(archive.indexOf(historicalBoundary) >= 0,
+    `${archivePath} lacks its historical boundary`);
+  assert.ok(archive.indexOf(historicalBoundary) < archive.indexOf("## What Changed"),
+    `${archivePath} presents archived behavior before its historical boundary`);
+  assert.match(archive, /not the\s+> current TinyRustLM model-acquisition contract/);
+  assert.match(archive, /local-file, Hugging Face,\s+> manual-import, and "future P2P"/);
+  assert.match(archive, /This archive makes no claim that peers or qualified\s+> models are live/);
+  assert.match(archive,
+    /\[current developer portal\]\(https:\/\/tinyrustlm\.mirust\.com\/developer-portal\/\)/);
+
+  for (const indexPath of ["docs/index.md", "docs/implementation/index.md"]) {
+    const index = readText(indexPath);
+    const matchingRows = index.split(/\r?\n/).filter((line) =>
+      line.includes("slmcomposer-source-options-ui-v1.0.7.md"));
+    assert.equal(matchingRows.length, 1, `${indexPath} must contain one archive row`);
+    assert.match(matchingRows[0], /Historical:/);
+    assert.match(matchingRows[0], /Superseded 2026-07-01 implementation snapshot/);
+    assert.match(matchingRows[0], /not current model-acquisition guidance/);
+    assert.match(matchingRows[0], /no live peer or model claim/);
+    assert.doesNotMatch(matchingRows[0], /\b(?:SLM Composer|Chat mode) now\b/);
+  }
+});
+
 function run(command, args, options = {}) {
   return spawnSync(command, args, {
     cwd: options.cwd || repositoryRoot,
@@ -780,6 +807,9 @@ test("line-ending policy makes Git blobs and checkouts LF-stable", () => {
     "/.htaccess",
     "/assets/css/redirect.css",
     "/docs/MANIFEST.md",
+    "/docs/index.md",
+    "/docs/implementation/index.md",
+    "/docs/implementation/slmcomposer-source-options-ui-v1.0.7.md",
     "/index.php",
     "/tools/build-runtime-manifests.js",
     "/tools/runtime-release.test.js",
