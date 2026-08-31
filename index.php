@@ -1,15 +1,32 @@
 <?php
 declare(strict_types=1);
 
+const CURRENT_PORTAL = 'https://tinyrustlm.mirust.com';
+const REDIRECT_STYLESHEET_PATH = '/assets/css/redirect.css';
+const RETIRED_SOURCE_COPY_PATH = 'docs/workspace.uai';
+const RETIRED_SOURCE_COPY_BODY = "Gone\n";
+const MAXIMUM_REQUEST_PATH_BYTES = 2048;
+
+/** Return the literal request-target path without URL-parser reinterpretation. */
+function raw_request_path(): ?string
+{
+    $requestTarget = (string) ($_SERVER['REQUEST_URI'] ?? '/');
+    if ($requestTarget === '') {
+        return null;
+    }
+    $queryOffset = strpos($requestTarget, '?');
+    return $queryOffset === false ? $requestTarget : substr($requestTarget, 0, $queryOffset);
+}
+
 if (PHP_SAPI === 'cli-server') {
-    $staticPath = (string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
-    $staticFile = __DIR__ . str_replace('/', DIRECTORY_SEPARATOR, $staticPath);
-    if ($staticPath !== '/' && is_file($staticFile)) {
+    $method = strtoupper((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'));
+    $staticPath = raw_request_path();
+    if (($method === 'GET' || $method === 'HEAD')
+        && $staticPath === REDIRECT_STYLESHEET_PATH
+        && is_file(__DIR__ . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'redirect.css')) {
         return false;
     }
 }
-
-const CURRENT_PORTAL = 'https://tinyrustlm.mirust.com';
 
 /** Escape text for safe HTML output. */
 function h(string $value): string
@@ -17,21 +34,61 @@ function h(string $value): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-/** Normalize a URL path without allowing dot-segment routing. */
-function request_path(): string
+/** Decode one unambiguous URL-path layer and reject hostile aliases. */
+function request_path(): ?string
 {
-    $rawPath = (string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
-    $segments = [];
-    foreach (explode('/', trim(rawurldecode($rawPath), '/')) as $segment) {
-        if ($segment === '' || $segment === '.') {
-            continue;
+    $rawPath = raw_request_path();
+    if (!is_string($rawPath) || $rawPath === '' || strlen($rawPath) > MAXIMUM_REQUEST_PATH_BYTES
+        || $rawPath[0] !== '/' || preg_match('/%(?![0-9A-Fa-f]{2})/', $rawPath) === 1) {
+        return null;
+    }
+
+    $decoded = rawurldecode($rawPath);
+    if (strlen($decoded) > MAXIMUM_REQUEST_PATH_BYTES
+        || str_contains($decoded, '%')
+        || str_contains($decoded, "\0")
+        || str_contains($decoded, '\\')
+        || preg_match('/[^A-Za-z0-9._~\/-]/', $decoded) === 1
+        || str_contains($decoded, '//')) {
+        return null;
+    }
+
+    if ($decoded === '/') {
+        return '';
+    }
+
+    $relative = substr($decoded, 1);
+    if (str_ends_with($relative, '/')) {
+        $relative = substr($relative, 0, -1);
+    }
+    if ($relative === '') {
+        return null;
+    }
+
+    $segments = explode('/', $relative);
+    foreach ($segments as $segment) {
+        if ($segment === '' || $segment === '.' || $segment === '..') {
+            return null;
         }
-        if ($segment === '..') {
-            return '';
-        }
-        $segments[] = $segment;
     }
     return implode('/', $segments);
+}
+
+/** Emit one bounded terminal text response with no redirect authority. */
+function terminal_text_response(int $status, string $body): never
+{
+    header_remove('Location');
+    header_remove('Link');
+    http_response_code($status);
+    header('Cache-Control: no-store', true);
+    header('X-Robots-Tag: noindex, nofollow', true);
+    header('X-Content-Type-Options: nosniff', true);
+    header('Content-Type: text/plain; charset=UTF-8', true);
+    header('Content-Length: ' . strlen($body), true);
+    if (strtoupper((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET')) !== 'HEAD') {
+        echo $body;
+    }
+    exit;
 }
 
 /** Encode a safe relative path while preserving its separators. */
@@ -100,6 +157,17 @@ function with_forwarded_query(string $target): string
 }
 
 $path = request_path();
+if ($path === null) {
+    terminal_text_response(400, "Bad Request\n");
+}
+if (strcasecmp($path, RETIRED_SOURCE_COPY_PATH) === 0) {
+    $method = strtoupper((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'));
+    if ($method !== 'GET' && $method !== 'HEAD') {
+        header('Allow: GET, HEAD', true);
+        terminal_text_response(405, "Method Not Allowed\n");
+    }
+    terminal_text_response(410, RETIRED_SOURCE_COPY_BODY);
+}
 [$target, $targetLabel, $targetKind] = migration_target($path);
 $target = with_forwarded_query($target);
 $preview = isset($_GET['preview']) && (string) $_GET['preview'] === '1';
@@ -128,7 +196,7 @@ if (!$preview) {
   <meta name="description" content="Runtime.MiRust.com has moved into the TinyRustLM developer portal. Legacy documentation remains preserved with route-aware redirects.">
   <link rel="canonical" href="<?= h($target) ?>">
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
-  <link rel="stylesheet" href="/assets/css/redirect.css?v=1.1.0">
+  <link rel="stylesheet" href="/assets/css/redirect.css">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to migration details</a>

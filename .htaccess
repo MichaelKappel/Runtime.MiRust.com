@@ -1,52 +1,36 @@
-Options -Indexes
+Options -Indexes -MultiViews
 DirectoryIndex index.php
 AddDefaultCharset UTF-8
 
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
+RewriteEngine On
+RewriteBase /
 
-  # Keep local presentation assets available for the inspectable migration page.
-  RewriteRule ^assets/ - [L]
-
-  # Preview mode exposes the human-readable migration map without changing the
-  # default permanent redirect behavior.
-  RewriteCond %{QUERY_STRING} (^|&)preview=1(&|$) [NC]
-  RewriteRule ^ index.php [L,QSA]
-
-  # Preserve the most useful legacy topic routes at their current equivalents.
-  RewriteRule ^architecture/?$ https://tinyrustlm.mirust.com/architecture/ [R=301,L,NE]
-  RewriteRule ^browser-runtime/?$ https://tinyrustlm.mirust.com/browser-runtime/ [R=301,L,NE]
-  RewriteRule ^model-format/?$ https://tinyrustlm.mirust.com/slm-format/ [R=301,L,NE]
-  RewriteRule ^adapters-assembly/?$ https://tinyrustlm.mirust.com/adapters/ [R=301,L,NE]
-  RewriteRule ^model-breeding/?$ https://tinyrustlm.mirust.com/model-breeding/ [R=301,L,NE]
-  RewriteRule ^proof-testing/?$ https://tinyrustlm.mirust.com/testing/ [R=301,L,NE]
-  RewriteRule ^(developer-docs|project|source-facts|plain-php-rebuild|site-audit-response|site-origin-fix|site-infrastructure|deployment-checklist|runtime-health|launch-operations|name-scope)/?$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
-  RewriteRule ^(memory-reports|agent-readiness)/?$ https://tinyrustlm.mirust.com/docs/ [R=301,L,NE]
-  RewriteRule ^(roadmap-boundaries|research-development)/?$ https://tinyrustlm.mirust.com/roadmap/ [R=301,L,NE]
-  RewriteRule ^contact-mike-kappel/?$ https://tinyrustlm.mirust.com/contact/ [R=301,L,NE]
-  RewriteRule ^faq/?$ https://tinyrustlm.mirust.com/glossary/ [R=301,L,NE]
-
-  # Deep documentation links remain available in the preserved runtime archive.
-  RewriteRule ^docs/(.*)$ https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/$1 [R=301,L,NE]
-  RewriteRule ^PACKAGE-MANIFEST\.md$ https://tinyrustlm.mirust.com/docs/runtime-portal/package/PACKAGE-MANIFEST.md [R=301,L,NE]
-  RewriteRule ^(DEPLOYMENT\.md|README\.md|robots\.txt|sitemap\.xml|version\.json|healthz)$ https://tinyrustlm.mirust.com/docs/runtime-portal/package/$1 [R=301,L,NE]
-
-  # Machine readers should use the current TinyRustLM developer exports.
-  RewriteRule ^llms\.txt$ https://tinyrustlm.mirust.com/llms.txt [R=301,L,NE]
-  RewriteRule ^llms-full\.txt$ https://tinyrustlm.mirust.com/llms-full.txt [R=301,L,NE]
-
-  # Old hot-memory and handoff routes are not independent public authorities.
-  RewriteRule ^\.uai/(.*)$ https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai [R=301,L,NE]
-  RewriteRule ^agent-file-handoff/(.*)$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
-
-  RewriteRule ^(?:index\.php)?$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
-  RewriteRule ^.*$ https://tinyrustlm.mirust.com/developer-portal/ [R=301,L,NE]
-</IfModule>
+# This is the sole public static file. Every other request, including a stale
+# file left by an overlay deployment, must cross the same bounded path parser.
+RewriteCond %{REQUEST_METHOD} =GET [OR]
+RewriteCond %{REQUEST_METHOD} =HEAD
+RewriteCond %{THE_REQUEST} "\s/assets/css/redirect\.css(?:\?|[[:space:]])"
+RewriteRule ^assets/css/redirect\.css$ - [END]
+RewriteRule ^ index.php [END,QSA]
 
 <IfModule mod_headers.c>
-  Header always set X-Robots-Tag "noindex, follow"
+  # Remove application/server duplicates before assigning one status-specific
+  # robots policy. Errors, including the retired route, never advertise links.
+  Header onsuccess unset X-Robots-Tag
+  Header always unset X-Robots-Tag
+  Header always set X-Robots-Tag "noindex, nofollow" "expr=%{REQUEST_STATUS} >= 400"
+  Header always set X-Robots-Tag "noindex, follow" "expr=%{REQUEST_STATUS} < 400"
+
+  Header onsuccess unset X-Content-Type-Options
+  Header always unset X-Content-Type-Options
   Header always set X-Content-Type-Options "nosniff"
+
+  # PHP supplies the terminal response policy when mod_headers is absent. When
+  # it is present, collapse any handler-added value to one exact field.
+  Header onsuccess unset Cache-Control "expr=%{REQUEST_STATUS} >= 400"
+  Header always unset Cache-Control "expr=%{REQUEST_STATUS} >= 400"
+  Header always set Cache-Control "no-store" "expr=%{REQUEST_STATUS} >= 400"
+
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=()"
   Header always set Content-Security-Policy "default-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self'; script-src 'none'; object-src 'none'"

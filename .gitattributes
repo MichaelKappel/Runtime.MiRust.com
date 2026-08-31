@@ -1,1 +1,13 @@
+/.gitattributes text eol=lf
+/.htaccess text eol=lf
+/DEPLOYMENT.md text eol=lf
+/PACKAGE-MANIFEST.md text eol=lf
+/README.md text eol=lf
+/assets/css/redirect.css text eol=lf
+/docs/MANIFEST.md text eol=lf
+/index.php text eol=lf
+/tools/build-runtime-manifests.js text eol=lf
+/tools/runtime-release.test.js text eol=lf
+/tools/verify-runtime-mirust.ps1 text eol=lf
 /tools/verify-runtime-mirust.sh text eol=lf
+/version.json text eol=lf
