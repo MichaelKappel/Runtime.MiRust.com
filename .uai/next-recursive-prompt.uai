@@ -1,4 +1,6 @@
-Continue from E:\Source\Worktrees\rust-site-release-20260809\Runtime.MiRust.com only for Runtime.MiRust.com redirect verification or an independently authorized Runtime write.
+Current routing:
+- Work only from E:\Source\Rust\Runtime.MiRust.com for Runtime.MiRust.com verification or an independently authorized Runtime write.
+- Before any Runtime edit, build, or test, run `node E:\Source\Rust\TinyRustLM.com\tinyrustlm\tools\verify-single-source-authority.js` and stop unless it passes.
 
 Authoritative state, 2026-08-11:
 - Runtime.MiRust.com is a bounded redirect-only retirement package. It is not a separate documentation authority.
@@ -17,4 +19,4 @@ Hard boundary:
 - Do not add compatibility code, dual paths, shims, temporary fallbacks, or deferred cleanup. This repository remains a single-purpose redirect package.
 
 Next project action:
-- The Runtime live-verification gate is complete. Continue with the independently gated MiniModel.MiRust.com 1.0.0 release.
+- The Runtime live-verification gate remains complete. Perform future Runtime work only when independently authorized, from the canonical Runtime root, after the canonical TinyRustLM source-authority verifier passes.
