@@ -10,6 +10,7 @@
 /docs/implementation/slmcomposer-source-options-ui-v1.0.7.md text eol=lf
 /index.php text eol=lf
 /tools/build-runtime-manifests.js text eol=lf
+/tools/build-runtime-manifests_test.js text eol=lf
 /tools/runtime-release.test.js text eol=lf
 /tools/verify-runtime-mirust.ps1 text eol=lf
 /tools/verify-runtime-mirust.sh text eol=lf

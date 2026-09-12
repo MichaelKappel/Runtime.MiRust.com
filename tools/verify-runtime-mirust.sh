@@ -4,6 +4,8 @@ set -euo pipefail
 gone_bytes=5
 bad_request_bytes=12
 temporary_root=""
+artifact_parent=""
+operation_owner="runtime-response-verifier-$$"
 curl_command="curl"
 head_fixture_pid=""
 
@@ -13,6 +15,13 @@ cleanup() {
     wait "${head_fixture_pid}" 2>/dev/null || true
   fi
   if [[ -n "${temporary_root}" && -d "${temporary_root}" ]]; then
+    [[ ! -L "${temporary_root}" && ! -L "${artifact_parent}" &&
+       "$(dirname -- "${temporary_root}")" == "${artifact_parent}" &&
+       -f "${temporary_root}/.operation-owner" &&
+       "$(cat -- "${temporary_root}/.operation-owner")" == "${operation_owner}" ]] || {
+      echo "ERROR: verifier output cleanup lost its owned artifact identity" >&2
+      return 1
+    }
     rm -rf -- "${temporary_root}"
   fi
 }
@@ -267,7 +276,12 @@ self_test() {
   echo "PASS shell retired-route verifier fixtures (12)"
 }
 
-temporary_root="$(mktemp -d)"
+repository_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
+artifact_parent="${repository_root}/artifacts"
+[[ ! -L "${artifact_parent}" ]] || { echo "ERROR: artifacts must not be a link" >&2; exit 1; }
+mkdir -p -- "${artifact_parent}"
+temporary_root="$(mktemp -d "${artifact_parent}/response-verifier.XXXXXXXX")"
+printf '%s\n' "${operation_owner}" > "${temporary_root}/.operation-owner"
 trap cleanup EXIT
 
 if [[ "${1:-}" == "--self-test" ]]; then
@@ -281,12 +295,13 @@ if [[ "${1:-}" == "--self-test-head-transfer" ]]; then
     echo "ERROR: --self-test-head-transfer accepts no other arguments" >&2
     exit 2
   }
-  command -v python3 >/dev/null 2>&1 || {
-    echo "ERROR: python3 is required for the shell HEAD transfer self-test" >&2
+  python_command="${RUNTIME_PYTHON:-python3}"
+  command -v "${python_command}" >/dev/null 2>&1 || {
+    echo "ERROR: Python 3 is required for the shell HEAD transfer self-test (RUNTIME_PYTHON)" >&2
     exit 2
   }
   port_file="${temporary_root}/head-transfer.port"
-  python3 - "${port_file}" <<'PY' &
+  "${python_command}" - "${port_file}" <<'PY' &
 import socketserver
 import sys
 

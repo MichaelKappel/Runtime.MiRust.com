@@ -4,7 +4,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const http = require("node:http");
 const net = require("node:net");
-const os = require("node:os");
+const crypto = require("node:crypto");
 const path = require("node:path");
 const { spawn, spawnSync } = require("node:child_process");
 const test = require("node:test");
@@ -12,6 +12,9 @@ const test = require("node:test");
 const repositoryRoot = path.resolve(__dirname, "..");
 const generatorPath = path.join(__dirname, "build-runtime-manifests.js");
 const generator = require(generatorPath);
+const bashCommand = process.env.RUNTIME_BASH || (process.platform === "win32" &&
+  fs.existsSync("C:\\Program Files\\Git\\bin\\bash.exe")
+  ? "C:\\Program Files\\Git\\bin\\bash.exe" : "bash");
 
 function read(relativePath) {
   return fs.readFileSync(path.join(repositoryRoot, ...relativePath.split("/")));
@@ -68,41 +71,6 @@ function assertCommandPassed(result, label) {
     `${label} failed\nstdout:\n${result.stdout || ""}\nstderr:\n${result.stderr || ""}`);
 }
 
-function git(cwd, args, env) {
-  const result = run("git", args, { cwd, env });
-  assertCommandPassed(result, `git ${args.join(" ")}`);
-  return result.stdout;
-}
-
-function writeFixture(relativeRoot, relativePath, bytes) {
-  const destination = path.join(relativeRoot, ...relativePath.split("/"));
-  fs.mkdirSync(path.dirname(destination), { recursive: true });
-  fs.writeFileSync(destination, bytes);
-}
-
-function makeTreeWritable(directory) {
-  if (!fs.existsSync(directory)) return;
-  const stat = fs.lstatSync(directory);
-  if (!stat.isDirectory() || stat.isSymbolicLink()) return;
-  fs.chmodSync(directory, 0o700);
-  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-    const child = path.join(directory, entry.name);
-    if (entry.isDirectory() && !entry.isSymbolicLink()) {
-      makeTreeWritable(child);
-    } else if (!entry.isSymbolicLink()) {
-      fs.chmodSync(child, 0o600);
-    }
-  }
-}
-
-function fixtureVersion() {
-  return Buffer.from(`${JSON.stringify({
-    site: "Runtime.MiRust.com",
-    status: "retired-redirect",
-    updated_utc: "2030-01-02T03:04:05Z",
-    package_version: "7.6.5-fixture.1"
-  }, null, 2)}\n`, "utf8");
-}
 
 function rawHeaderValues(rawHeaders, wantedName) {
   const values = [];
@@ -388,6 +356,44 @@ function apacheQuote(value) {
   return path.resolve(value).replaceAll("\\", "/").replaceAll('"', '\\"');
 }
 
+/** Keep generated Apache configuration and logs in a verified owned artifact. */
+function createOwnedFixtureRoot(t, beforeRemove) {
+  const parent = path.join(repositoryRoot, "artifacts");
+  fs.mkdirSync(parent, { recursive: true });
+  for (let current = parent; ; current = path.dirname(current)) {
+    assert.equal(fs.lstatSync(current).isSymbolicLink(), false);
+    if (current === path.dirname(current)) break;
+  }
+  const owner = crypto.randomUUID();
+  const root = fs.mkdtempSync(path.join(parent, "apache-test-"));
+  const marker = path.join(root, ".operation-owner.json");
+  fs.writeFileSync(marker, JSON.stringify({ owner }), { flag: "wx" });
+  // Cleanup is registered immediately, including setup and startup failures.
+  t.after(async () => {
+    await beforeRemove();
+    assert.equal(path.dirname(path.resolve(root)), parent);
+    assert.equal(fs.lstatSync(root).isSymbolicLink(), false);
+    assert.equal(JSON.parse(fs.readFileSync(marker, "utf8")).owner, owner);
+    fs.rmSync(root, { recursive: true });
+  });
+  return root;
+}
+
+test("Apache output cleanup stops its owner before removing bounded artifacts", async (t) => {
+  let root;
+  let stopped = false;
+  await t.test("owned output lifetime", (owned) => {
+    root = createOwnedFixtureRoot(owned, async () => {
+      assert.equal(fs.existsSync(root), true);
+      stopped = true;
+    });
+    fs.writeFileSync(path.join(root, "probe.bin"), Buffer.from("bounded test data"));
+    assert.equal(path.dirname(root), path.join(repositoryRoot, "artifacts"));
+  });
+  assert.equal(stopped, true);
+  assert.equal(fs.existsSync(root), false);
+});
+
 async function startApacheFixture(t, apacheCommand, options = {}) {
   const phpCgiCandidate = process.env.RUNTIME_PHP_CGI ||
     firstAvailableCommand(process.platform === "win32"
@@ -397,25 +403,25 @@ async function startApacheFixture(t, apacheCommand, options = {}) {
   assert.ok(phpCgi && fs.existsSync(phpCgi),
     "Apache was found, so a real integration requires an available php-cgi executable");
 
-  const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "runtime-apache-test-"));
-  const documentRoot = path.join(fixtureRoot, "www");
-  fs.mkdirSync(documentRoot, { recursive: true });
-  for (const relativePath of [".htaccess", "index.php", "assets/css/redirect.css"]) {
-    writeFixture(documentRoot, relativePath, read(relativePath));
-  }
-  for (const relativePath of [
-    "workspace.uai", ".uai/taboo.uai", "assets/js/site.js", "assets/css/site.css",
-    "data/pages.json", "inc/site.php", "tools/build-runtime-manifests.js",
-    "tools/verify-runtime-mirust.sh"
-  ]) {
-    writeFixture(documentRoot, relativePath, Buffer.from(`stale:${relativePath}\n`));
-  }
+  // Exercise the canonical front controller without copying source or UAI files.
+  let child = null;
+  let configPath = null;
+  const fixtureRoot = createOwnedFixtureRoot(t, async () => {
+    if (child === null || child.exitCode !== null) return;
+    run(apacheCommand, ["-f", configPath, "-k", "shutdown"]);
+    if (child.exitCode === null) {
+      const exited = new Promise((resolve) => child.once("exit", resolve));
+      child.kill();
+      await exited;
+    }
+  });
+  const documentRoot = repositoryRoot;
 
   const port = await reservePort();
   const { serverRoot, directives } = apacheModuleDirectives(apacheCommand);
   const phpDirectory = path.dirname(phpCgi);
   const phpLeaf = path.basename(phpCgi);
-  const configPath = path.join(fixtureRoot, "httpd.conf");
+  configPath = path.join(fixtureRoot, "httpd.conf");
   const config = [
     `ServerRoot "${apacheQuote(serverRoot)}"`,
     ...directives,
@@ -448,16 +454,10 @@ async function startApacheFixture(t, apacheCommand, options = {}) {
 
   const syntax = run(apacheCommand, ["-t", "-f", configPath]);
   assertCommandPassed(syntax, "isolated Apache configuration check");
-  const child = spawn(apacheCommand, ["-f", configPath, "-DFOREGROUND"], {
+  child = spawn(apacheCommand, ["-f", configPath, "-DFOREGROUND"], {
     cwd: fixtureRoot,
     stdio: ["ignore", "pipe", "pipe"],
     windowsHide: true
-  });
-  t.after(async () => {
-    run(apacheCommand, ["-f", configPath, "-k", "shutdown"]);
-    if (child.exitCode === null) child.kill();
-    await new Promise((resolve) => setTimeout(resolve, 50));
-    fs.rmSync(fixtureRoot, { recursive: true, force: true });
   });
   await waitForServer(port, child);
   return { port };
@@ -510,179 +510,6 @@ test("checked manifests equal generated raw bytes and exclude retired source", (
   assert.doesNotMatch(docsManifest, /^- \[docs\/workspace\.uai\]/m);
 });
 
-test("Git closure stages exact blobs and rejects unmanifested CRLF drift", (t) => {
-  const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "runtime-manifest-test-"));
-  t.after(() => {
-    makeTreeWritable(fixtureRoot);
-    fs.rmSync(fixtureRoot, { recursive: true, force: true });
-  });
-  const generatorBytes = read("tools/build-runtime-manifests.js");
-  writeFixture(fixtureRoot, "tools/build-runtime-manifests.js", generatorBytes);
-  writeFixture(fixtureRoot, ".gitattributes", Buffer.from("* text=auto eol=lf\n"));
-  writeFixture(fixtureRoot, ".htaccess", Buffer.from("RewriteEngine On\nRewriteRule ^ index.php [END]\n"));
-  writeFixture(fixtureRoot, "assets/css/redirect.css", Buffer.from("body { color: black; }\n"));
-  writeFixture(fixtureRoot, "index.php", Buffer.from("<?php echo 'retired';\n"));
-  writeFixture(fixtureRoot, "version.json", fixtureVersion());
-  writeFixture(fixtureRoot, "docs/index.md", Buffer.from("# Archive\n"));
-
-  const gitEnvironment = {
-    ...process.env,
-    GIT_AUTHOR_NAME: "Runtime Manifest Test",
-    GIT_AUTHOR_EMAIL: "runtime-manifest@example.invalid",
-    GIT_COMMITTER_NAME: "Runtime Manifest Test",
-    GIT_COMMITTER_EMAIL: "runtime-manifest@example.invalid"
-  };
-  git(fixtureRoot, ["init", "--quiet"], gitEnvironment);
-  git(fixtureRoot, ["config", "core.autocrlf", "false"], gitEnvironment);
-  let result = run(process.execPath, ["tools/build-runtime-manifests.js", "--write"], {
-    cwd: fixtureRoot,
-    env: gitEnvironment
-  });
-  assertCommandPassed(result, "fixture manifest generation");
-  git(fixtureRoot, ["add", "--all"], gitEnvironment);
-  git(fixtureRoot, ["commit", "--quiet", "-m", "fixture closure"], gitEnvironment);
-
-  result = run(process.execPath, ["tools/build-runtime-manifests.js", "--verify-git", "HEAD"], {
-    cwd: fixtureRoot,
-    env: gitEnvironment
-  });
-  assertCommandPassed(result, "fixture Git closure verification");
-  const verification = JSON.parse(result.stdout);
-  assert.equal(verification.status, "pass");
-  assert.equal(verification.generator.path, "tools/build-runtime-manifests.js");
-  assert.equal(verification.generator.bytes, generatorBytes.length);
-  assert.match(verification.generator.gitBlobOid, /^[0-9a-f]{40,64}$/);
-  assert.equal(verification.policies.custody, generator.custodyPolicy);
-  assert.equal(verification.policies.seal, generator.sealPolicy);
-  assert.equal(verification.policies.activation, generator.activationPolicy);
-
-  const custodyRoot = path.join(fixtureRoot, "redirect-custody");
-  result = run(process.execPath, [
-    "tools/build-runtime-manifests.js", "--stage-git", "redirect", "HEAD", custodyRoot
-  ], { cwd: fixtureRoot, env: gitEnvironment });
-  assertCommandPassed(result, "fixture Git blob staging");
-  const proof = JSON.parse(result.stdout);
-  assert.equal(proof.schema, "runtime.mirust.git_blob_custody_stage.v3");
-  assert.equal(proof.status, "sealed");
-  assert.equal(proof.kind, "redirect");
-  assert.equal(proof.rootPolicy, generator.exactRootPolicy);
-  assert.equal(proof.custodyPolicy, generator.custodyPolicy);
-  assert.equal(proof.sealPolicy, generator.sealPolicy);
-  assert.equal(proof.activationPolicy, generator.activationPolicy);
-  assert.equal(proof.sealed, true);
-  assert.match(proof.releaseDirectoryName,
-    new RegExp(`^runtime-mirust-redirect-sha256-${proof.sha256.toLowerCase()}$`));
-  assert.equal(proof.directoryCount, 2);
-  assert.equal(proof.fileCount, generator.redirectPayloadPaths.length + 1);
-  const stageRoot = path.join(custodyRoot, proof.releaseDirectoryName);
-  assert.equal((fs.statSync(custodyRoot).mode & 0o222), 0);
-  assert.equal((fs.statSync(stageRoot).mode & 0o222), 0);
-  for (const relativePath of [...generator.redirectPayloadPaths, "PACKAGE-MANIFEST.md"]) {
-    const committed = git(fixtureRoot, ["show", `HEAD:${relativePath}`], gitEnvironment);
-    assert.deepEqual(
-      fs.readFileSync(path.join(stageRoot, ...relativePath.split("/"))),
-      Buffer.from(committed, "utf8"),
-      `${relativePath} stage bytes differ from Git`
-    );
-    assert.equal(fs.statSync(path.join(stageRoot, ...relativePath.split("/"))).mode & 0o222,
-      0, `${relativePath} was not sealed against ordinary writes`);
-  }
-
-  result = run(process.execPath, [
-    "tools/build-runtime-manifests.js", "--verify-custody", "redirect", "HEAD", custodyRoot
-  ], { cwd: fixtureRoot, env: gitEnvironment });
-  assertCommandPassed(result, "fixture custody verification");
-  assert.equal(JSON.parse(result.stdout).rootPolicy, generator.exactRootPolicy);
-  result = run(process.execPath, [
-    "tools/build-runtime-manifests.js", "--verify-release", "redirect", "HEAD", stageRoot
-  ], { cwd: fixtureRoot, env: gitEnvironment });
-  assertCommandPassed(result, "fixture content-addressed release verification");
-
-  result = run(process.execPath, [
-    "tools/build-runtime-manifests.js", "--stage-git", "redirect", "HEAD", custodyRoot
-  ], { cwd: fixtureRoot, env: gitEnvironment });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /Custody root must not already exist/);
-
-  fs.chmodSync(custodyRoot, 0o700);
-  makeTreeWritable(stageRoot);
-
-  const staleOverlayPaths = [
-    "workspace.uai", ".uai/taboo.uai", "assets/js/site.js", "assets/css/site.css",
-    "data/pages.json", "inc/site.php", "tools/build-runtime-manifests.js",
-    "tools/verify-runtime-mirust.sh"
-  ];
-  for (const relativePath of staleOverlayPaths) {
-    writeFixture(stageRoot, relativePath, Buffer.from(`stale:${relativePath}\n`));
-  }
-  result = run(process.execPath, [
-    "tools/build-runtime-manifests.js", "--verify-release", "redirect", "HEAD", stageRoot
-  ], { cwd: fixtureRoot, env: gitEnvironment });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /file inventory does not equal/);
-  for (const relativePath of staleOverlayPaths) {
-    fs.rmSync(path.join(stageRoot, ...relativePath.split("/")), { force: true });
-  }
-  for (const relativeDirectory of [".uai", "assets/js", "data", "inc", "tools"]) {
-    fs.rmSync(path.join(stageRoot, ...relativeDirectory.split("/")),
-      { recursive: true, force: true });
-  }
-
-  fs.mkdirSync(path.join(stageRoot, "stale-empty-directory"));
-  result = run(process.execPath, [
-    "tools/build-runtime-manifests.js", "--verify-release", "redirect", "HEAD", stageRoot
-  ], { cwd: fixtureRoot, env: gitEnvironment });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /directory inventory does not equal/);
-  fs.rmSync(path.join(stageRoot, "stale-empty-directory"), { recursive: true, force: true });
-
-  result = run(process.execPath, [
-    "tools/build-runtime-manifests.js", "--verify-release", "redirect", "HEAD", stageRoot
-  ], { cwd: fixtureRoot, env: gitEnvironment });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /not permission-sealed/);
-
-  fs.appendFileSync(path.join(fixtureRoot, "tools", "build-runtime-manifests.js"),
-    "\n// uncommitted generator drift\n");
-  result = run(process.execPath, ["tools/build-runtime-manifests.js", "--verify-git", "HEAD"], {
-    cwd: fixtureRoot,
-    env: gitEnvironment
-  });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /Executing manifest generator differs/);
-  writeFixture(fixtureRoot, "tools/build-runtime-manifests.js", generatorBytes);
-
-  writeFixture(fixtureRoot, ".htaccess",
-    Buffer.from("RewriteEngine On\r\nRewriteRule ^ index.php [END]\r\n"));
-  const rawBlob = git(fixtureRoot,
-    ["hash-object", "--no-filters", "-w", ".htaccess"], gitEnvironment).trim();
-  assert.match(rawBlob, /^[0-9a-f]{40,64}$/);
-  git(fixtureRoot,
-    ["update-index", "--cacheinfo", "100644", rawBlob, ".htaccess"], gitEnvironment);
-  git(fixtureRoot, ["commit", "--quiet", "-m", "unmanifested CRLF drift"], gitEnvironment);
-  result = run(process.execPath, ["tools/build-runtime-manifests.js", "--verify-git", "HEAD"], {
-    cwd: fixtureRoot,
-    env: gitEnvironment
-  });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /Manifest input must already use LF bytes/);
-
-  writeFixture(fixtureRoot, "docs/workspace.uai", Buffer.from("forbidden source copy\n"));
-  result = run(process.execPath, ["tools/build-runtime-manifests.js", "--check"], {
-    cwd: fixtureRoot,
-    env: gitEnvironment
-  });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /Permanently forbidden repository path: docs\/workspace\.uai/);
-  git(fixtureRoot, ["add", "docs/workspace.uai"], gitEnvironment);
-  git(fixtureRoot, ["commit", "--quiet", "-m", "forbidden source reintroduction"], gitEnvironment);
-  result = run(process.execPath, ["tools/build-runtime-manifests.js", "--verify-git", "HEAD"], {
-    cwd: fixtureRoot,
-    env: gitEnvironment
-  });
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /Permanently forbidden repository path: docs\/workspace\.uai/);
-});
 
 test("Apache sends every non-stylesheet path through one terminating front controller", () => {
   const htaccess = readText(".htaccess");
@@ -760,7 +587,7 @@ test("PowerShell verifier parser accepts only the exact response contract", () =
 });
 
 test("shell verifier parser accepts only the exact response contract", () => {
-  const result = run("bash", ["tools/verify-runtime-mirust.sh", "--self-test"]);
+  const result = run(bashCommand, ["tools/verify-runtime-mirust.sh", "--self-test"]);
   assertCommandPassed(result, "shell verifier self-test");
   assert.match(result.stdout, /PASS shell retired-route verifier fixtures \(12\)/);
   const source = readText("tools/verify-runtime-mirust.sh");
@@ -770,7 +597,7 @@ test("shell verifier parser accepts only the exact response contract", () => {
 });
 
 test("shell HEAD fetch separates protocol headers from response-body bytes", () => {
-  const result = run("bash", [
+  const result = run(bashCommand, [
     "tools/verify-runtime-mirust.sh", "--self-test-head-transfer"
   ]);
   assertCommandPassed(result, "shell HEAD transfer self-test");
