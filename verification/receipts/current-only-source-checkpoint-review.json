@@ -1,0 +1,109 @@
+{
+  "schema": "runtime.mirust.source_checkpoint_review.v1",
+  "reviewedUtc": "2026-09-23T15:22:21Z",
+  "sourceParent": "cd8f6e0",
+  "sourceCheckpoint": "f242f14397acf3aa225c1921b99983a5b5ae7eec",
+  "status": "source-checked-in-release-blocked",
+  "changes": [
+    "Checkpoint the existing current-only 1.2.0 route, package-generator, verifier-target, and documentation changes.",
+    "Record the owner requirement: GitHub source control only; local validation; existing verified FTP/FTPS publication; coherent code check-ins with open release limitations reported.",
+    "Route current memory to Git history and current developer documentation rather than a maintained archive corpus."
+  ],
+  "tests": {
+    "command": "node --test tools/runtime-release.test.js tools/build-runtime-manifests_test.js",
+    "manifest": {
+      "exitCode": 0,
+      "logBytes": 26,
+      "logSha256": "7a4f500e2f4c38a6139ad74fd6e9437343d32d7b2c6becff76eb7c0a925033d7",
+      "result": "Exact four payload byte identities match PACKAGE-MANIFEST.md."
+    },
+    "fullSuite": {
+      "exitCode": 1,
+      "logBytes": 4923,
+      "logSha256": "64d288188fd2edd8f6e6ca72e2be53b43ce8a0e27f938c93a21d6ebe829bcd3d",
+      "pass": 26,
+      "fail": 2,
+      "skip": 2,
+      "cancelled": 0,
+      "failures": [
+        "Child Git rejected repository ownership (PLUTO/AI repository, PLUTO/Michael process).",
+        "Retired docs directory remains present."
+      ],
+      "skips": [
+        "Real Apache rewrite/header integration: Apache executable unavailable.",
+        "Default Apache encoded-separator integration: Apache executable unavailable."
+      ]
+    },
+    "gitEnvironmentCorrection": "Only the focused child receives a safe.directory entry for the exact canonical Runtime root through GIT_CONFIG_COUNT. No global Git configuration changed.",
+    "beforeCommit": {
+      "exitCode": 1,
+      "logBytes": 1040,
+      "logSha256": "4d0864116dde8772dc6f0fb551142ad0d0d200338afe8dde2e892d6d94227ccc",
+      "command": "node --test --test-name-pattern=real canonical Git closure binds tools/build-runtime-manifests_test.js",
+      "failure": "Executing manifest generator differs from the selected Git blob."
+    },
+    "afterCommit": {
+      "exitCode": 1,
+      "logBytes": 1030,
+      "logSha256": "ca47025fef45fb54529ca78809bb1d902594e3d8a7add44b517dae6faab979b1",
+      "testedCommit": "f242f14397acf3aa225c1921b99983a5b5ae7eec",
+      "failure": "Retired Runtime documentation belongs only in Git history.",
+      "interpretation": "The committed generator now passes its identity comparison; Git release admission correctly reaches and rejects the retained docs corpus."
+    },
+    "diffCheck": {
+      "exitCode": 0,
+      "logBytes": 673,
+      "logSha256": "a26598b4bceb8de68b2dd2b9ce893d47aa53122d913bb1e93937c95b8eb86ae9",
+      "result": "No whitespace errors; Git reported UAI CRLF conversion warnings."
+    },
+    "tools": {
+      "bash": "C:/Program Files/Git/bin/bash.exe",
+      "python": "C:/Users/Michael/AppData/Local/Programs/Python/Python314/python.exe",
+      "node": "C:/Program Files/nodejs/node.exe"
+    },
+    "boundary": "Local code and synthetic fixture evidence only. Existing PHP/PowerShell/shell fixture paths passed; no hosted request, model operation, or Apache execution is claimed.",
+    "logRetention": "Logs were captured in the tool session; exact concatenated stdout/stderr UTF-8 identities and representative diagnostics are retained here instead of copied source or large logs.",
+    "coverage": "PowerShell/Bash/PHP line and branch coverage was not instrumented."
+  },
+  "cleanup": {
+    "testArtifacts": {
+      "label": "artifact-boundary",
+      "before": [
+        "ecosystem-cleanup-20260912"
+      ],
+      "after": [
+        "ecosystem-cleanup-20260912"
+      ]
+    },
+    "secretScanRoot": {
+      "label": "secret-scan-cleanup",
+      "root": "E:\\Source\\Rust\\Runtime.MiRust.com\\artifacts\\source-checkpoint-scan-GCW85z",
+      "rootAbsent": true
+    },
+    "blockedDocs": {
+      "count": 174,
+      "inventory": "artifacts/ecosystem-cleanup-20260912/retired-docs-inventory.json",
+      "inventorySha256": "f5fb888be1d1aff4b88958df546a30a13056fcaf8dc2ef152c8a724094a74c08",
+      "retirement": "Prior automatic policy rejection remains; no deletion retry occurred."
+    },
+    "physicalStorageRecoveredBytes": null
+  },
+  "secretScan": {
+    "label": "secret-scan",
+    "status": "pass",
+    "scannedArtifactCount": 17,
+    "secretFindingCount": 0,
+    "reportBytes": 8828,
+    "reportSha256": "474804acefefea0a33352ac847659b343415ec87aea51e45309c704c99d533e2",
+    "scopeManifestSha256": "763336366b6f172b345dd1d950c6d851be86dfc686d39ef79e8a56f25edf8c4f",
+    "receiptId": "sha256:3ceba685f623fe18df8aabeb75c3070ceb645a37b4776133e22212c9175cd4de",
+    "boundary": "Scanned all 17 checkpoint source files. This later generated receipt and the factual UAI evidence pointer were manually reviewed, not included in that scan."
+  },
+  "releaseLimitations": [
+    "Historical docs remain and release admission still rejects them.",
+    "Apache integration remains untested locally.",
+    "The recorded Runtime FTP profile targets TinyRustLM.MiRust.com and was not used.",
+    "No release source-authority closure or production hosting capability is established by this checkpoint.",
+    "No deployment, paid GitHub feature, account change, or secret read occurred."
+  ]
+}

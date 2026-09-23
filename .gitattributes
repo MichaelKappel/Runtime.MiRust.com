@@ -11,3 +11,4 @@
 /tools/verify-runtime-mirust.ps1 text eol=lf
 /tools/verify-runtime-mirust.sh text eol=lf
 /version.json text eol=lf
+/verification/receipts/current-only-source-checkpoint-review.json -text

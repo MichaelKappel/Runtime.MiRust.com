@@ -1,5 +1,5 @@
 profile: runtime-mirust.retired-startup-packet.v1
-updated_utc: 2026-09-23T15:16:37Z
+updated_utc: 2026-09-23T15:22:21Z
 
 start_here:
   - workspace.uai
@@ -17,3 +17,4 @@ summary:
   Historical source and documentation belong in Git history; do not maintain another archive corpus.
   Current-only cleanup is incomplete and this checkpoint is unpublished; the current receipt records blocked physical docs removal and release limitations.
   Current verifier changes and tests route through verification/receipts/redirect-status-contract-review.json, not the historical live receipt.
+  The current-only source checkpoint and local delivery-policy evidence are in verification/receipts/current-only-source-checkpoint-review.json. The committed generator identity now agrees; retained docs still prevent release admission.

@@ -1,11 +1,16 @@
 profile: runtime-mirust.retired-short-term-memory.v1
-updated_utc: 2026-09-23T15:16:37Z
+updated_utc: 2026-09-23T15:22:21Z
 
 source_checkpoint_2026_09_23:
+  source_commit: f242f14397acf3aa225c1921b99983a5b5ae7eec
   authority: The owner requires coherent code check-ins now; GitHub is source control only, validation is local, and website publication uses the existing verified FTP/FTPS target. Read owner_delivery_policy_2026_09_23 in .uai/long-term-memory.uai.
   changes: Checkpoint the current-only 1.2.0 redirect destinations, remove the obsolete docs-package writer, and retain exact package validation with the unfinished historical-docs retirement visible.
   validation: The manifest byte check passes. The local Node suite reports 26 passes, two failures, and two explicit Apache skips. Exact PowerShell and shell redirect/terminal fixtures, PHP GET/HEAD routing, and virtual package rejection cases pass.
   failures: The full run first encountered Git dubious ownership in its child process and the retained docs directory. A focused rerun with child-only safe.directory reaches the expected uncommitted-generator versus HEAD failure. No global Git setting was changed.
+  post_commit_check: The focused canonical-HEAD test now passes the generator identity comparison and rejects the 174 retained docs with Retired Runtime documentation belongs only in Git history. The release remains blocked; no test or retirement requirement was weakened.
+  evidence: verification/receipts/current-only-source-checkpoint-review.json
+  evidence_sha256: 64c373fd2f9bb21b9dac7d1be851b69d2df127a94c2bee55e7c385730f725870
+  secret_scan: All 17 source-checkpoint files passed the bounded scanner with zero findings. The later compact evidence record and its factual memory pointer were reviewed separately, not included in that scan.
   limitations: The 174 policy-blocked historical docs remain; Apache is unavailable. This is a source checkpoint, not a passing release, deployment, or physical-cleanup claim. The recorded Runtime FTPS profile is still misbound and was not used.
   outputs: Test-created artifact roots removed themselves; the immediate artifacts listing is unchanged. No source snapshots, new model bytes, or publication output were created.
 
