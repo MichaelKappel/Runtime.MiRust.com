@@ -10,10 +10,9 @@ The current developer portal is:
 
 - <https://tinyrustlm.mirust.com/developer-portal/>
 
-The preserved legacy runtime archive is:
-
-- <https://tinyrustlm.mirust.com/docs/runtime-portal/index.md>
-- <https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md>
+Historical documents belong in Git history. The old `/docs/*` routes lead to
+the current documentation index at <https://tinyrustlm.mirust.com/docs/>.
+No duplicate archive corpus or docs-package writer is maintained here.
 
 Legacy topic routes such as `/architecture/`, `/browser-runtime/`,
 `/model-format/`, and `/proof-testing/` now resolve to their closest current
@@ -43,7 +42,11 @@ into the active web root is forbidden. `docs/workspace.uai` is permanently
 forbidden, and release verification rejects every extra file, directory, link,
 writable entry, rename, or byte difference. Working-tree line-ending
 normalization is not release evidence. Run
-`node --test tools/runtime-release.test.js` for the local contract suite and
+`node --test tools/runtime-release.test.js tools/build-runtime-manifests_test.js`
+for the local contract suite and
 follow [DEPLOYMENT.md](DEPLOYMENT.md) for immutable staging and readback.
 
 Deploy this package only to the actual `runtime.mirust.com` web root. The FileZilla entry currently labeled `Runtime.MiRust.com` points at the TinyRustLM.MiRust.com FTP root and must not be used to clear or overwrite Runtime.
+
+Version 1.2.0 is a source candidate. It has not been deployed. Cleanup status,
+including any blocked physical removal, is recorded in `.uai/short-term-memory.uai`.

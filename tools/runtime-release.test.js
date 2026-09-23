@@ -24,32 +24,6 @@ function readText(relativePath) {
   return read(relativePath).toString("utf8");
 }
 
-test("source-options archive is visibly historical on every direct index", () => {
-  const archivePath = "docs/implementation/slmcomposer-source-options-ui-v1.0.7.md";
-  const archive = readText(archivePath);
-  const historicalBoundary = "> **Historical and superseded (2026-07-01).**";
-  assert.ok(archive.indexOf(historicalBoundary) >= 0,
-    `${archivePath} lacks its historical boundary`);
-  assert.ok(archive.indexOf(historicalBoundary) < archive.indexOf("## What Changed"),
-    `${archivePath} presents archived behavior before its historical boundary`);
-  assert.match(archive, /not the\s+> current TinyRustLM model-acquisition contract/);
-  assert.match(archive, /local-file, Hugging Face,\s+> manual-import, and "future P2P"/);
-  assert.match(archive, /This archive makes no claim that peers or qualified\s+> models are live/);
-  assert.match(archive,
-    /\[current developer portal\]\(https:\/\/tinyrustlm\.mirust\.com\/developer-portal\/\)/);
-
-  for (const indexPath of ["docs/index.md", "docs/implementation/index.md"]) {
-    const index = readText(indexPath);
-    const matchingRows = index.split(/\r?\n/).filter((line) =>
-      line.includes("slmcomposer-source-options-ui-v1.0.7.md"));
-    assert.equal(matchingRows.length, 1, `${indexPath} must contain one archive row`);
-    assert.match(matchingRows[0], /Historical:/);
-    assert.match(matchingRows[0], /Superseded 2026-07-01 implementation snapshot/);
-    assert.match(matchingRows[0], /not current model-acquisition guidance/);
-    assert.match(matchingRows[0], /no live peer or model claim/);
-    assert.doesNotMatch(matchingRows[0], /\b(?:SLM Composer|Chat mode) now\b/);
-  }
-});
 
 function run(command, args, options = {}) {
   return spawnSync(command, args, {
@@ -499,15 +473,13 @@ test("checked manifests equal generated raw bytes and exclude retired source", (
       `${relativePath} must be emitted with LF bytes`);
   }
   const packageManifest = readText("PACKAGE-MANIFEST.md");
-  const docsManifest = readText("docs/MANIFEST.md");
   const metadata = generator.parseReleaseMetadata(read("version.json"));
   assert.ok(packageManifest.includes(`Updated UTC: ${metadata.updatedUtc}`));
   assert.ok(packageManifest.includes(`Package version: ${metadata.packageVersion}`));
   assert.doesNotMatch(packageManifest, /\.uai\//);
   assert.doesNotMatch(packageManifest, /tools\//);
-  assert.match(docsManifest,
-    /The retired `docs\/workspace\.uai` path is permanently forbidden/);
-  assert.doesNotMatch(docsManifest, /^- \[docs\/workspace\.uai\]/m);
+  assert.equal(fs.existsSync(path.join(repositoryRoot, "docs")), false,
+    "Retired Runtime documentation belongs in Git history");
 });
 
 
@@ -640,10 +612,6 @@ test("line-ending policy makes Git blobs and checkouts LF-stable", () => {
   for (const pattern of [
     "/.htaccess",
     "/assets/css/redirect.css",
-    "/docs/MANIFEST.md",
-    "/docs/index.md",
-    "/docs/implementation/index.md",
-    "/docs/implementation/slmcomposer-source-options-ui-v1.0.7.md",
     "/index.php",
     "/tools/build-runtime-manifests.js",
     "/tools/runtime-release.test.js",
@@ -715,7 +683,22 @@ test("real PHP GET/HEAD aliases and hostile paths", {
     assertRedirectResponse(await request(port, stalePath), portal);
   }
   assertRedirectResponse(await request(port, "/.uai/taboo.uai"),
-    "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai");
+    "https://tinyrustlm.mirust.com/docs/long-term-memory.md");
+
+  for (const [oldPath, currentPath] of [
+    ["/docs", "/docs/"], ["/docs/index.md", "/docs/"],
+    ["/docs/implementation/slm-format.md", "/docs/"],
+    ["/PACKAGE-MANIFEST.md", "/docs/package-manifest.md"],
+    ["/healthz", "/developer-portal/"], ["/version.json", "/developer-portal/"],
+    ["/README.md", "/developer-portal/"], ["/model-format/", "/slm-format/"]
+  ]) {
+    assertRedirectResponse(await request(port, oldPath),
+      `https://tinyrustlm.mirust.com${currentPath}`);
+  }
+  const preview = await request(port, "/model-format/?preview=1");
+  assert.equal(preview.statusCode, 200);
+  assert.match(preview.body.toString("utf8"), /SLM2 composition format/);
+  assert.doesNotMatch(preview.body.toString("utf8"), /runtime-docs|runtime-portal|Preserved package|\.slm format/);
 
   const stylesheet = await request(port, "/assets/css/redirect.css");
   assert.equal(stylesheet.statusCode, 200);
@@ -772,7 +755,7 @@ test("real Apache per-directory rewrite and header integration", {
     assertRedirectResponse(await request(port, stalePath), portal);
   }
   assertRedirectResponse(await request(port, "/.uai/taboo.uai"),
-    "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai");
+    "https://tinyrustlm.mirust.com/docs/long-term-memory.md");
 
   const stylesheet = await request(port, "/assets/css/redirect.css");
   assert.equal(stylesheet.statusCode, 200);

@@ -1,5 +1,13 @@
 profile: runtime-mirust.retired-short-term-memory.v1
-updated_utc: 2026-09-12T16:06:43Z
+updated_utc: 2026-09-23T15:16:37Z
+
+source_checkpoint_2026_09_23:
+  authority: The owner requires coherent code check-ins now; GitHub is source control only, validation is local, and website publication uses the existing verified FTP/FTPS target. Read owner_delivery_policy_2026_09_23 in .uai/long-term-memory.uai.
+  changes: Checkpoint the current-only 1.2.0 redirect destinations, remove the obsolete docs-package writer, and retain exact package validation with the unfinished historical-docs retirement visible.
+  validation: The manifest byte check passes. The local Node suite reports 26 passes, two failures, and two explicit Apache skips. Exact PowerShell and shell redirect/terminal fixtures, PHP GET/HEAD routing, and virtual package rejection cases pass.
+  failures: The full run first encountered Git dubious ownership in its child process and the retained docs directory. A focused rerun with child-only safe.directory reaches the expected uncommitted-generator versus HEAD failure. No global Git setting was changed.
+  limitations: The 174 policy-blocked historical docs remain; Apache is unavailable. This is a source checkpoint, not a passing release, deployment, or physical-cleanup claim. The recorded Runtime FTPS profile is still misbound and was not used.
+  outputs: Test-created artifact roots removed themselves; the immediate artifacts listing is unchanged. No source snapshots, new model bytes, or publication output were created.
 
 ecosystem_cleanup_2026_09_12:
   - Removed the test path that initialized another Git repository, copied the manifest generator and staged product files, and created workspace/taboo fixture markers.
@@ -7,7 +15,10 @@ ecosystem_cleanup_2026_09_12:
   - Apache tests point at the canonical document root. Generated server configuration and response-verifier output are owned artifacts, removed after the operation.
   - Run node --test tools/runtime-release.test.js tools/build-runtime-manifests_test.js. RUNTIME_BASH and RUNTIME_PYTHON select installed shell and Python 3 executables when needed.
   - All 27 executable checks passed, including real PHP GET/HEAD, owned-output cleanup, and PowerShell/shell response checks; two Apache integration tests were visibly skipped because Apache was unavailable.
-  - Historical documentation duplication and redirects to unpublished archive documents remain open. No Runtime publication occurred.
+  - Source candidate 1.2.0 replaces redirects to unpublished archive files with current documentation and removes the docs-package writer. No Runtime publication occurred.
+  - Physical deletion of 174 reviewed historical docs was rejected by automatic review with only blocked by policy. They remain present until the owner runs tools/remove-retired-docs.ps1; its WhatIf preflight verified all 174 hashes.
+  - The deletion inventory is artifacts/ecosystem-cleanup-20260912/retired-docs-inventory.json with SHA-256 f5fb888be1d1aff4b88958df546a30a13056fcaf8dc2ef152c8a724094a74c08. Logical size is 1622848 bytes; no storage recovery is claimed while deletion is pending.
+  - Release completion requires verified docs-root absence and the matching committed Git closure. The owner's 2026-09-23 instruction now authorizes coherent source checkpoints and pushes with accurately recorded open release gates; it supersedes the former check-in restriction. Do not claim this candidate is complete from the previous tooling test pass.
 
 current_task_state:
   Runtime.MiRust.com local source has been converted to a redirect-only package.

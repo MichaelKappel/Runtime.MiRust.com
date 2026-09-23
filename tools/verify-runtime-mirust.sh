@@ -521,12 +521,12 @@ paths=(
 
 targets=(
   "https://tinyrustlm.mirust.com/developer-portal/"
-  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/healthz"
-  "https://tinyrustlm.mirust.com/docs/runtime-portal/package/version.json"
+  "https://tinyrustlm.mirust.com/developer-portal/"
+  "https://tinyrustlm.mirust.com/developer-portal/"
   "https://tinyrustlm.mirust.com/llms.txt"
-  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/index.md"
-  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai"
-  "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai"
+  "https://tinyrustlm.mirust.com/docs/"
+  "https://tinyrustlm.mirust.com/docs/long-term-memory.md"
+  "https://tinyrustlm.mirust.com/docs/long-term-memory.md"
   "https://tinyrustlm.mirust.com/developer-portal/"
   "https://tinyrustlm.mirust.com/developer-portal/"
   "https://tinyrustlm.mirust.com/developer-portal/"

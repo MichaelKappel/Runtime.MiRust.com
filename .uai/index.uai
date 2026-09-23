@@ -1,5 +1,5 @@
 profile: runtime-mirust.retired-redirect-index.v1
-updated_utc: 2026-07-02T00:00:00Z
+updated_utc: 2026-09-23T15:16:37Z
 
 status:
   Runtime.MiRust.com is retired as a separate documentation authority.
@@ -8,8 +8,8 @@ status:
 canonical_routes:
   developer_portal: https://tinyrustlm.mirust.com/developer-portal/
   current_app: https://tinyrustlm.com/
-  preserved_archive: https://tinyrustlm.mirust.com/docs/runtime-portal/index.md
-  archive_manifest: https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md
+  current_documentation: https://tinyrustlm.mirust.com/docs/
+  current_package_manifest: https://tinyrustlm.mirust.com/docs/package-manifest.md
 
 read_order:
   - workspace.uai
@@ -25,4 +25,5 @@ rules:
   - Do not treat Runtime.MiRust.com as current authority.
   - Do not deploy using the FileZilla profile currently named Runtime.MiRust.com; it points to TinyRustLM.MiRust.com.
   - Deploy only to a verified runtime.mirust.com web root.
-  - Preserve old implementation memory through TinyRustLM.MiRust.com/docs/runtime-portal/.
+  - Historical implementation and documentation belong in Git history; preserve compact receipts, not another archive corpus.
+  - Follow owner_delivery_policy_2026_09_23 in .uai/long-term-memory.uai for source-only GitHub use, local tests, source checkpoints, and existing FTP/FTPS website publication.

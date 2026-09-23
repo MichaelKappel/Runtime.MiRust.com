@@ -8,7 +8,6 @@ const { spawnSync } = require("node:child_process");
 const { TextDecoder } = require("node:util");
 
 const repositoryRoot = path.resolve(__dirname, "..");
-const docsManifestRelativePath = "docs/MANIFEST.md";
 const generatorRelativePath = "tools/build-runtime-manifests.js";
 const packageManifestRelativePath = "PACKAGE-MANIFEST.md";
 const versionRelativePath = "version.json";
@@ -128,72 +127,6 @@ function worktreeBytes(relativePath) {
   return fs.readFileSync(absolutePath);
 }
 
-function listWorktreeDocs(directory = path.join(repositoryRoot, "docs")) {
-  return fs.readdirSync(directory, { withFileTypes: true })
-    .sort((left, right) => compareOrdinal(left.name, right.name))
-    .flatMap((entry) => {
-      const absolutePath = path.join(directory, entry.name);
-      const relativePath = assertRelativePath(
-        path.relative(repositoryRoot, absolutePath).split(path.sep).join("/"));
-      if (entry.isSymbolicLink()) {
-        throw new Error(`Docs package must not traverse a symbolic link: ${relativePath}`);
-      }
-      if (entry.isDirectory()) {
-        return listWorktreeDocs(absolutePath);
-      }
-      if (!entry.isFile()) {
-        throw new Error(`Docs package contains an unsupported entry: ${relativePath}`);
-      }
-      return relativePath === docsManifestRelativePath ? [] : [relativePath];
-    });
-}
-
-function buildDocsManifest(readBytes, docsPaths) {
-  const metadata = parseReleaseMetadata(readBytes(versionRelativePath));
-  const files = [...docsPaths]
-    .sort(compareOrdinal)
-    .map((relativePath) => manifestIdentity(relativePath, readBytes(relativePath)));
-  const totalBytes = files.reduce((sum, file) => sum + file.bytes, 0);
-  const rows = files.map((file) => {
-    const docsRelativePath = file.path.slice("docs/".length);
-    return `- [${file.path}](${docsRelativePath}): ${file.bytes} bytes; sha256:${file.sha256}`;
-  });
-  return Buffer.from([
-    "# Runtime.MiRust.com Public Docs Manifest",
-    "",
-    `Updated UTC: ${metadata.updatedUtc}`,
-    `Package version: ${metadata.packageVersion}`,
-    "Public base: https://Runtime.MiRust.com",
-    `Files excluding this manifest: ${files.length}`,
-    `Exact payload bytes excluding this manifest: ${totalBytes}`,
-    "",
-    "This manifest describes the separate preserved docs archive profile. It",
-    "does not describe the retired Runtime web-root redirect package.",
-    "",
-    "Every size and digest binds the exact file bytes. No newline, encoding, or",
-    "line-ending normalization is permitted. `docs/MANIFEST.md` is excluded to",
-    "avoid self-reference, but the deterministic Git staging command includes it",
-    "after proving that its committed blob equals regenerated manifest bytes.",
-    "The retired `docs/workspace.uai` path is permanently forbidden at worktree,",
-    "Git-tree, manifest, staging, and materialized-root admission.",
-    "",
-    "## Indexes",
-    "",
-    "- [Docs index](index.md)",
-    "- [Reports index](reports/index.md)",
-    "- [Research index](research/index.md)",
-    "- [Website research index](web-research/index.md)",
-    "- [Source memory index](source-memory/index.md)",
-    "- [Implementation docs index](implementation/index.md)",
-    "- [UAIX dogfood notes index](dogfood/index.md)",
-    "- [Published long-term memory](long-term-memory.uai)",
-    "",
-    "## Files",
-    "",
-    ...rows,
-    ""
-  ].join("\n"), "utf8");
-}
 
 function buildPackageManifest(readBytes) {
   const metadata = parseReleaseMetadata(readBytes(versionRelativePath));
@@ -209,7 +142,6 @@ function buildPackageManifest(readBytes) {
     `- Updated UTC: ${metadata.updatedUtc}`,
     `- Package version: ${metadata.packageVersion}`,
     "- Canonical developer portal: https://tinyrustlm.mirust.com/developer-portal/",
-    "- Preserved legacy archive: https://tinyrustlm.mirust.com/docs/runtime-portal/index.md",
     `- Files excluding this manifest: ${files.length}`,
     `- Exact payload bytes excluding this manifest: ${totalBytes}`,
     "",
@@ -238,7 +170,6 @@ function buildPackageManifest(readBytes) {
 
 function generatedWorktreeDocuments() {
   return new Map([
-    [docsManifestRelativePath, buildDocsManifest(worktreeBytes, listWorktreeDocs())],
     [packageManifestRelativePath, buildPackageManifest(worktreeBytes)]
   ]);
 }
@@ -344,12 +275,10 @@ function verifyExecutingGenerator(inventory, readBytes) {
 }
 
 function expectedGitDocuments(inventory, readBytes) {
-  const docsPaths = [...inventory.keys()]
-    .filter((relativePath) => relativePath.startsWith("docs/") &&
-      relativePath !== docsManifestRelativePath)
-    .sort(compareOrdinal);
+  if ([...inventory.keys()].some((relativePath) => relativePath.startsWith("docs/"))) {
+    throw new Error("Retired Runtime documentation belongs only in Git history");
+  }
   return new Map([
-    [docsManifestRelativePath, buildDocsManifest(readBytes, docsPaths)],
     [packageManifestRelativePath, buildPackageManifest(readBytes)]
   ]);
 }
@@ -399,12 +328,7 @@ function packageRelativePaths(kind, verified) {
   if (kind === "redirect") {
     return [...redirectPayloadPaths, packageManifestRelativePath].sort(compareOrdinal);
   }
-  if (kind === "docs") {
-    return [...verified.inventory.keys()]
-      .filter((relativePath) => relativePath.startsWith("docs/"))
-      .sort(compareOrdinal);
-  }
-  throw new Error("Package kind must be redirect or docs");
+  throw new Error("Package kind must be redirect; the retired docs package is unsupported");
 }
 
 function packageEntries(kind, verified) {
@@ -671,9 +595,9 @@ function usage() {
     "Usage:",
     "  node tools/build-runtime-manifests.js [--check|--print|--write]",
     "  node tools/build-runtime-manifests.js --verify-git <ref>",
-    "  node tools/build-runtime-manifests.js --stage-git <redirect|docs> <ref> <new-custody-root>",
-    "  node tools/build-runtime-manifests.js --verify-custody <redirect|docs> <ref> <custody-root>",
-    "  node tools/build-runtime-manifests.js --verify-release <redirect|docs> <ref> <release-directory>"
+    "  node tools/build-runtime-manifests.js --stage-git redirect <ref> <new-custody-root>",
+    "  node tools/build-runtime-manifests.js --verify-custody redirect <ref> <custody-root>",
+    "  node tools/build-runtime-manifests.js --verify-release redirect <ref> <release-directory>"
   ].join("\n");
 }
 
@@ -732,7 +656,6 @@ if (require.main === module) {
 module.exports = Object.freeze({
   activationPolicy,
   aggregateIdentity,
-  buildDocsManifest,
   buildPackageManifest,
   compareOrdinal,
   custodyPolicy,
@@ -741,7 +664,6 @@ module.exports = Object.freeze({
   generatedWorktreeDocuments,
   generatorRelativePath,
   identity,
-  listWorktreeDocs,
   packageDescriptor,
   parseReleaseMetadata,
   redirectPayloadPaths,

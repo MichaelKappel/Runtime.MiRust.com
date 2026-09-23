@@ -1,25 +1,35 @@
 profile: runtime-mirust.retired-long-term-memory.v1
-updated_utc: 2026-07-02T00:00:00Z
+updated_utc: 2026-09-23T15:16:37Z
 
 current_truth:
   Runtime.MiRust.com is retired as a separate documentation authority.
   TinyRustLM.MiRust.com is the current developer documentation portal.
   TinyRustLM.com is the current browser-local Rust/WASM app.
 
-preserved_memory:
-  index: https://tinyrustlm.mirust.com/docs/runtime-portal/index.md
-  manifest: https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md
-  local_archive: E:\Source\Rust\TinyRustLM.MiRust.com\docs\runtime-portal\
-  note: The former long-term Runtime.MiRust.com memory body is preserved in the TinyRustLM legacy runtime archive.
+owner_delivery_policy_2026_09_23:
+  authority: The owner explicitly requires source check-ins, local validation, and existing FTP/FTPS website publication without charged GitHub features.
+  github: Use GitHub for source control only. Do not enable or run GitHub Actions, hosted CI, runners, or other charged GitHub features. Do not change billing or account settings.
+  validation: Build and test locally. Record failures, unavailable tools, and skipped checks explicitly; a source commit is not a passing release result.
+  checkins: Check in coherent pending source and push it as a source checkpoint even when a separately recorded release gate remains open. This supersedes older wording that blocked source check-ins until physical retirement or publication completion.
+  publication: Publish websites through the existing authorized FTP/FTPS hosting workflow after verifying the exact site target and payload. Do not substitute a GitHub publishing service.
+  runtime_boundary: The recorded Runtime FileZilla target is misbound to the developer portal and remains unusable. Existing atomic-activation prose is an unverified proposal to reconcile with actual FTP/FTPS capabilities, not proof that those capabilities exist.
+  limits: No publication is performed by this checkpoint. Source-control authorization does not permit retrying policy-blocked deletion, using the wrong hosting target, hiding failed checks, or claiming unmeasured model or public-site success.
+
+historical_memory:
+  repository: https://github.com/MichaelKappel/Runtime.MiRust.com
+  corpus_history_commit: d395307
+  note: Retired documentation and its duplicated implementation snapshots belong in Git history. Keep current guidance here and compact immutable verification receipts in verification/receipts.
+  cleanup_state: See .uai/short-term-memory.uai for verified physical removal versus pending policy-blocked cleanup.
 
 redirect_behavior:
   root: https://tinyrustlm.mirust.com/developer-portal/
-  docs_prefix: https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/
+  docs_prefix: https://tinyrustlm.mirust.com/docs/
   llms_txt: https://tinyrustlm.mirust.com/llms.txt
   llms_full_txt: https://tinyrustlm.mirust.com/llms-full.txt
 
 boundaries:
   - Project servers do not run user model bytes.
-  - Project servers do not serve runnable user model bytes.
-  - Browser-local model use must come from user-selected local files or user-selected third-party routes.
-  - Historical Runtime.MiRust.com claims must be read through the preserved archive, not treated as current product authority.
+  - The owner authorizes MiniModel.org to serve the initial verified current SLM2 seeds; developer model payloads belong only in D:\LLMs\TinyRustLM.
+  - TinyRustLM should restore a usable cached model or automatically acquire a small qualified MiniModel starter. Local files, Hugging Face, conversion and manual peer/IP controls belong in Advanced.
+  - Seed authorization and source changes do not prove real model quality, live seeding or deployment.
+  - Historical Runtime.MiRust.com claims are Git history, not current product authority.

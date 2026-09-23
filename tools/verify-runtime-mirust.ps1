@@ -733,12 +733,12 @@ $client.DefaultRequestHeaders.UserAgent.ParseAdd("Runtime.MiRust.com-release-ver
 
 $redirects = [ordered]@{
     "/"               = "https://tinyrustlm.mirust.com/developer-portal/"
-    "/healthz"        = "https://tinyrustlm.mirust.com/docs/runtime-portal/package/healthz"
-    "/version.json"   = "https://tinyrustlm.mirust.com/docs/runtime-portal/package/version.json"
+    "/healthz"        = "https://tinyrustlm.mirust.com/developer-portal/"
+    "/version.json"   = "https://tinyrustlm.mirust.com/developer-portal/"
     "/llms.txt"       = "https://tinyrustlm.mirust.com/llms.txt"
-    "/docs/index.md"  = "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/index.md"
-    "/.uai/index.uai" = "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai"
-    "/.uai/taboo.uai" = "https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/long-term-memory.uai"
+    "/docs/index.md"  = "https://tinyrustlm.mirust.com/docs/"
+    "/.uai/index.uai" = "https://tinyrustlm.mirust.com/docs/long-term-memory.md"
+    "/.uai/taboo.uai" = "https://tinyrustlm.mirust.com/docs/long-term-memory.md"
     "/source-facts/"  = "https://tinyrustlm.mirust.com/developer-portal/"
     "/workspace.uai" = "https://tinyrustlm.mirust.com/developer-portal/"
     "/assets/js/site.js" = "https://tinyrustlm.mirust.com/developer-portal/"

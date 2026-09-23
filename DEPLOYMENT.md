@@ -3,6 +3,14 @@
 Runtime.MiRust.com is a redirect-only retired host. It must never be packaged
 from a working-tree copy or used to serve runtime/model source.
 
+The owner's September 23, 2026 policy requires local validation, GitHub for
+source control only, and website publication through the existing FTP/FTPS
+hosting workflow. Coherent source checkpoints may be committed with open
+release gates recorded. The activation design below has not been established
+on the Runtime host; reconcile it with verified FTP/FTPS capabilities before
+publication. The recorded misbound Runtime profile remains prohibited. See
+`.uai/long-term-memory.uai` for the current owner policy.
+
 ## Required Behavior
 
 Redirect verification requires HTTP 301 and exactly one matching `Location`
@@ -11,7 +19,8 @@ The PowerShell and shell `SelfTest`/`--self-test` modes exercise the live
 predicate without making public requests; local fixture success is not deployment evidence.
 
 - `/` redirects to `https://tinyrustlm.mirust.com/developer-portal/`.
-- `/docs/*` redirects to the preserved archive, except the retired source-copy route.
+- `/docs/*` redirects to `https://tinyrustlm.mirust.com/docs/`, except the retired source-copy route.
+- Old package-status URLs redirect to the current developer portal; `.uai/*` redirects to the current public memory-policy page.
 - `/docs/workspace.uai` returns terminal HTTP 410 for GET and HEAD.
 - Case, one trailing slash, query, and one-layer encoded aliases of that route return the same 410.
 - The 410 has no `Location`, declares `Cache-Control: no-store`, `X-Robots-Tag: noindex, nofollow`, `X-Content-Type-Options: nosniff`, `Content-Type: text/plain; charset=UTF-8`, and `Content-Length: 5`.
@@ -37,18 +46,18 @@ the application path under an isolated server configuration.
 `version.json` is the authority for package version and release update time.
 The generator hashes raw bytes; it performs no BOM, newline, or CRLF-to-LF
 normalization. `PACKAGE-MANIFEST.md` describes the complete redirect payload.
-`docs/MANIFEST.md` describes the separate preserved docs profile. Each manifest
-excludes itself to avoid a circular digest.
+The manifest excludes itself to avoid a circular digest. The historical docs
+corpus and its package writer have been retired; history remains in Git.
 `docs/workspace.uai` is a permanently forbidden path. Its presence under any
-ASCII case spelling rejects worktree generation, Git verification, docs
-staging, and materialized-root verification.
+ASCII case spelling rejects Git verification and materialized-root admission.
+A commit that restores the retired `docs/` corpus cannot become a release.
 
 Prepare and test the source change before committing:
 
 ```powershell
 node .\tools\build-runtime-manifests.js --write
 node .\tools\build-runtime-manifests.js --check
-node --test .\tools\runtime-release.test.js
+node --test .\tools\runtime-release.test.js .\tools\build-runtime-manifests_test.js
 git diff --check
 ```
 
@@ -63,7 +72,7 @@ node .\tools\build-runtime-manifests.js --verify-custody redirect HEAD <new-cust
 node .\tools\build-runtime-manifests.js --verify-release redirect HEAD <content-addressed-release-directory>
 ```
 
-The staging command first regenerates both manifests from the selected commit,
+The staging command first regenerates the package manifest from the selected commit,
 requires the committed manifest blobs to match, materializes only exact Git
 blob bytes, rejects an existing custody root, and computes one release directory
 name from the complete package SHA-256. The custody root contains exactly that
@@ -95,13 +104,14 @@ release pointer. Activation is permitted only under all of these invariants:
    committed source identity. A failed or ambiguous proof forbids activation.
 4. Create a new pointer beside the current pointer, bind it to the verified
    inactive release, and replace the current pointer with one same-filesystem
-   atomic rename. The old release remains intact and addressable for rollback.
+   atomic rename. Retain the predecessor only until the new release passes
+   its required readback and becomes the verified replacement.
 5. If the hosting platform cannot prove an atomic pointer or equivalent
    document-root switch, stop. A direct `rsync`, FTP upload, overlay copy, or
    file-by-file replacement of the live root is not an activation transaction.
-6. Perform HTTPS readback only after the switch. Delete neither the previous
-   release nor failed inactive releases until separate, authorized retention
-   and rollback rules permit it.
+6. Perform HTTPS readback after the switch. Once replacement is verified,
+   remove superseded release bytes and operation-owned failed stages using
+   exact ownership and path checks; retain compact receipts and Git history.
 
 The repository intentionally records no production credential, host identity,
 document-root path, release-parent path, or activation command. Those values

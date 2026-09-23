@@ -1,12 +1,13 @@
 profile: runtime-mirust.workspace.current.v1
-updated_utc: 2026-08-28T00:00:00Z
+updated_utc: 2026-09-23T15:16:37Z
 site: Runtime.MiRust.com
-status: retired-redirect-with-historical-evidence
+status: retired-redirect-source-candidate-1.2.0
 current_authority:
   - Runtime.MiRust.com is not a separate current TinyRustLM documentation authority.
-  - Retained material is bounded historical evidence and does not authorize obsolete executable behavior, compatibility, or current claims.
+  - Historical source and duplicated documentation belong in Git history. Keep compact verification receipts; do not maintain an archive corpus or docs-package writer.
   - Route current TinyRustLM developer guidance to TinyRustLM.MiRust.com.
   - Read .uai/totem.uai and .uai/taboo.uai before changing redirect or historical-evidence boundaries.
+  - Follow owner_delivery_policy_2026_09_23 in .uai/long-term-memory.uai. Use GitHub only for source control, validate locally, check in coherent source, and use the existing verified FTP/FTPS site target for publication.
 
 memory_endpoints_two_lane_authority:
   direct_agent_coordination: Agents working on all ecosystem sites use MemoryEndpoints.com directly for agent-to-agent long-term memory, meetings, handoffs, and coordination.

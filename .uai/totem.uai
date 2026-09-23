@@ -6,7 +6,7 @@ role: positive operating authority
 site_authority:
   - Runtime.MiRust.com is a retired redirect with bounded historical evidence, not a separate current TinyRustLM documentation or runtime authority.
   - Route current product use to TinyRustLM.com and current developer documentation to TinyRustLM.MiRust.com.
-  - Preserve retained historical bytes and manifests as evidence while clearly separating them from current guidance and claims.
+  - Preserve historical source and duplicated documentation in Git history, with compact current receipts and references; do not maintain another archive corpus or writer.
 
 clean_slate:
   - Do not retain obsolete runtime contracts or compatibility paths because historical dogfood used them.

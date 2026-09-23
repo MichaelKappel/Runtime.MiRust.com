@@ -91,19 +91,13 @@ function terminal_text_response(int $status, string $body): never
     exit;
 }
 
-/** Encode a safe relative path while preserving its separators. */
-function encoded_path(string $path): string
-{
-    return implode('/', array_map('rawurlencode', explode('/', $path)));
-}
-
 /** Resolve a retired Runtime route to the closest current authority. */
 function migration_target(string $path): array
 {
     $topicRoutes = [
         'architecture' => ['/architecture/', 'Architecture'],
         'browser-runtime' => ['/browser-runtime/', 'Browser runtime'],
-        'model-format' => ['/slm-format/', '.slm format'],
+        'model-format' => ['/slm-format/', 'SLM2 composition format'],
         'adapters-assembly' => ['/adapters/', 'Adapters'],
         'model-breeding' => ['/model-breeding/', 'Model breeding'],
         'proof-testing' => ['/testing/', 'Testing and proof'],
@@ -119,20 +113,20 @@ function migration_target(string $path): array
     if ($path === '' || $path === 'index.php' || $path === 'home') {
         return [CURRENT_PORTAL . '/developer-portal/', 'Current developer portal', 'portal'];
     }
-    if (preg_match('#^docs/(.+)$#', $path, $matches) === 1) {
-        return [CURRENT_PORTAL . '/docs/runtime-portal/runtime-docs/' . encoded_path($matches[1]), 'Preserved runtime document', 'archive'];
+    if ($path === 'docs' || str_starts_with($path, 'docs/')) {
+        return [CURRENT_PORTAL . '/docs/', 'Current documentation', 'docs'];
     }
     if ($path === 'PACKAGE-MANIFEST.md') {
-        return [CURRENT_PORTAL . '/docs/runtime-portal/package/PACKAGE-MANIFEST.md', 'Preserved package manifest', 'archive'];
+        return [CURRENT_PORTAL . '/docs/package-manifest.md', 'Current package manifest', 'docs'];
     }
     if (in_array($path, ['DEPLOYMENT.md', 'README.md', 'robots.txt', 'sitemap.xml', 'version.json', 'healthz'], true)) {
-        return [CURRENT_PORTAL . '/docs/runtime-portal/package/' . rawurlencode($path), 'Preserved package file', 'archive'];
+        return [CURRENT_PORTAL . '/developer-portal/', 'Current developer portal', 'portal'];
     }
     if ($path === 'llms.txt' || $path === 'llms-full.txt') {
         return [CURRENT_PORTAL . '/' . $path, 'Current machine-readable index', 'machine'];
     }
     if (str_starts_with($path, '.uai/')) {
-        return [CURRENT_PORTAL . '/docs/runtime-portal/runtime-docs/long-term-memory.uai', 'Preserved runtime memory', 'archive'];
+        return [CURRENT_PORTAL . '/docs/long-term-memory.md', 'Current memory policy', 'docs'];
     }
     if (str_starts_with($path, 'agent-file-handoff/')) {
         return [CURRENT_PORTAL . '/developer-portal/', 'Current developer portal', 'portal'];
@@ -193,7 +187,7 @@ if (!$preview) {
   <meta name="robots" content="noindex,follow">
   <?php if (!$preview): ?><meta http-equiv="refresh" content="0;url=<?= h($target) ?>"><?php endif; ?>
   <title>Runtime.MiRust.com Moved | TinyRustLM Developer Portal</title>
-  <meta name="description" content="Runtime.MiRust.com has moved into the TinyRustLM developer portal. Legacy documentation remains preserved with route-aware redirects.">
+  <meta name="description" content="Runtime.MiRust.com has moved into the TinyRustLM developer portal. Follow current documentation for the Rust and WebAssembly app.">
   <link rel="canonical" href="<?= h($target) ?>">
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
   <link rel="stylesheet" href="/assets/css/redirect.css">
@@ -204,7 +198,7 @@ if (!$preview) {
     <div class="shell header-inner">
       <a class="brand" href="/?preview=1" aria-label="Runtime migration status home">
         <span class="brand-mark" aria-hidden="true">MR</span>
-        <span><strong>Runtime.MiRust.com</strong><small>Retired compatibility origin</small></span>
+        <span><strong>Runtime.MiRust.com</strong><small>Retired documentation site</small></span>
       </a>
       <span class="status"><span aria-hidden="true"></span> Routes preserved</span>
     </div>
@@ -214,7 +208,7 @@ if (!$preview) {
     <section class="intro" aria-labelledby="page-title">
       <p class="eyebrow"><?= $preview ? 'Migration preview' : 'Permanent migration' ?></p>
       <h1 id="page-title">Runtime documentation now lives with TinyRustLM</h1>
-      <p class="lede">The standalone Runtime documentation authority was consolidated into one TinyRustLM developer portal. Existing links still resolve to the closest current page or preserved archive document.</p>
+      <p class="lede">Runtime documentation has moved into the TinyRustLM developer portal. Follow the current pages for architecture, model formats, and browser execution.</p>
       <div class="actions">
         <a class="button primary" href="<?= h($target) ?>">Continue to <?= h($targetLabel) ?></a>
         <a class="button" href="https://tinyrustlm.com/">Open the TinyRustLM app</a>
@@ -238,12 +232,12 @@ if (!$preview) {
     <section class="destinations" aria-labelledby="destinations-heading">
       <div class="section-heading">
         <p class="eyebrow">Current authorities</p>
-        <h2 id="destinations-heading">One product, one developer portal, one archive</h2>
+        <h2 id="destinations-heading">Use TinyRustLM or explore its documentation</h2>
       </div>
       <div class="destination-grid">
         <article><p class="card-label">Use the product</p><h3>TinyRustLM.com</h3><p>Run the browser-local Rust/WASM model interface.</p><a href="https://tinyrustlm.com/">Open app <span aria-hidden="true">&rarr;</span></a></article>
         <article><p class="card-label">Build and verify</p><h3>Developer portal</h3><p>Read current architecture, runtime, format, adapter, and proof documentation.</p><a href="https://tinyrustlm.mirust.com/developer-portal/">Open portal <span aria-hidden="true">&rarr;</span></a></article>
-        <article><p class="card-label">Audit history</p><h3>Runtime archive</h3><p>Inspect preserved implementation reports and the archive manifest.</p><a href="https://tinyrustlm.mirust.com/docs/runtime-portal/index.md">Open archive <span aria-hidden="true">&rarr;</span></a></article>
+        <article><p class="card-label">Find a topic</p><h3>Documentation index</h3><p>Find current contracts, testing guidance, and project reports.</p><a href="https://tinyrustlm.mirust.com/docs/">Browse docs <span aria-hidden="true">&rarr;</span></a></article>
       </div>
     </section>
 
@@ -260,7 +254,7 @@ if (!$preview) {
             <tr><td><code>/browser-runtime/</code></td><td><a href="https://tinyrustlm.mirust.com/browser-runtime/">/browser-runtime/</a></td><td>Browser execution surface</td></tr>
             <tr><td><code>/model-format/</code></td><td><a href="https://tinyrustlm.mirust.com/slm-format/">/slm-format/</a></td><td>Current artifact contract</td></tr>
             <tr><td><code>/proof-testing/</code></td><td><a href="https://tinyrustlm.mirust.com/testing/">/testing/</a></td><td>Verification evidence</td></tr>
-            <tr><td><code>/docs/&hellip;</code></td><td><a href="https://tinyrustlm.mirust.com/docs/runtime-portal/runtime-docs/">Preserved document path</a></td><td>Legacy report continuity</td></tr>
+            <tr><td><code>/docs/&hellip;</code></td><td><a href="https://tinyrustlm.mirust.com/docs/">Current documentation index</a></td><td>Find the current topic</td></tr>
           </tbody>
         </table>
       </div>
@@ -270,12 +264,12 @@ if (!$preview) {
       <div>
         <p class="eyebrow">Machine readers</p>
         <h2 id="machine-heading">Current indexes remain directly addressable</h2>
-        <p>Agents and automation should use the TinyRustLM indexes rather than treating this compatibility origin as an independent documentation source.</p>
+        <p>Agents and automation can find current project guidance in the TinyRustLM indexes.</p>
       </div>
       <nav aria-label="Machine-readable resources">
         <a href="https://tinyrustlm.mirust.com/llms.txt"><code>llms.txt</code><span>Concise project map</span></a>
         <a href="https://tinyrustlm.mirust.com/llms-full.txt"><code>llms-full.txt</code><span>Expanded project context</span></a>
-        <a href="https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md"><code>MANIFEST.md</code><span>Archive preservation evidence</span></a>
+        <a href="https://tinyrustlm.mirust.com/docs/package-manifest.md"><code>package-manifest.md</code><span>Current package identity</span></a>
       </nav>
     </section>
   </main>
@@ -283,7 +277,7 @@ if (!$preview) {
   <footer class="site-footer">
     <div class="shell footer-inner">
       <p><strong>Runtime.MiRust.com</strong> is retained only for route continuity.</p>
-      <p><a href="https://tinyrustlm.mirust.com/contact/">Contact</a> <span aria-hidden="true">&middot;</span> <a href="https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md">Preservation manifest</a></p>
+      <p><a href="https://tinyrustlm.mirust.com/contact/">Contact</a> <span aria-hidden="true">&middot;</span> <a href="https://tinyrustlm.mirust.com/docs/package-manifest.md">Package manifest</a></p>
     </div>
   </footer>
 </body>

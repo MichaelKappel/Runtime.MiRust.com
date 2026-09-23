@@ -66,11 +66,9 @@ function fixture() {
       updated_utc: "2030-01-02T03:04:05Z", package_version: "7.6.5-fixture.1" }) + "\n")],
     [".htaccess", Buffer.from("# inert test data\n")],
     ["index.php", Buffer.from("inert test data\n")],
-    ["assets/css/redirect.css", Buffer.from("inert test data\n")],
-    ["docs/index.md", Buffer.from("# In-memory fixture\n")]
+    ["assets/css/redirect.css", Buffer.from("inert test data\n")]
   ]);
   const read = (name) => blobs.get(name);
-  blobs.set("docs/MANIFEST.md", generator.buildDocsManifest(read, ["docs/index.md"]));
   blobs.set("PACKAGE-MANIFEST.md", generator.buildPackageManifest(read));
   const oid = (bytes) => crypto.createHash("sha1").update(`blob ${bytes.length}\0`).update(bytes).digest("hex");
   const moduleObject = { exports: {} };
@@ -142,7 +140,8 @@ for (const [label, mutate, rejection] of [
   ["CRLF drift", (f) => f.blobs.set(".htaccess", Buffer.from("# inert test data\r\n")), /must already use LF/],
   ["generator drift", (f) => f.entries.get(sourcePath).bytes = Buffer.from("drift"), /generator differs/],
   ["manifest drift", (f) => f.blobs.set("PACKAGE-MANIFEST.md", Buffer.from("drift")), /does not bind/],
-  ["forbidden source path", (f) => f.blobs.set("docs/workspace.uai", Buffer.from("inert")), /Permanently forbidden/]
+  ["forbidden source path", (f) => f.blobs.set("docs/workspace.uai", Buffer.from("inert")), /Permanently forbidden/],
+  ["retired documentation", (f) => f.blobs.set("docs/index.md", Buffer.from("inert")), /only in Git history/]
 ]) {
   test(`Git verification rejects ${label} before any staging write`, () => {
     const f = fixture();
@@ -163,4 +162,11 @@ test("failed staging removes only its virtual owned custody", () => {
   assert.throws(() => f.api.stageGitPackage("redirect", "HEAD", f.custody), /injected write failure/);
   assert.equal(f.entries.has(f.custody), false);
   assert.equal(f.entries.has(sourcePath), true);
+});
+
+test("the retired docs package cannot be staged", () => {
+  const f = fixture();
+  f.virtualFs.mkdirSync(path.dirname(f.custody));
+  assert.throws(() => f.api.stageGitPackage("docs", "HEAD", f.custody), /retired docs package is unsupported/);
+  assert.equal(f.entries.has(f.custody), false);
 });

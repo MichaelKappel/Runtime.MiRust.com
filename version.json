@@ -1,13 +1,11 @@
 {
   "site": "Runtime.MiRust.com",
   "status": "retired-redirect",
-  "updated_utc": "2026-07-12T21:30:00Z",
-  "package_version": "1.1.0",
+  "updated_utc": "2026-09-12T16:13:08Z",
+  "package_version": "1.2.0",
   "canonical_developer_portal": "https://tinyrustlm.mirust.com/developer-portal/",
   "current_app": "https://tinyrustlm.com/",
-  "legacy_archive": "https://tinyrustlm.mirust.com/docs/runtime-portal/index.md",
-  "legacy_archive_manifest": "https://tinyrustlm.mirust.com/docs/runtime-portal/MANIFEST.md",
   "boundary": "Runtime.MiRust.com permanently redirects by default; TinyRustLM.MiRust.com is the current developer documentation portal.",
   "migration_preview": "https://runtime.mirust.com/?preview=1",
-  "route_policy": "Known legacy topics redirect to the closest current TinyRustLM page; deep docs redirect to the preserved runtime archive."
+  "route_policy": "Known topics redirect to the closest current TinyRustLM page; old document paths redirect to the current documentation index. Retired source-copy URLs return 410."
 }

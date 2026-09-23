@@ -1,5 +1,5 @@
 profile: runtime-mirust.retired-startup-packet.v1
-updated_utc: 2026-09-23T04:27:04Z
+updated_utc: 2026-09-23T15:16:37Z
 
 start_here:
   - workspace.uai
@@ -7,6 +7,8 @@ start_here:
   - DEPLOYMENT.md
   - .uai/short-term-memory.uai
   - .uai/long-term-memory.uai
+
+owner_policy: Read owner_delivery_policy_2026_09_23 in .uai/long-term-memory.uai. GitHub is source control only; tests run locally; website publication uses the existing verified FTP/FTPS target. Check in coherent source while keeping unresolved release failures explicit.
 
 summary:
   Runtime.MiRust.com is retired as a standalone docs authority.
