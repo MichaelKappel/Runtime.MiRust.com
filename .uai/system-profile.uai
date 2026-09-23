@@ -2,11 +2,12 @@ profile: runtime-mirust.system-profile.v1
 project_name: Runtime.MiRust.com
 created_utc: 2026-06-24T00:00:00Z
 canonical_root: E:\Source\Rust\Runtime.MiRust.com
-project_type: enterprise_rust_browser_ai_harness
+project_type: retired_php_redirect_host
 public_host: https://Runtime.MiRust.com/
 aiwikis_namespace: https://aiwikis.org/runtime-mirust/
 llm_wiki_source_namespace: wiki/runtime-mirust/
-runtime_status:
+current_scope: Runtime is a retired redirect package; current app implementation belongs only in E:\Source\Rust\TinyRustLM.com. Historical observations below are not current product qualification or deployment evidence.
+historical_runtime_status_before_retirement:
   rust_workspace: tinyrustlm_zero_dependency_workspace_verified
   mini_browser: no_crate_rust_static_contract_and_loopback_route_harness_implemented
   browser_ai_harness: rust_mini_browser_contract_harness_plus_headless_chrome_smoke_step_token_reload_reset_model_switch_loop_missing_malformed_context_desktop_mobile_ui_audit_model_provenance_endurance_performance_and_performance_soak_verified

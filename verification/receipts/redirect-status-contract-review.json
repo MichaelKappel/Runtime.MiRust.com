@@ -1,0 +1,181 @@
+{
+  "schema": "runtime.mirust.redirect_contract_review.v1",
+  "reviewedUtc": "2026-09-23T04:27:04Z",
+  "sourceParent": "8623dcf5603ab419d02ffd0809e9ae987fb5b2a0",
+  "status": "verifier-fixed-full-release-still-blocked",
+  "changes": [
+    "Both verifiers require exact HTTP301 and one exact Location; 302/307/308 fail.",
+    "PowerShell ordinary redirects use the existing bounded no-follow raw TLS reader, avoiding typed HttpClient URI normalization.",
+    "Raw PowerShell headers reject folded lines and C0/DEL; trim only HTTP SP/HTAB. Shell validates raw Location bytes in binary-input awk mode before Bash can discard controls.",
+    "Nine direct PowerShell, twelve raw PowerShell and eighteen shell redirect fixtures exercise status/header identity; original terminal tests remain.",
+    "Current local guidance points to the canonical TinyRust source and Git history instead of a maintained old archive; prior runtime observations are explicitly historical."
+  ],
+  "regressions": [
+    {
+      "stage": "PowerShell extracted old predicate",
+      "exitCode": 1,
+      "failure": "temporary-302 accepted"
+    },
+    {
+      "stage": "Shell extracted old predicate",
+      "exitCode": 1,
+      "wrongVerdicts": [
+        "temporary-302",
+        "temporary-307",
+        "different-permanent-308",
+        "carriage-return-location",
+        "vertical-tab-location",
+        "null-location"
+      ],
+      "terminalFixturesPassed": 12
+    },
+    {
+      "stage": "Framework ingress probe",
+      "result": "HttpResponseMessage.TryAddWithoutValidation Location uppercase host was returned normalized to lowercase by Header GetValues. In-memory only."
+    },
+    {
+      "stage": "Raw parser prior to restricted trimming",
+      "exitCode": 1,
+      "failure": "carriage-return accepted"
+    }
+  ],
+  "tests": {
+    "command": "node --test tools/runtime-release.test.js tools/build-runtime-manifests_test.js",
+    "firstRun": {
+      "pass": 24,
+      "fail": 4,
+      "skip": 2,
+      "log": "c98-runtime-suite.log",
+      "issues": [
+        "Windows awk text translation consumed one CR before explicit stripping; corrected with BINMODE=1.",
+        "RUNTIME_PYTHON not configured; corrected to installed Python314 executable discovered through py --list-paths.",
+        "Uncommitted manifest generator differs from HEAD.",
+        "Policy-blocked 174 documentation files remain present."
+      ]
+    },
+    "correctedRun": {
+      "pass": 26,
+      "fail": 2,
+      "skip": 2,
+      "log": "c98-runtime-suite-corrected.log"
+    },
+    "finalRun": {
+      "pass": 26,
+      "fail": 2,
+      "skip": 2,
+      "log": "c98-runtime-suite-final.log",
+      "observedPasses": [
+        "PowerShell exact301, raw redirect and terminal fixture matrices",
+        "Shell exact301/control-byte and terminal fixture matrices",
+        "Shell HEAD-transfer separation",
+        "Real loopback PHP GET/HEAD aliases, hostile paths, exact redirects and preview route",
+        "Virtual package fault checks with no copied product source"
+      ]
+    },
+    "remainingFailures": [
+      "Real canonical Git closure: executing manifest generator differs from selected Git blob (pre-existing WIP).",
+      "Retired Runtime documentation belongs in Git history: docs directory remains (prior policy-blocked removal)."
+    ],
+    "skips": [
+      "Real Apache rewrite/header integration: Apache executable unavailable.",
+      "Default Apache encoded-separator integration: Apache executable unavailable."
+    ],
+    "coverage": "PowerShell/Bash line and branch percentages unmeasured. Behavioral matrices and actual PHP/network fixtures are the available evidence; Node counts do not establish shell coverage.",
+    "python": "C:/Users/Michael/AppData/Local/Programs/Python/Python314/python.exe",
+    "boundary": "Executed current worktree. The staged fix excludes prior route-map and retirement WIP; identical verifier predicates apply to both route sets. Full release suite is not passing."
+  },
+  "identities": [
+    {
+      "path": "tools/verify-runtime-mirust.ps1",
+      "worktree": {
+        "byteCount": 38513,
+        "sha256": "5eaaa027541c468f0ea2cc94efe59ba8567676ea3a8fbae647f958dd0174b7c5"
+      },
+      "staged": {
+        "byteCount": 38648,
+        "sha256": "aacd6c721c4f679eff10ac6ba9f82c2a8cc46ce42fd7c8bc30cfe83b71bafa66"
+      }
+    },
+    {
+      "path": "tools/verify-runtime-mirust.sh",
+      "worktree": {
+        "byteCount": 23518,
+        "sha256": "318357265947c715ecb18cc5d0beedd5a9543a390a34d7c165ed506acdf942e0"
+      },
+      "staged": {
+        "byteCount": 23653,
+        "sha256": "e26e3ce815546d0dc2f5ae8b7153418d1319b410e634cced779e013fb9e2d07c"
+      }
+    },
+    {
+      "path": "tools/runtime-release.test.js",
+      "worktree": {
+        "byteCount": 32772,
+        "sha256": "996e52e39593d239fef19e2562e4c49cc6560743be470291d88663d6e5117c1a"
+      },
+      "staged": {
+        "byteCount": 33939,
+        "sha256": "a151ae21444152d902e1774bdd0a68c9ac8f9ff8e43dda0ac658cbb6e0ce55b6"
+      }
+    }
+  ],
+  "logs": [
+    {
+      "path": "c98-runtime-suite-corrected.log",
+      "byteCount": 4460,
+      "sha256": "9213a0f22c49f09c5853db4857998c584e2f72d7371832042c34043e101095a4"
+    },
+    {
+      "path": "c98-runtime-suite-final.log",
+      "byteCount": 4462,
+      "sha256": "36f647ca68aa7ea9de199531abe1bbb5e0ad21cb751a8ac1c0d21d5455f87e9a"
+    },
+    {
+      "path": "c98-runtime-suite.log",
+      "byteCount": 6658,
+      "sha256": "25eb06ffe4a26340baaa27a7f6be34f5ff97f7a122d93a7315971c29a45fe3f0"
+    }
+  ],
+  "partialCommit": {
+    "scope": "Only owned helper/parser/fixture/live-check/test/memory/documentation hunks plus this receipt.",
+    "preserved": "All fifteen prior WIP files remain; no historical-doc removal, route-map promotion, manifest generator or package version change is committed.",
+    "indexReview": "An initial zero-context test insertion used offsets affected by excluded WIP; corrected and reviewed before commit. No bad intermediate index was committed."
+  },
+  "sourceAuthority": {
+    "project": "TinyRustLM.com",
+    "exitCode": 1,
+    "unreadableEntries": 37,
+    "byteCount": 4457,
+    "sha256": "7f8fec1c72e18e3da05f434b9f33c8b1c71ac2a42660f0bf9afdca62328384d3"
+  },
+  "limitations": [
+    "No public requests, publication, credentials, model operations or blocked deletion retries.",
+    "No claim of a total30-second raw request deadline; existing connect/per-read timing is unchanged.",
+    "Runtime-only hosting target and atomic activation remain unproven; misbound FileZilla profile remains prohibited.",
+    "No TinyRust qualified default, live seed, package publication or source-authority pass."
+  ],
+  "cleanup": {
+    "status": "removed-and-verified",
+    "root": "E:\\Source\\Rust\\Runtime.MiRust.com\\artifacts\\redirect-contract-756VUT",
+    "files": 5,
+    "descendantDirectories": 5,
+    "logicalFileBytes": 23210,
+    "ownerMarkerBytes": 64,
+    "inventorySha256": "be88a67eba70a98ab1a55f7af8637c9bf25c0c57e8d75d0f27f827dbfef3148f",
+    "rootAbsent": true,
+    "markerAbsent": true,
+    "physicalStorageRecoveredBytes": null
+  },
+  "secretScan": {
+    "status": "pass",
+    "files": 9,
+    "findings": 0,
+    "reportBytes": 5291,
+    "reportSha256": "36e9ac6145f57defcd9013d6f5bf9b65ff6cad916a69806cf2db6365163a83ca",
+    "boundary": "Nine worktree files scanned before the final receipt summary and two startup/workspace routing-note edits; those final factual edits were manually reviewed, not rescanned. Existing WIP and committed scope are distinguished above."
+  },
+  "review": {
+    "status": "no-blocking-concern",
+    "method": "Independent read-only review of raw ingress, TLS bounds, exact status and partial-commit independence; no live claim."
+  }
+}

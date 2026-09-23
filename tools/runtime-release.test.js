@@ -578,9 +578,15 @@ test("PowerShell verifier parser accepts only the exact response contract", () =
     "-NoProfile", "-File", "tools/verify-runtime-mirust.ps1", "-SelfTest"
   ]);
   assertCommandPassed(result, "PowerShell verifier self-test");
+  assert.match(result.stdout, /PASS PowerShell exact-301 redirect fixtures \(9\)/);
+  assert.match(result.stdout, /PASS PowerShell raw redirect fixtures \(12\)/);
   assert.match(result.stdout,
     /PASS PowerShell retired-route verifier fixtures \(12 plus raw-wire fixtures\)/);
   const source = readText("tools/verify-runtime-mirust.ps1");
+  const redirectLoop = source.slice(source.indexOf("foreach ($entry in $redirects.GetEnumerator())"),
+    source.indexOf("foreach ($path in $retiredRoutes)"));
+  assert.match(redirectLoop, /Invoke-RawHttpsObservation/);
+  assert.doesNotMatch(redirectLoop, /Invoke-RequestWithoutRedirect|Get-ResponseHeaderValues/);
   assert.match(source, /TcpClient/);
   assert.match(source, /SslStream/);
   assert.match(source, /raw-tls-http1\.1-until-close/);
@@ -589,6 +595,7 @@ test("PowerShell verifier parser accepts only the exact response contract", () =
 test("shell verifier parser accepts only the exact response contract", () => {
   const result = run(bashCommand, ["tools/verify-runtime-mirust.sh", "--self-test"]);
   assertCommandPassed(result, "shell verifier self-test");
+  assert.match(result.stdout, /PASS shell redirect verifier fixtures \(18\)/);
   assert.match(result.stdout, /PASS shell retired-route verifier fixtures \(12\)/);
   const source = readText("tools/verify-runtime-mirust.sh");
   assert.doesNotMatch(source, /"\$\{curl_command\}"[^\n]*--head\b/);

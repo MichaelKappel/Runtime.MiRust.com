@@ -1,5 +1,5 @@
 profile: runtime-mirust.retired-startup-packet.v1
-updated_utc: 2026-07-02T00:00:00Z
+updated_utc: 2026-09-23T04:27:04Z
 
 start_here:
   - workspace.uai
@@ -12,4 +12,6 @@ summary:
   Runtime.MiRust.com is retired as a standalone docs authority.
   The local repository is now a redirect package.
   TinyRustLM.MiRust.com is the current developer portal.
-  The old runtime corpus is preserved under TinyRustLM.MiRust.com/docs/runtime-portal/.
+  Historical source and documentation belong in Git history; do not maintain another archive corpus.
+  Current-only cleanup is incomplete and this checkpoint is unpublished; the current receipt records blocked physical docs removal and release limitations.
+  Current verifier changes and tests route through verification/receipts/redirect-status-contract-review.json, not the historical live receipt.

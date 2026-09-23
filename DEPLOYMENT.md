@@ -5,6 +5,11 @@ from a working-tree copy or used to serve runtime/model source.
 
 ## Required Behavior
 
+Redirect verification requires HTTP 301 and exactly one matching `Location`
+value. HTTP 302, 307 and 308 do not satisfy this host's exact status contract.
+The PowerShell and shell `SelfTest`/`--self-test` modes exercise the live
+predicate without making public requests; local fixture success is not deployment evidence.
+
 - `/` redirects to `https://tinyrustlm.mirust.com/developer-portal/`.
 - `/docs/*` redirects to the preserved archive, except the retired source-copy route.
 - `/docs/workspace.uai` returns terminal HTTP 410 for GET and HEAD.

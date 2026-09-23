@@ -76,6 +76,59 @@ header_values() {
   ' "${header_file}"
 }
 
+# Check a captured redirect against its required destination without following it.
+verify_redirect_headers() {
+  local header_file="$1"
+  local expected="$2"
+  local status
+  status="$(http_status "${header_file}")"
+  if [[ "${status}" != "301" ]]; then
+    echo "ERROR: redirect returned HTTP ${status:-unknown}; expected 301" >&2
+    return 1
+  fi
+  # Inspect raw Location bytes before shell parsing can discard NUL or trim controls.
+  # Windows awk must read binary input so CRLF translation cannot hide an extra CR.
+  # HTTP field whitespace is permitted; URL normalization and folded values are not.
+  if ! LC_ALL=C awk -v BINMODE=1 -v expected="${expected}" '
+    BEGIN { in_headers=0; count=0; invalid=0; location_active=0 }
+    {
+      line=$0
+      sub(/\r$/, "", line)
+      if (toupper(line) ~ /^HTTP\//) {
+        in_headers=1
+        count=0
+        invalid=0
+        location_active=0
+        next
+      }
+      if (in_headers && line == "") {
+        in_headers=0
+        next
+      }
+      if (in_headers) {
+        if (line ~ /^[ \t]/) {
+          if (location_active) invalid=1
+          next
+        }
+        location_active=0
+        colon=index(line, ":")
+        if (colon > 0 && tolower(substr(line, 1, colon - 1)) == "location") {
+          count++
+          location_active=1
+          value=substr(line, colon + 1)
+          sub(/^[ \t]+/, "", value)
+          sub(/[ \t]+$/, "", value)
+          if (value ~ /[[:cntrl:]]/ || value != expected) invalid=1
+        }
+      }
+    }
+    END { if (count != 1 || invalid) exit 1 }
+  ' "${header_file}"; then
+    echo "ERROR: redirect returned an unexpected Location header" >&2
+    return 1
+  fi
+}
+
 assert_exact_header() {
   local header_file="$1"
   local name="$2"
@@ -260,6 +313,68 @@ run_fixture() {
   fi
 }
 
+# Supply bounded raw response headers to the same validator used by live checks.
+run_redirect_fixture() {
+  local name="$1"
+  local expected_verdict="$2"
+  local status="$3"
+  local location_kind="$4"
+  local expected="https://tinyrustlm.mirust.com/developer-portal/"
+  local header_file="${temporary_root}/redirect-${name}.headers"
+  printf 'HTTP/1.1 200 Connection established\r\n\r\nHTTP/2 %s\r\n' "${status}" > "${header_file}"
+  case "${location_kind}" in
+    exact) printf 'Location: %s\r\n' "${expected}" >> "${header_file}" ;;
+    field-case) printf 'lOcAtIoN: %s\r\n' "${expected}" >> "${header_file}" ;;
+    field-whitespace) printf 'Location:\t %s \t\r\n' "${expected}" >> "${header_file}" ;;
+    folded) printf 'Location: %s\r\n\tignored\r\n' "${expected}" >> "${header_file}" ;;
+    missing) ;;
+    empty) printf 'Location:\r\n' >> "${header_file}" ;;
+    wrong) printf 'Location: https://example.invalid/\r\n' >> "${header_file}" ;;
+    normalized) printf 'Location: HTTPS://TINYRUSTLM.MIRUST.COM/developer-portal/\r\n' >> "${header_file}" ;;
+    relative) printf 'Location: /developer-portal/\r\n' >> "${header_file}" ;;
+    duplicate) printf 'Location: %s\r\nLocation: %s\r\n' "${expected}" "${expected}" >> "${header_file}" ;;
+    carriage-return) printf 'Location: %s\r\r\n' "${expected}" >> "${header_file}" ;;
+    vertical-tab) printf 'Location: %s\v\r\n' "${expected}" >> "${header_file}" ;;
+    delete) printf 'Location: %s\177\r\n' "${expected}" >> "${header_file}" ;;
+    null) printf 'Location: %s\000\r\n' "${expected}" >> "${header_file}" ;;
+    *) echo "ERROR: unknown redirect fixture kind" >&2; return 1 ;;
+  esac
+  printf '\r\n' >> "${header_file}"
+  local actual_verdict="fail"
+  if verify_redirect_headers "${header_file}" "${expected}" >/dev/null 2>&1; then
+    actual_verdict="pass"
+  fi
+  if [[ "${actual_verdict}" != "${expected_verdict}" ]]; then
+    echo "ERROR: shell redirect verifier fixture produced the wrong verdict: ${name}" >&2
+    return 1
+  fi
+}
+
+# Exercise exact redirect status, single-destination identity, and unsafe bytes.
+redirect_self_test() {
+  local failed=0
+  run_redirect_fixture exact-301 pass 301 exact || failed=1
+  run_redirect_fixture field-case pass 301 field-case || failed=1
+  run_redirect_fixture field-whitespace pass 301 field-whitespace || failed=1
+  run_redirect_fixture temporary-302 fail 302 exact || failed=1
+  run_redirect_fixture temporary-307 fail 307 exact || failed=1
+  run_redirect_fixture different-permanent-308 fail 308 exact || failed=1
+  run_redirect_fixture successful-200 fail 200 exact || failed=1
+  run_redirect_fixture missing-location fail 301 missing || failed=1
+  run_redirect_fixture empty-location fail 301 empty || failed=1
+  run_redirect_fixture wrong-location fail 301 wrong || failed=1
+  run_redirect_fixture normalized-location fail 301 normalized || failed=1
+  run_redirect_fixture relative-location fail 301 relative || failed=1
+  run_redirect_fixture duplicate-location fail 301 duplicate || failed=1
+  run_redirect_fixture folded-location fail 301 folded || failed=1
+  run_redirect_fixture carriage-return-location fail 301 carriage-return || failed=1
+  run_redirect_fixture vertical-tab-location fail 301 vertical-tab || failed=1
+  run_redirect_fixture delete-location fail 301 delete || failed=1
+  run_redirect_fixture null-location fail 301 null || failed=1
+  [[ "${failed}" -eq 0 ]] || return 1
+  echo "PASS shell redirect verifier fixtures (18)"
+}
+
 self_test() {
   run_fixture valid-get pass GET 410 "" no-store "noindex, nofollow" nosniff "text/plain; charset=UTF-8" 5 gone
   run_fixture valid-head pass HEAD 410 "" no-store "noindex, nofollow" nosniff "text/plain; charset=utf-8" 5 empty
@@ -274,6 +389,7 @@ self_test() {
   run_fixture missing-newline fail GET 410 "" no-store "noindex, nofollow" nosniff "text/plain; charset=UTF-8" 5 no-newline
   run_fixture head-has-body fail HEAD 410 "" no-store "noindex, nofollow" nosniff "text/plain; charset=UTF-8" 5 gone
   echo "PASS shell retired-route verifier fixtures (12)"
+  redirect_self_test
 }
 
 repository_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
@@ -456,17 +572,8 @@ for index in "${!paths[@]}"; do
   body_file="${temporary_root}/redirect-${index}.body"
   "${curl_command}" --fail --path-as-is --silent --show-error --dump-header "${header_file}" \
     --output "${body_file}" --max-redirs 0 "${source_url}"
-  status="$(http_status "${header_file}")"
-  case "${status}" in
-    301|302|307|308) ;;
-    *) echo "ERROR: ${source_url} returned HTTP ${status:-unknown}; expected a redirect" >&2; exit 1 ;;
-  esac
-  mapfile -t locations < <(header_values "${header_file}" location)
-  if [[ "${#locations[@]}" -ne 1 || "${locations[0]}" != "${expected}" ]]; then
-    echo "ERROR: ${source_url} returned an unexpected Location header" >&2
-    exit 1
-  fi
-  echo "PASS redirect ${paths[$index]} -> ${locations[0]}"
+  verify_redirect_headers "${header_file}" "${expected}"
+  echo "PASS redirect ${paths[$index]} -> ${expected}"
 done
 
 observation_index=0

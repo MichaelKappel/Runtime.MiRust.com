@@ -43,6 +43,28 @@ function Test-ByteEquality {
     return $true
 }
 
+# Checks a route's non-followed response before recording redirect success.
+function Assert-RedirectObservation {
+    param(
+        [Parameter(Mandatory)][int]$StatusCode,
+        [Parameter(Mandatory)][AllowEmptyCollection()][object[]]$LocationValues,
+        [Parameter(Mandatory)][string]$SourceUrl,
+        [Parameter(Mandatory)][string]$ExpectedLocation
+    )
+
+    if ($StatusCode -ne 301) {
+        throw "$SourceUrl must return HTTP 301"
+    }
+    if ($LocationValues.Count -ne 1) {
+        throw "$SourceUrl must return exactly one Location header"
+    }
+    $location = [string]$LocationValues[0]
+    if ($location -cne $ExpectedLocation) {
+        throw "$SourceUrl returned an unexpected redirect target"
+    }
+    return $location
+}
+
 function Assert-TerminalObservation {
     param(
         [Parameter(Mandatory)][object]$Observation,
@@ -152,6 +174,62 @@ function New-RetiredFixture {
 }
 
 function Invoke-RetiredVerifierSelfTest {
+    $redirectTarget = "https://tinyrustlm.mirust.com/developer-portal/"
+    $redirectCases = @(
+        @{ Name = "permanent"; Pass = $true; Status = 301; Locations = @($redirectTarget) },
+        @{ Name = "temporary-302"; Pass = $false; Status = 302; Locations = @($redirectTarget) },
+        @{ Name = "temporary-307"; Pass = $false; Status = 307; Locations = @($redirectTarget) },
+        @{ Name = "different-permanent-308"; Pass = $false; Status = 308; Locations = @($redirectTarget) },
+        @{ Name = "success-with-location"; Pass = $false; Status = 200; Locations = @($redirectTarget) },
+        @{ Name = "missing-location"; Pass = $false; Status = 301; Locations = @() },
+        @{ Name = "duplicate-location"; Pass = $false; Status = 301; Locations = @($redirectTarget, $redirectTarget) },
+        @{ Name = "wrong-location"; Pass = $false; Status = 301; Locations = @("https://tinyrustlm.mirust.com/docs/") },
+        @{ Name = "normalized-location"; Pass = $false; Status = 301; Locations = @("https://TINYRUSTLM.MIRUST.COM/developer-portal/") }
+    )
+    foreach ($case in $redirectCases) {
+        $passed = $true
+        try {
+            $location = Assert-RedirectObservation -StatusCode $case.Status `
+                -LocationValues $case.Locations -SourceUrl "https://runtime.mirust.com/" `
+                -ExpectedLocation $redirectTarget
+            if ($location -cne $redirectTarget) { throw "Redirect output changed" }
+        }
+        catch { $passed = $false }
+        if ($passed -ne $case.Pass) {
+            throw "Redirect verifier fixture produced the wrong verdict: $($case.Name)"
+        }
+    }
+    Write-Host "PASS PowerShell exact-301 redirect fixtures ($($redirectCases.Count))"
+    $rawRedirectCases = @(
+        @{ Name = "http-field-whitespace"; Pass = $true; Headers = "lOcAtIoN:`t $redirectTarget `t" },
+        @{ Name = "uri-host-case"; Pass = $false; Headers = "Location: https://TINYRUSTLM.MIRUST.COM/developer-portal/" },
+        @{ Name = "uri-default-port"; Pass = $false; Headers = "Location: https://tinyrustlm.mirust.com:443/developer-portal/" },
+        @{ Name = "uri-dot-segment"; Pass = $false; Headers = "Location: https://tinyrustlm.mirust.com/./developer-portal/" },
+        @{ Name = "duplicate-location"; Pass = $false; Headers = "Location: $redirectTarget`r`nLocation: $redirectTarget" },
+        @{ Name = "carriage-return"; Pass = $false; Headers = "Location: $redirectTarget`r" },
+        @{ Name = "vertical-tab"; Pass = $false; Headers = "Location: $redirectTarget$([char]11)" },
+        @{ Name = "null"; Pass = $false; Headers = "Location: $redirectTarget$([char]0)" },
+        @{ Name = "delete"; Pass = $false; Headers = "Location: $redirectTarget$([char]127)" },
+        @{ Name = "non-http-whitespace"; Pass = $false; Headers = "Location: $redirectTarget$([char]160)" },
+        @{ Name = "folded-location"; Pass = $false; Headers = "Location: $redirectTarget`r`n`tignored" },
+        @{ Name = "folded-with-colon"; Pass = $false; Headers = "Location: $redirectTarget`r`n`tignored: suffix" }
+    )
+    foreach ($case in $rawRedirectCases) {
+        $passed = $true
+        try {
+            $raw = [Text.Encoding]::GetEncoding(28591).GetBytes(
+                "HTTP/1.1 301 Moved Permanently`r`n$($case.Headers)`r`n`r`n")
+            $observation = ConvertFrom-RawHttpResponseBytes -Bytes $raw -Method "GET"
+            Assert-RedirectObservation -StatusCode $observation.StatusCode `
+                -LocationValues @($observation.LocationValues) -SourceUrl "https://runtime.mirust.com/" `
+                -ExpectedLocation $redirectTarget | Out-Null
+        }
+        catch { $passed = $false }
+        if ($passed -ne $case.Pass) {
+            throw "Raw redirect fixture produced the wrong verdict: $($case.Name)"
+        }
+    }
+    Write-Host "PASS PowerShell raw redirect fixtures ($($rawRedirectCases.Count))"
     $cases = @(
         [pscustomobject]@{ Name = "valid-get"; Pass = $true; Value = (New-RetiredFixture) },
         [pscustomobject]@{ Name = "valid-head"; Pass = $true; Value = (New-RetiredFixture -Method "HEAD") },
@@ -465,12 +543,15 @@ function ConvertFrom-RawHttpResponseBytes {
         for ($lineIndex = 1; $lineIndex -lt $lines.Count; $lineIndex++) {
             $line = [string]$lines[$lineIndex]
             $colon = $line.IndexOf(':')
-            if ($colon -le 0) { throw "Raw HTTP response contains an invalid header" }
+            if ($colon -le 0 -or $line -match '^[ \t]' -or
+                $line -match '[\x00-\x08\x0A-\x1F\x7F]') {
+                throw "Raw HTTP response contains an invalid header"
+            }
             $name = $line.Substring(0, $colon).ToLowerInvariant()
             if (-not $headers.ContainsKey($name)) {
                 $headers[$name] = [System.Collections.Generic.List[string]]::new()
             }
-            $headers[$name].Add($line.Substring($colon + 1).Trim())
+            $headers[$name].Add($line.Substring($colon + 1).Trim([char[]]" `t"))
         }
         $offset = $boundary + $delimiter.Length
         if ($statusCode -ge 100 -and $statusCode -lt 200) { continue }
@@ -697,34 +778,23 @@ try {
     try {
         foreach ($entry in $redirects.GetEnumerator()) {
             $sourceUrl = "$BaseUrl$($entry.Key)"
-            $response = Invoke-RequestWithoutRedirect -Client $client -Method "GET" -Url $sourceUrl
-            try {
-                $status = [int]$response.StatusCode
-                if ($status -notin @(301, 302, 307, 308)) {
-                    throw "$sourceUrl returned an unexpected HTTP status"
-                }
-                $locationValues = @(Get-ResponseHeaderValues -Response $response -Name "Location")
-                if ($locationValues.Count -ne 1) {
-                    throw "$sourceUrl must return exactly one Location header"
-                }
-                $location = [Uri]::new([Uri]$sourceUrl, [string]$locationValues[0]).AbsoluteUri
-                if ($location -cne $entry.Value) {
-                    throw "$sourceUrl returned an unexpected redirect target"
-                }
-                $redirectObservations.Add([ordered]@{
-                    path = $entry.Key
-                    source_url = $sourceUrl
-                    method = "GET"
-                    status_code = $status
-                    expected_location = $entry.Value
-                    actual_location = $location
-                    status = "pass"
-                })
-                Write-Host "PASS redirect $($entry.Key) -> $location"
-            }
-            finally {
-                $response.Dispose()
-            }
+            # HttpClient's typed Location parser normalizes URIs; retain raw field identity.
+            $observation = Invoke-RawHttpsObservation -HostName $baseUri.Host `
+                -RequestTarget $entry.Key -Method "GET"
+            $status = [int]$observation.StatusCode
+            $location = Assert-RedirectObservation -StatusCode $status `
+                -LocationValues @($observation.LocationValues) -SourceUrl $sourceUrl `
+                -ExpectedLocation $entry.Value
+            $redirectObservations.Add([ordered]@{
+                path = $entry.Key
+                source_url = $sourceUrl
+                method = "GET"
+                status_code = $status
+                expected_location = $entry.Value
+                actual_location = $location
+                status = "pass"
+            })
+            Write-Host "PASS redirect $($entry.Key) -> $location"
         }
 
         foreach ($path in $retiredRoutes) {

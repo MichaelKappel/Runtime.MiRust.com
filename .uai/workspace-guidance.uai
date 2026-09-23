@@ -1,11 +1,12 @@
 profile: runtime-mirust.retired-workspace-guidance.v1
-updated_utc: 2026-07-02T00:00:00Z
+updated_utc: 2026-09-23T04:27:04Z
 
 guidance:
   Treat this repository as redirect-only.
   Do not rebuild Runtime.MiRust.com as an independent documentation site.
   Put current TinyRustLM developer documentation in E:\Source\Rust\TinyRustLM.MiRust.com.
-  Put current browser-local app work in E:\Source\Rust\SLMComposer.com or the active TinyRustLM app workspace as directed by the user.
+  Put current browser-local app work only in E:\Source\Rust\TinyRustLM.com.
+  Keep source history in Git and current model payloads only in D:\LLMs\TinyRustLM; leave X:\LLMS untouched.
 
 deployment:
   Upload this package only to a verified runtime.mirust.com web root.

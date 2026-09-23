@@ -11,7 +11,7 @@ ecosystem_cleanup_2026_09_12:
 
 current_task_state:
   Runtime.MiRust.com local source has been converted to a redirect-only package.
-  TinyRustLM.MiRust.com holds the preserved runtime archive and current developer portal.
+  TinyRustLM.MiRust.com holds the current developer portal; historical runtime documentation belongs in Git history, not a maintained public archive corpus.
   MiRust.com no longer names Runtime.MiRust.com as an active subdomain.
   SLMComposer.com and LMComposer.com live routes redirect to TinyRustLM.com.
 
